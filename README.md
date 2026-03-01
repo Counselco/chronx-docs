@@ -12,7 +12,7 @@ Welcome to the official ChronX documentation repository. This repository contain
 
 ## Table of Contents
 
-- [Whitepaper](whitepaper/README.md) — Protocol design, cryptographic foundations, tokenomics, and long-term vision
+- [Whitepaper](whitepaper/README.md) — Protocol design, cryptographic foundations, tokenomics, and long-term vision ([ChronX_Whitepaper_v2.0.docx](whitepaper/ChronX_Whitepaper_v2.0.docx))
 - Protocol Specification — *(coming soon)*
 - RPC API Reference — *(coming soon)*
 - Node Setup Guide — *(coming soon)*
