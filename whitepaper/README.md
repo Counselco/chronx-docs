@@ -17,7 +17,7 @@ The full whitepaper is available as a PDF at [chronx.io/whitepaper](https://chro
 
 A Word document version for annotation and review:
 
-> **ChronX_Whitepaper_v2.0.docx** — *to be added*
+> [`ChronX_Whitepaper_v2.0.docx`](ChronX_Whitepaper_v2.0.docx)
 
 ---
 
