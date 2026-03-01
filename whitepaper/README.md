@@ -13,10 +13,6 @@ The ChronX whitepaper describes the complete protocol design: cryptographic foun
 
 ## Availability
 
-The full whitepaper is available as a PDF at [chronx.io/whitepaper](https://chronx.io/whitepaper).
-
-A Word document version for annotation and review:
-
 > [`ChronX_Whitepaper_v2.0.docx`](ChronX_Whitepaper_v2.0.docx)
 
 ---
