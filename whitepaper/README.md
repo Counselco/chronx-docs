@@ -1,6 +1,6 @@
 # ChronX Whitepaper
 
-**Latest version:** v2.5 (March 2026)
+**Latest version:** v2.6 (March 2026)
 
 ---
 
@@ -12,7 +12,7 @@ The ChronX whitepaper describes the complete protocol design: cryptographic foun
 
 ## Availability
 
-> [`ChronX_Whitepaper_v2.5.docx`](ChronX_Whitepaper_v2.5.docx)
+> [`ChronX_Whitepaper_v2.6.docx`](ChronX_Whitepaper_v2.6.docx)
 
 ---
 
@@ -36,6 +36,7 @@ The ChronX whitepaper describes the complete protocol design: cryptographic foun
 
 | Version | Date | Notes |
 |---|---|---|
+| v2.6 | March 2026 | Bootstrap peer ID, node rewards utilization reserve policy, wallet v1.4.26 |
 | v2.5 | March 2026 | Governance section, updated tokenomics and pricing |
 | v2.4 | March 2026 | Public Sale 6.268B, Node Rewards, Humanity Stake, Cascade Send, Android |
 | v2.2 | March 2026 | Secure email claim system — BLAKE3 claim secrets, `TimeLockClaimWithSecret` protocol action |
