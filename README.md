@@ -12,7 +12,7 @@ Welcome to the official ChronX documentation repository. This repository contain
 
 ## Table of Contents
 
-- [ChronX_Whitepaper_v2.0.docx](whitepaper/ChronX_Whitepaper_v2.0.docx) — Protocol design, cryptographic foundations, tokenomics, and long-term vision ([README](whitepaper/README.md))
+- [chronx-whitepaper-v3.0.docx](whitepaper/chronx-whitepaper-v3.0.docx) — KX as compute fuel, MISAI AI Arena, full ecosystem vision ([README](whitepaper/README.md))
 - Protocol Specification — *(coming soon)*
 - RPC API Reference — *(coming soon)*
 - Node Setup Guide — *(coming soon)*
