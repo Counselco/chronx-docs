@@ -12,7 +12,7 @@ Welcome to the official ChronX documentation repository. This repository contain
 
 ## Table of Contents
 
-- [chronx-whitepaper-v3.0.docx](whitepaper/chronx-whitepaper-v3.0.docx) — KX as compute fuel, MISAI AI Arena, full ecosystem vision ([README](whitepaper/README.md))
+- [chronx-whitepaper-v5.0.docx](whitepaper/chronx-whitepaper-v5.0.docx) — ChronX Protocol Whitepaper v5.0 — Genesis 9. All 10 payment types. Post-quantum cryptography. ICO: September 22, 2026.
 - Protocol Specification — *(coming soon)*
 - RPC API Reference — *(coming soon)*
 - Node Setup Guide — *(coming soon)*
