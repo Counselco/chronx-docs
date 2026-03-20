@@ -12,6 +12,7 @@ Welcome to the official ChronX documentation repository. This repository contain
 
 ## Table of Contents
 
+- [chronx-whitepaper-v5.1.docx](whitepaper/chronx-whitepaper-v5.1.docx) — ChronX Protocol Whitepaper v5.1 — Genesis 9. Loan primitives, PAY_AS denomination system, HedgeX marketplace, credit infrastructure, utility token analysis.
 - [chronx-whitepaper-v5.0.docx](whitepaper/chronx-whitepaper-v5.0.docx) — ChronX Protocol Whitepaper v5.0 — Genesis 9. All 10 payment types. Post-quantum cryptography. ICO: September 22, 2026.
 - Protocol Specification — *(coming soon)*
 - RPC API Reference — *(coming soon)*
