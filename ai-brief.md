@@ -1,6 +1,6 @@
 # CHRONX_PROJECT_BRIEF.md
 # Single Source of Truth for All Claude Instances Working on ChronX
-# Last updated: 2026-03-04
+# Last updated: 2026-03-13
 # Stored at: https://github.com/Counselco/Counselco-chronx-internal (PRIVATE)
 # Also deployed to: https://chronx.io/internal/ai-brief.md
 
@@ -20,6 +20,32 @@ At the start of EVERY session working on ChronX:
 
 ---
 
+## ✅ COMPLETED v1.4.56 BUILD (2026-03-07)
+
+All three pending items shipped in v1.4.56:
+
+1. **[DONE] Promises tab — "Promises Coming To Me" section** with gold header, incoming delayed sends visible
+2. **[DONE] History tab — gold "SCHEDULED" badge** for outgoing delayed sends with future unlock dates
+3. **[DONE] Sender identity in Promise emails** — wallet now sends sender_email + sender_wallet in /notify payload
+
+**Build outputs:**
+- Windows: `chronx-wallet-setup-1.4.56.exe` deployed to chronx.io/dl/
+- Android internal: `chronx-wallet-v1.4.56-internal.aab` (versionCode 1004056)
+- Android production: `chronx-wallet-v1.4.56-production.aab` (versionCode 2004056)
+- Next build MUST use versionCode 1004057 / 2004057
+
+**Also completed this session:**
+- Re-genesis v5.0: Founder/MISAI/Verifas as genesis-level allocations, AI Trading Axioms metadata, Public Sale 6,093M
+- Homepage rewrite: new hero ("A Promise the Blockchain Keeps"), 10-panel comic embed (panel 10 = "Try It Yourself" faucet CTA), "What Makes ChronX Different" section, Protocol Promise paragraph
+- MISAI.io reframe: "The AI That Keeps Promises" (removed arena/leaderboard)
+- Pre-ICO invite-only (removed payment addresses from homepage)
+- Whitepaper v3.4: v5.0 tokenomics, AI Trading Axioms appendix, Foundation section, claim-on-maturity model, executor model
+- governance.html: Dedicated page for ChronX Protocol Foundation + AI Trading Axioms + Genesis vs Governance table
+- Governance nav link added to all 17 HTML pages with i18n (7 languages)
+- tokensale.html + preico.html: Updated Public Sale allocation to 6,093,000,000 KX
+
+---
+
 ## 1. PROJECT OVERVIEW
 
 **ChronX** is a purpose-built blockchain protocol for future payments. The central innovation is the native time-lock: an on-chain Promise to deliver funds at a future date, enforced by the protocol itself. No custodian. No lawyer. No fees. Ever.
@@ -33,7 +59,7 @@ At the start of EVERY session working on ChronX:
 **Total supply:** 8,270,000,000 KX (fixed forever at genesis)
 **Transaction fees:** Zero. Completely free. Forever.
 
-**Current Phase:** Pre-ICO live. Wallet v1.4.24. Website live. Node on Vultr. Re-genesis completed 2026-03-03.
+**Current Phase:** Pre-ICO (invite-only). Wallet v1.4.56 (Windows + Android). Live on Google Play. Website live with 10-panel comic explainer + governance page. Node on Vultr (v7.0 — Genesis 7 Verified Delivery Protocol). Re-genesis completed 2026-03-08. Verifas.io live. MISAI.io reframed as bonded AI executor. Whitepaper v3.4 published. Governance page with Promise Axioms + AI Trading Axioms live.
 
 **Official ICO Date:** September 22, 2026 — the Autumnal Equinox
 
@@ -52,6 +78,69 @@ At the start of EVERY session working on ChronX:
 
 ---
 
+## 1A. PROTOCOL DELIVERY MODEL (canonical — do not contradict)
+
+### Claim-on-Maturity
+- All time-locked transfers use claim-on-maturity: KX waits on DAG, beneficiary claims with one tap
+- KX never moves automatically; sits indefinitely at zero cost until claimed
+- Most promises: Mary claims herself, 100% delivered, no third party involved
+
+### Executor Eligibility (90-day window)
+- After 90 days unclaimed post-maturity: lock status flips to executor_eligible
+- Any bonded executor (10M KX bond) may attempt delivery
+- Open race model: no exclusivity window; first to deliver wins the fee
+- Fee deducted atomically from claim at delivery time — trustless, protocol-enforced
+- Bob sets NOTHING about executor fees — protocol handles it
+
+### Executor Fee Cap
+- Genesis-level ceiling: 7% of delivered amount (IMMUTABLE, can only be lowered)
+- Foundation may reduce effective cap via governance; can never raise above 7%
+- Market competes fee downward on valuable promises
+
+### ChronX Protocol Foundation
+- Governs: executor eligibility window, fee cap (<=7%), bond requirements, executor model
+- Cannot govern: total supply, timelock enforcement, zero fees, 7% ceiling, strategy code immutability
+- Legal structure: nonprofit foundation (details before ICO Sep 22 2026)
+- Public copy: "ChronX Protocol Foundation"
+
+### What is Genesis vs Governance
+| Parameter | Level | Mutable? |
+|---|---|---|
+| Total supply (8,270,000,000 KX) | Genesis | Never |
+| Timelock enforcement | Genesis | Never |
+| Zero protocol fees | Genesis | Never |
+| Max executor fee ceiling (7%) | Genesis | Never (lower only) |
+| Strategy code immutability | Genesis | Never |
+| Executor eligibility window (90 days) | Foundation Governance | Yes |
+| Executor model (race vs staked) | Foundation Governance | Yes |
+| Effective fee cap (<=7%) | Foundation Governance | Yes, downward only |
+| Bond size requirements | Foundation Governance | Yes |
+| AI Trading Axioms | Genesis | Never |
+
+---
+
+## 1B. AXIOMS (canonical — encoded at genesis, immutable)
+
+Two axiom sets are encoded at genesis. They cannot be altered by any person, governance body, or software update.
+
+### Promise Axioms (4 axioms)
+1. **Intent Is the Master** — The grantor's intent is the master. Once a promise is made and the cancellation window closes, it is irrevocable. No person, institution, or governance body can recall it.
+2. **Funds Are Never Lost** — Promised funds are never lost. A promise unclaimed by its intended beneficiary within 90 days of maturity is held by the Verified Delivery Protocol. A promise unclaimed for 100 years beyond maturity is transferred to the Humanity Stake, governed for the benefit of all.
+3. **The Protocol Enforces Delivery** — No custodian, no lawyer, no intermediary is required for a promise between a sender and a reachable recipient. The blockchain is the contract.
+4. **The Law** — All promises and their fulfillment remain subject to the laws of applicable jurisdictions.
+
+### AI Trading Axioms (4 axioms)
+1. **Execution** — The grantor's intent, once encoded, is carried forward by autonomous software. Algorithms may evolve. The intent does not.
+2. **Patience** — Holding is a valid strategy.
+3. **You Are Not the Only Actor** — Account for others with similar obligations before acting.
+4. **All Actions Are Public** — Every trade is recorded on the blockchain at the time it occurs.
+
+**Storage:** `db.put_meta("promise_axioms", ...)` and `db.put_meta("trading_axioms", ...)` — stored separately. Also combined under `genesis_axioms` for backward compat.
+**Retrieval:** RPC `chronx_getPromiseAxioms` → `{promise_axioms, trading_axioms}`.
+**Website:** governance.html displays both axiom sets.
+
+---
+
 ## 2. ARCHITECTURE & INFRASTRUCTURE
 
 ### Node (Vultr)
@@ -64,8 +153,10 @@ At the start of EVERY session working on ChronX:
 - **Genesis params:** /home/josep/chronx/genesis-params.json
 - **RPC (internal):** http://127.0.0.1:8545
 - **P2P port:** 30303
-- **systemd service:** chronx-node (enabled, auto-restarts)
-- **Last rebuild:** 2026-03-04 — engine multi-action lock ID fix + cascade CLI
+- **Permanent P2P peer ID:** 12D3KooWMsFQDZhqAFnkcj1XjPrjjVFwsQ6UqgvffvA6HFt6MfFU
+- **Identity file:** /home/josep/.chronx/p2p-identity.key (protobuf-encoded Ed25519 keypair, persists across restarts)
+- **systemd service:** chronx-node (enabled, auto-restarts, uses --identity-file)
+- **Last rebuild:** 2026-03-05 — v3.5: Auto-create accounts for TimeLockClaimWithSecret (new user claim fix), memo character validation (reject control chars), per-wallet rate limiting (10 tx/60s), getIncomingTransfers now returns email claim receipts for claimers. Previous: v3.4: RevertToSender sweep, ReclaimExpiredLock, Reverted status, persistent P2P identity, getNetworkInfo, getEmailLockStats
 
 ### Wallet CLI (Vultr)
 The `chronx-wallet` binary has these subcommands:
@@ -81,12 +172,16 @@ The `chronx-wallet` binary has these subcommands:
 ### Wallet Keyfiles (Vultr)
 | Wallet | Path | Account ID | Balance |
 |---|---|---|---|
-| Public Sale | /home/josep/.chronx/public-sale-wallet.json | Fycy2Sh4SkYiKKVdB8wQSdkymJgJZ4kAGPK7eFn7zPny | ~6,165,000,000 KX |
+| Public Sale | /home/josep/.chronx/public-sale-wallet.json | Fycy2Sh4SkYiKKVdB8wQSdkymJgJZ4kAGPK7eFn7zPny | ~6,082,000,000 KX |
 | Faucet | /home/josep/.chronx/faucet-wallet.json | CkBgP1mYQVFrLThM1VTqMLNXjqwW5RP7iKS4x3LouRN3 | ~3,000,000 KX |
 | Node Rewards | /home/josep/.chronx/node-rewards-wallet.json | 3i4tBfxhFCoZFqmuiV7LRoZgyMMUwSq4xAr9SzAQjt6W | 0 KX (timelocked) |
-| Founder | C:\Users\Josep\.chronx\wallet.json (LOCAL ONLY) | BCwHsGLPzSGqjpG7Ptqp3qVRNrqEKdW9Dt4g7NEQpwLT | ~99,979,200 KX |
+| Founder | C:\Users\Josep\.chronx\wallet.json (LOCAL ONLY) | BCwHsGLPzSGqjpG7Ptqp3qVRNrqEKdW9Dt4g7NEQpwLT | ~155,000,000 KX |
+| MISAI Bond | C:\Users\Josep\chronx\misai-wallet.json (LOCAL ONLY) | 3b4J81S9A8tmh1nt8cLMZC4FUsqasYJA9a2xgax1A9eU | 10,000,000 KX |
+| Verifas Bond | C:\Users\Josep\chronx\verifas-wallet.json (LOCAL ONLY) | 9ozs5P48ENM2uJKyNfsTJfGm7uM5a1K4taToxARoot7i | 10,000,000 KX |
+| Relay | /home/josep/.chronx/relay-wallet.json | 8Nodc3F2HwUjPMLaFfTJ6WKuSvjEa4fTeopLUK52y5EE | ~10 KX |
+| wKX Bridge | /home/josep/.chronx/wkx-bridge-wallet.json | FGSemyJdkCU85D4qQNWFd158J44MANAHTAF5Qx974WRR | 0 KX |
 
-**IMPORTANT:** Founder wallet lives on Windows only. For cascade sends: SCP to Vultr temporarily, run CLI, then DELETE immediately after. Never leave it on the server.
+**IMPORTANT:** Founder wallet + bond wallets live on Windows only. Bond wallet keyfiles were generated on Vultr, backed up locally, then shredded from the server. Never leave private keys on Vultr.
 
 ### Notify API (Vultr)
 - **URL:** https://api.chronx.io
@@ -94,7 +189,16 @@ The `chronx-wallet` binary has these subcommands:
 - **Service:** chronx-notify (systemd)
 - **Files:** /opt/chronx-notify/
 - **Config:** /opt/chronx-notify/.env (MYSQL_PASSWORD=CxDb2026, ADMIN_KEY=ChronXAdmin2026, RESEND_API_KEY)
-- **Endpoints:** POST /notify (single + cascade), POST /register, POST /faucet/register, GET /faucet/check, POST /faucet/claim, GET /faucet/stats, GET /rewards/status, admin routes
+- **Endpoints:** POST /notify (single + cascade; sends verified/promise/claim email based on recipient status and unlock time; accepts optional `sender_email` and `sender_wallet`), POST /register, POST /faucet/register, GET /faucet/check, POST /faucet/claim (rate limited: 10/IP/hr), GET /faucet/stats, GET /rewards/status, POST /verify-email, POST /verify-email/confirm (persists to verified_emails table), POST /claim/register (pre-register wallet for auto-delivery), GET /claim/status/:code (check registration status), admin routes. Three email variants based on recipient+timing: (1) Verified recipient + immediate unlock → relay auto-delivers + 'KX is in your wallet' email. (2) Any recipient + future unlock → immediate 'You've Been Made a Promise' email sent at send time (no claim code), PLUS auto-delivery or claim code email on unlock date. (3) Unverified + immediate → claim code email as before. Promise email subject: 'You just received a Promise of X KX 🔒'. Delivery confirmation email subject: 'A Promise made to you on [original send date] just delivered ✅' — references original send date from claim_registrations.created_at. Sender identity: 3-tier fallback — sender_email (from notify payload) > ....last6 of sender_wallet > 'Someone'. sender_display stored in claim_registrations table.
+- **Auto-delivery system (added 2026-03-06):** Recipients register wallet via POST /claim/register (validates claim code against on-chain locks via RPC). Cron runs every 5 min, checks `claim_registrations` table for matured locks, delivers via relay wallet (claim-by-code + transfer). Series locks re-register for next unlock. MySQL table: `claim_registrations` (claim_code UNIQUE, wallet_address, email, memo, sender_display, amount_kx, unlock_at, is_series, status, delivered_at, tx_hash, error_msg).
+- **PENDING REBUILD — sender identity in notify payload (commands.rs fix applied, not yet built):** notify_email_recipient command now loads sender_wallet from keypair (account_id.to_b58()) and sender_email from WalletConfig claim email. Both fields included in /notify POST payload. Until wallet is rebuilt, existing versions send without sender fields and 'Someone' fallback is used.
+- **blake3 v2.1.4:** npm package for BLAKE3 hashing (matches Rust-side claim code hashing for getCascadeDetails RPC).
+- **Public endpoints (added 2026-03-04):** POST /exchange-notify (stores email + source in MySQL notify_signups table, no auth)
+- **Notices endpoints (added 2026-03-04):** GET /notices (public, version-filtered), POST /notices/:id/seen, POST /notices/:id/dismissed, GET /admin/notices, POST /admin/notices, PATCH /admin/notices/:id, DELETE /admin/notices/:id
+- **Notices data:** /home/josep/notices.json (JSON file, not MySQL). Each notice: id, type (urgent/message), title, body, active, dismissible, expires_at, min_version, max_version, created_by, seen_count, dismissed_count
+- **Auth endpoints (added 2026-03-04):** POST /admin/login, POST /admin/logout, GET /admin/verify, POST /admin/change-password, GET /admin/login-history
+- **Admin endpoints:** GET /admin/faucet/pending, POST /admin/faucet/approve, POST /admin/faucet/reject, GET /admin/preico/pending, POST /admin/preico/approve, POST /admin/preico/reject, GET /admin/registry, GET /admin/transactions, GET /admin/downloads, GET /admin/network-health, GET /admin/token-economy, GET /admin/alerts, GET /admin/signups, POST /admin/support/resolve, GET /admin/reminders, POST /admin/reminders, PATCH /admin/reminders/:id, DELETE /admin/reminders/:id, GET /admin/notices, POST /admin/notices, PATCH /admin/notices/:id, DELETE /admin/notices/:id
+- **Admin auth:** Bearer token (from POST /admin/login) or legacy X-Admin-Key header. Users: /home/josep/admin-users.json. Sessions: /home/josep/admin-sessions.json. Audit: /home/josep/admin-audit.log.
 - **Email delivery:** WORKING as of 2026-03-04. Fixed falsy-value bug (unlock_at:0 treated as missing).
 - **Resend domain:** Verify chronx.io at resend.com/domains for better deliverability (currently using unverified domain)
 
@@ -105,9 +209,88 @@ The `chronx-wallet` binary has these subcommands:
 - **Deploy:** `cd C:\Users\Josep && python deploy_website.py`
 - **After deploy:** Purge cache at hPanel -> Cache Manager -> Purge All
 
+### XCHAN Website (Hostinger)
+- **URL:** https://xchan.io
+- **FTP host:** 82.29.199.47, user u507945893.xchan.io
+- **Web root:** /public_html (FTP default CWD — unlike chronx.io, no /domains/ prefix needed)
+- **Deploy:** `cd C:\Users\Josep && python deploy_xchan.py`
+- **Local folder:** C:\Users\Josep\xchan-website\
+- **Description:** Non-custodial exchange interface with live wKX/USDC swap on Base. Independent from ChronX.
+- **Swap UI (2026-03-11):** Connect Wallet (EIP-1193), Base network check, wKX/USDC swap via Uniswap v3 SwapRouter (`0x2626664c2603336E57B271c5C0b26F421741e481`), live quotes via Quoter (`0x3d4e44Eb1374240CE5F1B871ab261CD16335B76a`), 1% pool fee, 0.5% slippage tolerance. Wallet registration form (KX address + Base address) POSTs to `https://api.chronx.io/api/xchan/register`. Unwrap wKX section calls `unwrap()` on wKX contract.
+- **XChan API:** systemd service `xchan-api` on Vultr, port 4042. Source: `/opt/wkx-bridge/xchan-api.js`. Shares `bridge.db` with bridge daemon. Endpoints: `POST /api/xchan/register`, `GET /api/xchan/price` (live from Uniswap v3 Quoter, 60s cache), `GET /api/xchan/lookup/:kx_addr`, `GET /api/xchan/status`. nginx route on `api.chronx.io/api/xchan/*`.
+
+### MISAI Website (Hostinger)
+- **URL:** https://misai.io
+- **FTP host:** 82.29.199.47, user u507945893.misai.io
+- **Web root:** /public_html (FTP default CWD — same as xchan.io)
+- **Deploy:** `cd C:\Users\Josep && python deploy_misai.py`
+- **Local folder:** C:\Users\Josep\misai-website\
+- **Description:** AI Trading Arena — beta-only platform. KX is compute fuel, trading is simulated USD. Independent from ChronX.
+- **Pages:** index.html (newbie-friendly landing: hero, 3-step how-it-works, typing demo, brokerage cards, KX explainer, beta gate), arena.html (agent deploy form + compute fuel calculator), my-agent.html (personal agent dashboard: status bar, decision feed, connect wallet, trading mode toggle), arena-live.html (leaderboard + trade feed + price ticker, post-login only), admin.html (admin dashboard + platform revenue)
+
+### MISAI Beta API (Vultr)
+- **Location:** /opt/misai/index.js
+- **Port:** 4040 (bound to 127.0.0.1)
+- **Systemd:** `systemctl restart misai-api`
+- **Database:** /opt/misai/misai.db (SQLite — tables: beta_signups, admin_log, agents, positions, decisions, price_history, platform_revenue). Agents table has `encrypted_private_key` (AES-256-GCM encrypted wallet key) and `mode` ('simulated' or 'real'). Decisions table has `tx_hash` for on-chain KX transfers.
+- **Nginx:** Proxied at `https://api.chronx.io/misai/*` (location /misai/ in api.chronx.io config)
+- **Auth:** Reuses /home/josep/admin-users.json and /home/joseph/admin-sessions.json (same as ChronX admin)
+- **Env file:** /opt/misai/.env — MISAI_ENCRYPTION_KEY, MISAI_AGENT_SECRET, ANTHROPIC_API_KEY, RESEND_API_KEY
+- **Crypto utils:** /opt/misai/crypto-utils.js — AES-256-GCM encrypt/decrypt for private key storage
+- **Endpoints:**
+  - `POST /api/signup` — { wallet_address, email } → waitlist (rate limited 3/hr/IP)
+  - `POST /api/verify-invite` — { invite_code } → { valid, wallet_address } (code-only lookup, no wallet needed)
+  - `POST /api/admin/login` — { username, password } → { token }
+  - `GET /api/admin/signups?status=` — list signups (Bearer auth)
+  - `GET /api/admin/stats` — { total, pending, approved, rejected, platform_revenue_kx } (Bearer auth)
+  - `POST /api/admin/approve` — { wallet_address } → generates MISAI-XXXX-XXXX invite code (Bearer auth)
+  - `POST /api/admin/reject` — { wallet_address } (Bearer auth)
+  - `GET /api/leaderboard` — top 20 agents by % return (public, cached 10s)
+  - `GET /api/decisions/recent` — last 50 decisions across all agents (public, cached 5s)
+  - `GET /api/agent/:id/decisions` — last 20 decisions for agent (public)
+  - `GET /api/prices` — current market price snapshot (public)
+  - `GET /api/kx-rate` — { rate, source, kx_per_decision, platform_margin } (public)
+  - `POST /api/agent/register` — { invite_code, agent_name, strategy_prompt, kx_deposit, decision_interval_minutes } → creates agent with $1,000 USD + KX fuel (invite-gated)
+  - `GET /api/agent/:id/status` — full agent status (name, portfolio, return %, KX balance, positions, next decision, has_private_key, mode) (public)
+  - `PUT /api/agent/:id/connect-wallet` — { wallet_address, private_key } → encrypts and stores private key, sets mode='real' (ownership check: wallet must match agent owner)
+  - `POST /api/agent/:id/resume` — resumes paused agent (sets status='active')
+  - `DELETE /api/admin/signup/:wallet_address` — deletes signup + agents (Bearer auth)
+  - `GET /api/admin/revenue` — { total_kx } sum of platform_revenue (Bearer auth)
+- **Invite code format:** MISAI-XXXX-XXXX (alphanumeric, no O/0/I/1 ambiguity)
+
+### MISAI Agent Engine
+- **Market data:** /opt/misai/market.js + /opt/misai/fetch_prices.py
+  - Stocks (SPY, AAPL, TSLA, NVDA, MSFT) via yfinance Python helper (execSync)
+  - Crypto (BTC, ETH, SOL, BNB) via CoinGecko free API (axios)
+  - Polls every 30 seconds, stores in price_history table (auto-purge >24hrs)
+  - Cached in memory; merges new data with previous (preserves stale values on fetch failure)
+- **XChan price module:** /opt/misai/xchan.js — manages KX/USD rate. Currently returns ICO fallback ($0.00055). Post March 11: live rate from xchan.io API.
+- **Decision engine:** /opt/misai/engine.js
+  - Runs via node-cron every minute, checks each active agent's `decision_interval_minutes`
+  - Builds portfolio in USD: `cash_usd` + position values (quantity × live price)
+  - **Real mode** (agent has `encrypted_private_key`): checks on-chain balance via `chronx_getAccountInfo` RPC. If balance >= 1.1 KX: transfers KX on-chain to treasury wallet via chronx-wallet CLI. Logs tx_hash. Syncs kx_balance from on-chain. On insufficient balance: pauses agent, sends out-of-fuel email via Resend.
+  - **Demo mode** (no private key): unlimited decisions, kx_burned=0, no platform_revenue logged.
+  - Treasury wallet: `BCwHsGLPzSGqjpG7Ptqp3qVRNrqEKdW9Dt4g7NEQpwLT` (Founder wallet)
+  - Wallet CLI path: `/home/josep/chronx/target/release/chronx-wallet`
+  - Calls Claude Sonnet (`claude-sonnet-4-20250514`) via `@anthropic-ai/sdk`
+  - AI returns JSON: `{ action: BUY|SELL|HOLD, symbol, percent_of_cash: 0-100, reasoning }`
+  - BUY: converts % of cash_usd → asset quantity, SELL: liquidates position to cash_usd
+  - Logs every decision with usd_before, usd_after, kx_burned, price_usd, market_snapshot
+- **Schema (agents):** `starting_usd` (default $1,000), `current_usd`, `cash_usd`, `kx_balance`, `kx_per_decision` (0.4), `status` (active/paused)
+- **Schema (positions):** `agent_id`, `symbol`, `quantity`, `avg_cost_usd`
+- **Schema (decisions):** `action`, `symbol`, `quantity`, `price_usd`, `usd_before`, `usd_after`, `kx_burned`, `reasoning`, `market_snapshot`
+- **Schema (platform_revenue):** `agent_id`, `kx_amount`, `decision_id`, `created_at`
+- **Trading currency:** Simulated USD ($1,000 default portfolio)
+- **KX role:** Compute fuel ONLY at 0.4 KX/decision (~$0.00128 at ICO price)
+- **Platform margin:** 12% (0.048 KX per decision → treasury wallet)
+- **xchan.io pricing:** GET /api/kx-rate returns ICO price $0.00319; live rate activates post March 11
+- **Robinhood/Alpaca:** Phase 2 (signposted in arena.html UI)
+- **Decision interval options:** 5 / 15 / 60 minutes
+
 ### RPC Endpoint (Public)
-- **URL:** https://rpc.chronx.io
-- **nginx proxy:** rpc.chronx.io -> http://127.0.0.1:8545
+- **URL:** https://api.chronx.io/rpc (routed via api.chronx.io nginx /rpc location -> http://127.0.0.1:8545)
+- **Old URL:** https://rpc.chronx.io — DNS A record missing from Hostinger, not resolving. nginx config + SSL cert exist on Vultr but unusable until DNS added.
+- **rpc.js updated:** `RPC_URL = 'https://api.chronx.io/rpc'` (was `https://rpc.chronx.io`)
 
 ### GitHub Repos
 | Repo | URL | Local Path |
@@ -118,7 +301,7 @@ The `chronx-wallet` binary has these subcommands:
 
 ---
 
-## 3. GENESIS ALLOCATIONS (Re-genesis 2026-03-03)
+## 3. GENESIS ALLOCATIONS (Re-genesis v7.0, 2026-03-08)
 
 **Genesis date:** January 1, 2026 00:00:00 UTC (Unix: 1,735,689,600)
 **Total supply:** 8,270,000,000 KX = 8,270,000,000,000,000 Chronos
@@ -126,17 +309,30 @@ The `chronx-wallet` binary has these subcommands:
 | # | Allocation | KX Amount | % | Lock Condition |
 |---|---|---|---|---|
 | 1 | Public Sale | 6,268,000,000 | 75.79% | Spendable at genesis |
-| 2 | Treasury | 1,000,000,000 | 12.09% | 100 annual harmonic locks 2029-2128 |
-| 3 | Node Rewards | 1,000,000,000 | 12.09% | 100 annual harmonic locks 2029-2128 (same formula as Treasury) |
-| 4 | Humanity Stake | 1,000,000 | 0.012% | Locked until 2126-01-01 (100 years from genesis) |
+| 2 | Treasury | 1,000,000,000 | 12.09% | 100 annual harmonic locks 2027-2126 |
+| 3 | Node Rewards | 1,000,000,000 | 12.09% | 100 annual harmonic locks 2029-2128 |
+| 4 | Humanity Stake | 1,000,000 | 0.012% | Locked until 2126-01-01 (100 years) |
 | 5 | Milestone 2076 | 500,000 | 0.006% | Locked until 2076-01-01 |
 | 6 | Protocol Reserve | 500,000 | 0.006% | Locked until 2036-01-01 |
 
-### Additional Allocations (from Public Sale)
-| Allocation | KX | Source |
+### Genesis 7 — Zero-balance protocol wallets (created at genesis, 0 KX)
+| Wallet | Account ID | Purpose |
 |---|---|---|
-| Founder | 100,000,000 | Transfer from Public Sale |
-| Faucet | 3,000,000 | Transfer from Public Sale |
+| Verifas Vault | `JBeezsxWKiuupPmfCtKLWCYbppgABcGS4fhPLQpHrYEo` | Receives activation deposits on Day 91 |
+| Activation Escrow | `8LBw5upLaTfWN92rDtmYzoVtRX14jSim9RotYTmGwrGQ` | Transient escrow during Day 91 processing |
+| Humanity Stake Pool | `9zj9CyNrxVwMvwV7Kuq69RBsrXThYjXzd6YtJLztknJW` | Receives unclaimed promises at maturity + 100 years |
+
+### Post-genesis transfers (from Public Sale)
+| Allocation | KX | Recipient |
+|---|---|---|
+| Founder | 175,000,000 | `BCwHsGLPzSGqjpG7Ptqp3qVRNrqEKdW9Dt4g7NEQpwLT` |
+| Faucet | 3,000,000 | `CkBgP1mYQVFrLThM1VTqMLNXjqwW5RP7iKS4x3LouRN3` |
+| Relay | 10 | `8Nodc3F2HwUjPMLaFfTJ6WKuSvjEa4fTeopLUK52y5EE` |
+| MISAI Bond | 10,000,000 | `AG15CUEyMQcbBTf1stvrT52RJ1URxV2bRLFoPUgrh4C5` |
+| Verifas Bond | 10,000,000 | `ERt5ZuYU3WMLEpZQtRxzftApRi5pSr7vcW3WaDV4y5LK` |
+| MISAI Executor | 1 | `RbSYrExT6vjZKhXiEMTYZQKB8sPMcVixGLCXcBwtMui` |
+
+**v7.0 changes from v5.0:** Founder/MISAI/Verifas moved from genesis-level to post-genesis transfers. Public Sale restored to full 6,268M. Three new zero-balance Genesis 7 protocol wallets. Promise Axioms + AI Trading Axioms stored as separate metadata keys. Genesis 7 constants stored as auditable JSON metadata. Governance wallet (Founder) recorded for VerifierRegister governance transactions.
 
 ### Treasury & Node Rewards Harmonic Series
 - Formula: release_k = floor(POOL_CHRONOS / (H_100 x k))
@@ -145,23 +341,24 @@ The `chronx-wallet` binary has these subcommands:
 - Year 1 (k=1): largest release; Year 100 (k=100): smallest
 - Rounding dust added to k=1 so sum is exactly 1,000,000,000,000,000 Chronos
 
-### Chain Stats (2026-03-04)
-- Total accounts: 5
-- Total timelocks: 246 (204 genesis + cascade sends)
-- DAG tips: 1
+### Chain Stats (2026-03-08, post re-genesis v7.0)
+- Total genesis accounts: 7 (Public Sale, Treasury, Node Rewards, Verifas Vault, Activation Escrow, Humanity Stake Pool, + genesis allocator)
+- Post-genesis accounts: 6 (Founder, Faucet, Relay, MISAI Bond, Verifas Bond, MISAI Executor)
+- Total timelocks: 203 (100 treasury + 100 node rewards + 3 special)
+- DAG vertices: 7 (genesis + 6 funding transfers)
 - Total supply: 8,270,000,000 KX (verified)
-- Founder balance: 99,979,200 KX (after cascade sends)
+- Registered verifiers: 1 (ChronX Verifas Placeholder, role=VerifasVault, bond=1M KX)
+- Genesis metadata: promise_axioms, trading_axioms, genesis_7_constants, genesis_7_governance_wallet, genesis_7_humanity_stake_pool
 
 ---
 
 ## 4. TOKENOMICS & ICO
 
 ### Pre-ICO (LIVE NOW)
-| Period | Price per KX |
-|---|---|
-| Now to June 22, 2026 | $0.00030 |
-| June 22 to Aug 22, 2026 | $0.00033 |
-| Aug 22 to Sep 22, 2026 | $0.00036 |
+| Period | Price per KX | Discount |
+|---|---|---|
+| Now to June 22, 2026 (Early) | $0.001755 | 45% off ICO |
+| June 22 to Sep 22, 2026 (Standard) | $0.002297 | 28% off ICO |
 
 ### Payment Addresses
 | Currency | Address |
@@ -170,13 +367,14 @@ The `chronx-wallet` binary has these subcommands:
 | ETH / USDC | 0xF5fD6Da90cCaeE370bE7065D5A28e1C9da4d3a54 |
 | SOL | 3owKW4ppK76np6um86yd45AzNtLLQVyYoD2iDAGSES7p |
 
-### Official ICO Tiers (Sep 22, 2026)
-| Tier | Lock | Price | Discount | Unlocks |
-|---|---|---|---|---|
-| Spot | None | $0.00055 | -- | Immediate |
-| Believer | 6 months | $0.00048 | 13% | Mar 22, 2027 |
-| Founder | 12 months | $0.00040 | 27% | Sep 22, 2027 |
-| Visionary | 18 months | $0.00032 | 42% | Mar 22, 2028 |
+### Official ICO (Sep 22, 2026)
+| Detail | Value |
+|---|---|
+| ICO Price | $0.00319 per KX |
+| Raise Target | ~$20M (public sale) |
+| Fully Diluted Market Cap | ~$26.4M |
+| Public Sale Allocation | 6,268,000,000 KX |
+| Total Supply | 8,270,000,000 KX |
 
 ---
 
@@ -191,7 +389,7 @@ The `chronx-wallet` binary has these subcommands:
 6. Notify API sends email and IMMEDIATELY FORGETS the claim_code
 7. Bob enters claim code in wallet -> Promises Made tab -> Claim Now
 8. Node verifies BLAKE3(claim_secret) matches -> KX transfers to Bob
-9. If unclaimed in 72 hours -> auto-reverts to Alice
+9. If unclaimed in 72 hours -> background sweep auto-reverts to Alice (or Alice can manually Reclaim)
 
 ### Email Send Now (v1.4.24)
 - Frontend sends `unlock_at = 0` (sentinel for "Send Now")
@@ -213,13 +411,13 @@ The `chronx-wallet` binary has these subcommands:
 
 ### Cascade Send Standard Template
 For future "friendly" sends to new users:
-- Memo: "Hey! Here is a gift for you! Come try out the new ChronX blockchain!"
+- Memo: "Welcome to ChronX"
 - Stage 1: 100 KX — immediately (lock_seconds: 0)
-- Stage 2: 250 KX — 2 days (lock_seconds: 172800)
-- Stage 3: 350 KX — 1 week (lock_seconds: 604800)
-- Stage 4: 500 KX — 10 days (lock_seconds: 864000)
-- Stage 5: 800 KX — 1 month (lock_seconds: 2592000)
-- Stage 6: 1,000 KX — 1 year (lock_seconds: 31536000)
+- Stage 2: 250 KX — 7 days (lock_seconds: 604800)
+- Stage 3: 350 KX — 14 days (lock_seconds: 1209600)
+- Stage 4: 500 KX — 21 days (lock_seconds: 1814400)
+- Stage 5: 800 KX — 30 days (lock_seconds: 2592000)
+- Stage 6: 1,000 KX — 60 days (lock_seconds: 5184000)
 - Total: 3,000 KX per recipient
 
 ### Cascade Sends Completed (2026-03-04)
@@ -230,15 +428,20 @@ For future "friendly" sends to new users:
 | kevin@whiteashlab.com | KX-L3T1-941V-EI79-6Z6L | Sent + email delivered |
 | yvettedaquiz@gmail.com | KX-IPT8-R7O3-RC9O-WK60 | Sent + email delivered |
 | usmanuah9@gmail.com | KX-OM3Y-7ZKN-ZHQG-9HQH | Sent + email delivered |
+| careyknightm@icloud.com | KX-N62F-B3W8-Y9MZ-I31C | Sent (2026-03-04) |
+| patie39@gmail.com | KX-OF2P-UP09-YB61-X86V | Sent (2026-03-04) |
+| michellehumphrey1313@gmail.com | KX-114I-BL08-15LV-9FOU | Failed to confirm on chain (2026-03-04) |
+| usmanuah9@gmail.com (2nd) | KX-3AEM-NKHQ-D3DM-TZ0Z | Sent + email delivered (2026-03-05) |
+| michellehumphrey1313@gmail.com (resend) | KX-76YV-3JFW-SRTK-MVVA | Sent + email delivered (2026-03-05) |
 
 ---
 
 ## 6. WALLET STATUS
 
-**Current version:** v1.4.24
-**Platform:** Windows x64, Android APK
+**Current version:** v1.4.83 (Windows + Android)
+**Platform:** Windows x64, Android (Google Play)
 **Installer:** https://chronx.io/dl/chronx-wallet-setup.exe
-**APK:** https://chronx.io/dl/chronx-wallet.apk
+**Google Play:** https://play.google.com/store/apps/details?id=com.chronx.wallet
 **Framework:** Tauri v2 + Leptos 0.7 CSR
 
 ### APK Signing
@@ -246,15 +449,53 @@ For future "friendly" sends to new users:
 - Password: `ChronX2026`
 - Always sign APK after every Android build: `zipalign -f 4 input.apk aligned.apk && apksigner sign --ks chronx-release.keystore aligned.apk`
 
-### Features (v1.4.24)
+### Features (v1.4.33)
 - PIN login (4/6/8 digit toggle), Change PIN
-- Account tab: balance, QR, account ID, incoming promises
-- Send to KX Address and Send to Email (Send Now + Send Later BETA)
+- **Tab layout: Mobile Receive|Send|Promises|Settings (3+1). Desktop Receive|Send|Promises|Request|History|Settings (5+1).**
+- Receive tab (AccountPanel): balance, Public Key with copy, QR modal, Claim Code, incoming promise summary
+- Send tab: Simple Send (KX/Email, Send Now/Send Later) + **Cascade Send (desktop)** with stage builder, Standard Friend Template, live preview
+- Promises tab: incoming time-locked payments, auto-refresh, node auto-delivers
+- Request tab (desktop): poke/request system, trusted contacts management
+- **8-language translations:** EN, FR, DE, ZH, ES, RU, AR, UR with globe picker in Settings
+- **History tab: merged transaction history + incoming promises**, type filter (All/Sent/Received/Incoming Promise/Outgoing Promise), colored type badge labels, email addresses shown for email sends
+- **RevertToSender (v1.4.27):** Expired email locks show "Expired — Reclaiming" while sweep pending, "Expired — Reverted" after funds returned
+- **Reclaim button (v1.4.27):** Manual fallback on any expired email lock — calls `reclaim_expired_lock`
+- **Cascade cancel with promise protection (v1.4.27):** "Cancel Series" for fully-unclaimed cascades; "Promised ✓" blocks cancel when any lock is claimed
+- **Claim by code only (v1.4.29):** No email registration required — `claim_by_code` uses `getCascadeDetails(BLAKE3(code))` directly. Removed "Set up claim emails in Settings" nudge.
+- **Clearer error messages (v1.4.29):** "Code not found" with format hint, "already claimed", "expired — returned to sender" (status-aware detection)
+- **Android keyboard fix (v1.4.29):** `windowSoftInputMode: adjustPan` + PIN screen padding (300px) for keyboard overlap
+- **Live notices system (v1.4.30):** Fetches notices from api.chronx.io/notices (version-filtered). Urgent notices show as non-dismissible red banner at top. Message notices show in Settings with dismiss button. Reports seen/dismissed counts to server. Auto-generated update notice still works (type="message", dismissible).
+- **Balance polling after claim/send (v1.4.31→v1.4.32):** All claim and send handlers poll `get_account_info` for up to 15 seconds until balance OR nonce changes. v1.4.31 used nonce-only detection which missed new-user claims. v1.4.32 uses balance comparison.
+- **Auto-refresh balance (v1.4.32):** Silent `setInterval(10000)` refreshes balance every 10 seconds without loading spinner. Uses `web_sys::window().set_interval()` with leaked `Closure` (lives for app lifetime).
+- **History shows received transactions (v1.4.32):** `getIncomingTransfers` RPC now returns email/cascade claim receipts for the claimer (not just direct transfers). Node fix: step 3 scans DAG vertices for `TimeLockClaimWithSecret` from this account.
+- **Gold primary buttons (v1.4.32):** `button.primary` changed from blue (#1d4ed8) to gold (#d4a84b) to match wallet theme.
+- **Claim code display fix (v1.4.32):** Success message uses `\n` + `white-space: pre-line` CSS to show claim code on separate line (no mid-code line break).
+- **Form clears after send (v1.4.32):** Email, amount, memo fields reset after successful email send (Email+Send Now path). KX Send and Email+Send Later already cleared fields.
+- **Cold-start deep link fix (v1.4.44):** Managed state `PendingDeepLink(Mutex<Option<String>>)` replaces file-based approach. Uses `app.deep_link().get_current()` for cold start + `on_open_url` for warm start.
+- **Version checker fix (v1.4.45):** Switched from GitHub API to `chronx.io/version.json`. Numeric segment-by-segment comparison. Platform-aware version field (`version` for Windows, `android_version` for Android). Platform-aware download URL (Google Play on Android, .exe on Windows).
+- **Google Play integration (v1.4.45):** Update button links to Play Store on Android. Website wallet.html shows Google Play badge.
+- **Trusted contact checkbox fix (v1.4.45):** "Add as Trusted Contact" checkbox hidden when recipient is already trusted (`email_confirm_already_trusted` signal).
+- **Node URL in Advanced Settings (v1.4.46):** Collapsed "Advanced Settings" section in Settings tab with edit-locked Node URL input, Edit button, and warning note.
+- **Cascade preview layout fix (v1.4.47):** Fixed preview sidebar overflow on 520px window — cascade-layout uses `flex-wrap: wrap` instead of `min-width: 700px`. Preview panel stacks below form on narrow windows.
+- **Amount formatting fix (v1.4.47):** Cascade confirm modal and preview panel now use `format_kx_display()` — strips trailing zeros (e.g., "100 KX" instead of "100.000000 KX").
+- **Memo privacy hint (v1.4.47):** Both Simple Send and Cascade Send memo fields now show italic grey hint: "Note: memos are stored on the blockchain and are publicly visible."
+- **Poke trust gate gold color (v1.4.45):** Trust gate message uses `.msg.warning` class (gold #d4a84b) instead of green.
+- **Cascade "Immediately" fix (v1.4.48):** `create_email_timelock_series` now maps `unlock_at_unix <= 0` to `now` (matching single email send behavior). Previously rejected "Immediately" stages with "unlock date must be in the future". Also removed 24-hour minimum lock duration check for series entries.
+- **Cascade preview reactivity fix (v1.4.48):** `stage_display_date()` changed from `get_untracked()` to `get()` so preview updates live when user changes unlock mode or date. Previously showed stale "Immediately" for stages changed to "On date...".
+- **Cascade decimal amount fix (v1.4.48):** Stage amount input changed from `step="0.01" min="0.01"` to `step="any" min="0.000001"` — accepts any fractional KX amount.
+- **Cascade decimal cursor jump fix (v1.4.49):** Changed amount input from `type="number"` to `type="text" inputmode="decimal"`. Number inputs normalize the `.value` property (stripping trailing dots like "1." → "1"), so `prop:value` writing back triggers cursor jump. Text inputs preserve the exact string, preventing cursor reset.
+- **Email delivery notification fix (v1.4.49):** Notify API (`/opt/chronx-notify/index.js`) was sending "automatically added to your wallet" email to verified recipients on lock CREATION. But node `sweep_matured_timelocks()` skips ALL email locks (0xC5 marker) — email locks require `TimeLockClaimWithSecret`. Fix: verified recipients now receive the standard claim code email, same as unverified.
+- **Verified Delivery (v1.4.50):** Server-side relay wallet (`8Nodc3F2HwUjPMLaFfTJ6WKuSvjEa4fTeopLUK52y5EE`) on Vultr claims email locks and forwards KX to verified recipients automatically. Wallet CLI gained `claim-by-code` subcommand. Notify API `autoDeliverToVerifiedWallet()` orchestrates claim+forward. Verified+immediate recipients get "added to your wallet" email. Unverified recipients still get claim code email.
+- **AI Economy section (v1.4.50):** Homepage gains "Built for the AI Economy" section with 3 feature cards (Agent-to-Agent Payments, Programmable Escrow, Zero-Fee Micropayments). All 7 languages translated.
+- **Relay all-stages fix (v1.4.51):** CLI `claim-by-code` now outputs total KX claimed; relay parses and forwards full combined amount instead of just first stage.
+- **Cascade preview duration fix (v1.4.51):** Preview stage lines now use individual `move ||` reactive closures for amount and date display, fixing "8 days" showing when "8 minutes" selected.
+- **Promises Coming To Me (v1.4.56):** Gold section header on Promises tab showing incoming delayed sends. All 8 languages translated.
+- **SCHEDULED badge (v1.4.56):** Gold badge on History tab for outgoing delayed sends with future unlock dates. CSS class `.history-type-badge.scheduled` with gold styling.
+- **Sender identity fix (v1.4.56):** Wallet now includes sender_email + sender_wallet in /notify payload. Emails show sender identity instead of "Someone".
+- **Play Store update button fix (v1.4.52):** `open_url` Tauri command was no-op on Android. Replaced with `tauri-plugin-opener` (works on all platforms). Frontend uses `market://details?id=com.chronx.wallet` on mobile with https fallback.
 - Cold storage wallet generator
 - Private key export (copy + save to file)
-- Promises tab with incoming email locks and outgoing timelocks
-- History tab with email send status tracking
-- Cancel button on pending sends
+- Cancel button on pending sends (with email-specific modal text, cascade-aware series cancel)
 - Rewards tab with email opt-in
 - Settings: Node URL, PIN length, Cold Storage, Export Key, Notices with bell icon, Claim Email
 - Version notification (bell icon + gold card)
@@ -271,9 +512,10 @@ For future "friendly" sends to new users:
 - `get_claim_email`, `set_claim_email`
 - `save_email_send`, `notify_email_recipient`
 - `register_for_rewards`, `check_rewards_status`
-- `check_for_updates`, `fetch_notices`, `get_seen_notices`, `mark_notice_seen`
+- `check_for_updates`, `fetch_notices`, `get_seen_notices`, `mark_notice_seen`, `mark_notice_dismissed`
 - `open_url`, `get_app_version`
 - `generate_cold_wallet`, `get_cold_wallets`, `save_cold_wallet`
+- `reclaim_expired_lock` (v1.4.27) — manual reclaim of expired email locks
 
 ---
 
@@ -302,9 +544,49 @@ All prefixed with `chronx_`:
 | getGlobalLockStats() | Active lock count + total locked |
 | getEmailLocks(emailHashHex) | Locks by email hash |
 | getIncomingTransfers(id) | Incoming transfers for account |
-| getNetworkInfo() | P2P peer multiaddress |
+| getNetworkInfo() | P2P multiaddr + peer_count + node_version + uptime_secs |
+| getEmailLockStats() | Aggregate email lock stats (pending/claimed/reverted counts + chronos) |
 | sendCascade(hex) | Submit cascade transaction |
 | getCascadeDetails(hashHex) | All locks sharing a claim_secret_hash |
+| getRecentTransactionsDetailed(limit) | Enriched tx list: type, amounts, recipients, status |
+| getVerifierRegistry() | All active verifiers (Genesis 7) |
+| getPromiseTriggerStatus(lockId) | Day 91 trigger status for a lock (Genesis 7) |
+| getGenesis7Constants() | All Genesis 7 protocol constants as JSON |
+| getHumanityStakeBalance() | Humanity Stake Pool balance |
+| getPromiseAxioms() | Promise Axioms + AI Trading Axioms text |
+
+**IMPORTANT — These RPC methods do NOT exist on the ChronX node (DAG-based, no blocks):**
+- `chronx_getBlockHeight` — use `chronx_getChainStats` (returns `dag_depth`)
+- `chronx_getBlock` — no equivalent (ChronX uses a DAG, not a linear blockchain)
+- `chronx_getNodeInfo` — not implemented
+- `chronx_getNetworkStats` — use `chronx_getNetworkInfo`
+- `chronx_getSupplyInfo` — use `chronx_getChainStats` (returns `total_supply_kx`)
+- `chronx_getPendingTransactionCount` — not implemented
+- `chronx_getTimeLockContracts` — requires account_id param (not zero-param); use `chronx_getGlobalLockStats` for aggregates
+
+---
+
+### Security Hardening (implemented 2026-03-05)
+
+**Engine-level validation (already existed):**
+- Memo max 256 bytes (`MAX_MEMO_BYTES`)
+- Zero-value transfer rejection (`ZeroAmount`)
+- Self-send rejection (`SelfTransfer`)
+- Insufficient balance check (`InsufficientBalance`)
+
+**Engine-level validation (v3.5 — new):**
+- Memo control character rejection (`MemoInvalidChars`): bytes 0x00-0x1F rejected except 0x09 (tab) and 0x0A (newline)
+- Auto-create accounts for `TimeLockClaimWithSecret` (prevents silent claim failure for new users)
+
+**RPC-level rate limiting (v3.5 — new):**
+- Per-wallet: 10 tx per wallet per 60 seconds. In-memory `RateBucket` struct in `RpcServerState`. Returns `-32603: "Rate limit exceeded. Try again in X seconds"`.
+- `send_cascade` delegates to `send_transaction` → same rate limit applies.
+
+**nginx-level hardening (rpc.chronx.io):**
+- IP rate limiting: `limit_req_zone $binary_remote_addr zone=rpc:10m rate=30r/m` in nginx.conf http block
+- Burst: `limit_req zone=rpc burst=10 nodelay` + `limit_req_status 429`
+- Request size: `client_max_body_size 10k` (legitimate txs are always small)
+- Config: `/etc/nginx/sites-available/rpc.chronx.io`
 
 ---
 
@@ -312,27 +594,33 @@ All prefixed with `chronx_`:
 
 | Page | URL | Status |
 |---|---|---|
-| Home | /index.html | LIVE -- landing, stats bar, faucet modal, Windows + Android downloads |
-| Wallet | /wallet.html | LIVE -- download page (Windows + Android) |
+| Home | /index.html | LIVE -- landing, stats bar (no distribution section), faucet modal, Windows + Android downloads |
+| Wallet | /wallet.html | LIVE -- download page (Windows + Android). Smart device detection: auto-detects OS, shows banner with direct download, reorders platform cards. |
 | Download | /download.html | LIVE -- platform cards |
-| Claim | /claim.html | LIVE -- faucet claim + email lock claim (7 languages) |
+| Claim | /claim.html | LIVE -- faucet claim + email lock claim (7 languages). v1.4.29: primary Copy button + secondary Open in Wallet App + 5-step how-to-claim |
 | Pre-ICO | /preico.html | LIVE |
 | Token Sale | /tokensale.html | LIVE |
-| Exchange | /exchange.html | LIVE (placeholder) |
-| Explorer | /explorer.html | LIVE |
-| Analytics | /analytics.html | LIVE |
+| Exchange | /exchange.html | LIVE -- wKX on Base via 1inch, email notify, how-it-works cards, pre-ICO callout |
+| Explorer | /explorer.html | LIVE -- Recent Transactions table (DAG, no blocks), Growing Scarcity bar, tx ID + address search. Uses getRecentTransactionsDetailed + getGlobalLockStats. |
+| Run a Node | /node.html | LIVE -- Windows installer + Linux one-liner install, manual tar.gz downloads, Quick Start, FAQ (6 Q&As) |
+| Install Script | /install-node.sh | LIVE -- one-line Linux install: `curl -sSL https://chronx.io/install-node.sh \| sudo bash` |
+| Analytics | /analytics.html | LIVE -- 5 KPIs (height, txns, locks, locked, connected nodes) |
 | Team | /team.html | LIVE |
 | Rewards | /rewards.html | LIVE |
 | Support | /support.html | LIVE |
 | FAQ | /faq.html | LIVE -- includes cold storage FAQ |
 | Disclaimer | /disclaimer.html | LIVE |
-| Admin | /admin/index.html | LIVE -- faucet + pre-ICO admin (buttons only show for awaiting_approval) |
-| version.json | /version.json | v1.4.24 |
+| Admin | /admin/index.html | LIVE -- 11 tabs: Faucet, Pre-ICO, Transactions, Downloads, Network, Economy, Calendar, Notices, Alerts, Signups, Export |
+| Download Tracker | /dl/track.php | LIVE -- tracks downloads by file + Cloudflare country, redirects to actual file |
+| version.json | /version.json | v1.4.52 (Android) / v1.4.51 (Windows) |
+| bootstrap.json | /bootstrap.json | Stable bootstrap peer address for node operators |
 
 ### Website Deploy
 - **Deploy script:** `cd C:\Users\Josep && python deploy_website.py`
 - **TRUE web root:** /domains/chronx.io/public_html (NEVER use /public_html — that's stale)
-- **Cache purge:** hPanel -> Cache Manager -> Purge All (after every deploy)
+- **Cache:** Hostinger cache OFF as of 2026-03-04 — no purge needed after deploy
+- **Cloudflare:** Active on chronx.io — CF-IPCountry header available for download tracking
+- **Download tracking:** All /dl/ download links go through /dl/track.php?file=X which increments download-counts.json + download-log.json then redirects to actual file
 - **Translations:** js/translations.js — 7 languages (EN, FR, DE, ZH, ES, RU, AR)
 
 ---
@@ -342,10 +630,13 @@ All prefixed with `chronx_`:
 - Consensus: PoW, SHA3-256, 20-bit difficulty
 - Cryptography: CRYSTALS-Dilithium2 (post-quantum, NIST FIPS 204)
 - Account IDs: BLAKE3(Dilithium2 public key), Base58 encoded
-- Networking: libp2p | Storage: sled | Structure: DAG
+- Networking: libp2p (Ed25519 identity, persistent via --identity-file) | Storage: sled | Structure: DAG
 - Minimum lock: 1 second (wallet enforces user-facing minimums)
 - Locks >= 1 year: 24-hour cancellation window
-- Email locks: 72-hour claim window, auto-revert (UnclaimedAction::RevertToSender)
+- Email locks: 72-hour claim window, auto-revert via background sweep (UnclaimedAction::RevertToSender, active since v3.4)
+- **Background sweep (v3.4):** Node runs `sweep_expired_email_locks()` every 5 minutes. Scans all Pending email locks (0xC5 marker) where `now > created_at + claim_window_secs` and `unclaimed_action == RevertToSender`. Credits sender balance, sets status to `Reverted`.
+- **ReclaimExpiredLock (v3.4):** Manual fallback transaction. Sender submits to reclaim expired email lock. Validates: sender match, Pending status, expired window, RevertToSender action.
+- **TimeLockStatus::Reverted (v3.4):** New terminal status. `reverted_at` timestamp records when funds returned.
 - Email hash: BLAKE3(lowercase(email)) -- one-way, never reversible
 - Claim secret: 32-byte random, BLAKE3 hash stored on-chain, plaintext never stored on server
 - Extension data: 0xC5 marker byte + 32 bytes BLAKE3(claim_code)
@@ -366,7 +657,7 @@ cd C:\Users\Josep\chronx\wallet-gui-temp && cargo tauri build
 
 ---
 
-## 10. KEY BUGS FIXED (2026-03-03 / 2026-03-04)
+## 10. KEY BUGS FIXED (2026-03-03 / 2026-03-04 / 2026-03-05)
 
 1. **Claim false success** — `sendTransaction` is fire-and-forget (returns TxId before engine executes). Wallet showed "Claimed!" even when node rejected. Fixed by pre-validating lock maturity via `getTimeLockById` RPC before submitting claim transaction.
 
@@ -379,33 +670,106 @@ cd C:\Users\Josep\chronx\wallet-gui-temp && cargo tauri build
 
 4. **Engine multi-action lock ID collision** — All `TimeLockCreate` actions in one transaction used `tx_id` as lock ID, causing later locks to overwrite earlier ones in sled DB. Fixed: action_idx=0 uses tx_id, action_idx>0 uses `BLAKE3(tx_id || idx)`.
 
-5. **Cascade email template undefined amounts** — `buildSeriesEmail()` read `e.amount` but cascade payload uses `amount_kx`. Fixed to `e.amount_kx || e.amount` for backward compat.
+5. **Cascade email template bugs (fixed twice):**
+   - **v1 fix:** `buildSeriesEmail()` read `e.amount` but cascade payload uses `amount_kx`. Fixed to `e.amount_kx || e.amount`.
+   - **v2 fix (2026-03-05):** Two remaining bugs: (a) "Invalid Date" in Unlocks At column — `new Date(e.unlock_at * 1000).toUTCString()` failed when `unlock_at` was 0 or missing. Fixed: shows "Immediately" for timestamps within 1 hour of now, `toLocaleDateString('en-US', ...)` for future dates. (b) Amount normalization — added `getKx()` helper that auto-detects chronos vs KX (if raw > 100000, divide by 1M). Also added `toLocaleString()` for comma formatting.
+
+6. **Balance not updating after claim (v1.4.31)** — All 7 claim/send handlers did one immediate `get_account_info` which returned stale balance (node hadn't confirmed yet). Fixed by adding `poll_balance_update()` which polls every 1s for up to 10s until nonce changes. Same pattern as timelock creation which already worked.
 
 ---
 
 ## 11. TODO LIST
 
-### Next Build (v1.4.25+)
-- [ ] Disable Android pinch-to-zoom (lock UI scaling)
+### Completed in v1.4.26-v1.4.27 + Website Updates
+- [x] Disable Android pinch-to-zoom (lock UI scaling) — v1.4.26
+- [x] RevertToSender background sweep — v1.4.27/v3.4
+- [x] ReclaimExpiredLock manual fallback — v1.4.27/v3.4
+- [x] Cascade cancel with promise protection — v1.4.27
+- [x] Build + publish node binaries (Linux x64, Linux ARM64, Windows x64) — 2026-03-04
+- [x] node.html: real download links + Quick Start + FAQ — 2026-03-04
+- [x] exchange.html: rewrite with wKX/Base/1inch flow — 2026-03-04
+- [x] analytics.html: Connected Nodes KPI — 2026-03-04
+- [x] Whitepaper v3.0 published to GitHub — 2026-03-06 (KX as compute fuel, MISAI AI Arena, full ecosystem)
+- [x] Admin Transactions tab (chronx_getRecentTransactionsDetailed RPC + proxy + frontend) — 2026-03-04
+- [x] Windows NSIS node installer (ChronX-Node-Setup.exe) — 2026-03-04
+- [x] Linux one-line install script (install-node.sh) — 2026-03-04
+- [x] node.html rewrite: Windows installer + Linux one-liner + manual downloads in details — 2026-03-04
+- [x] Download tracking (dl/track.php with Cloudflare country) — 2026-03-04
+- [x] Admin Downloads tab (country map, breakdown, recent log) — 2026-03-04
+- [x] Admin Network Health tab (node status, peers, chain activity, sweep) — 2026-03-04
+- [x] Admin Economy tab (supply, locked, faucet, reverted, pre-ICO, distribution bar) — 2026-03-04
+- [x] Admin Alerts tab (RPC offline, faucet low, stale locks, chain stalled) — 2026-03-04
+- [x] All download links routed through tracker (wallet.html, node.html) — 2026-03-04
+
+### Completed in v1.4.47
+- [x] Cascade preview panel cut off on right side — flex-wrap layout fix
+- [x] Cascade confirm modal trailing zeros — format_kx_display() helper
+- [x] Memo privacy warning hint — both Simple Send and Cascade Send
+- [x] wallet.html: Desktop Features moved above download cards
+- [x] wallet.html: Feature badges (Advanced Features / Core features) on platform cards
+- [x] Verified: Node engine cascade "Immediately" (lock_seconds=0) — already working, no code change needed
+- [x] Verified: Poke badge polling — working correctly (10s interval + initial fetch after PIN unlock)
+- [x] Verified: Version comparison — numeric segment-by-segment, no bug
+- [x] Verified: Deep link chronx:// URI registration — NSIS installer already registers correctly
+
+### Next Build (v1.4.48+)
 - [ ] QR code button broken on BOTH Windows and Android -- fix
 - [ ] "Convert KX<->USDC" Coming Soon page
 - [ ] Change PIN if missing
-- [ ] Wallet Cascade Send UI (create cascades from the wallet app)
-- [ ] Nav redesign: merge Send into Account (Task 1 from v1.4.15 plan)
-- [ ] Multiple claim emails in Settings (up to 3)
-- [ ] chronx:// deep link protocol handler
 
 ### Active Infrastructure
-- [ ] Fix stats bar CORS -- dashes still showing on some browsers
+- [x] Fix stats bar / analytics KPIs -- rpc.chronx.io DNS missing, rerouted to api.chronx.io/rpc
 - [ ] Fix support form submission
 - [ ] Verify Resend domain (chronx.io) at resend.com/domains
-- [ ] Android wallet release to Play Store (APK on website now)
+- [x] Android wallet release to Play Store — LIVE on Google Play
+
+### Completed in v1.4.56 (2026-03-07)
+- [x] Promises tab — "Promises Coming To Me" section header (gold h4, all 8 languages)
+- [x] History tab — gold "SCHEDULED" badge for outgoing delayed sends with future unlock
+- [x] Sender identity in notify payload (sender_wallet + sender_email from WalletConfig)
+- [x] Re-genesis v5.0 with MISAI Bond, Verifas Bond, MISAI Executor wallets
+- [x] Homepage rewrite: new hero + 9-panel comic + "What Makes ChronX Different" + Protocol Promise
+- [x] MISAI.io reframe: "The AI That Keeps Promises" (removed arena/leaderboard)
+- [x] Pre-ICO invite-only (removed payment addresses, self-service purchase flow)
+- [x] Whitepaper v3.3: Foundation section, claim-on-maturity, executor model, strategy immutability
+- [x] translations.js: 14 new i18n keys across 7 languages (hero, comic, diff cards, protocol promise)
+
+### Pending (from 2026-03-07 session)
+- [ ] HOMEPAGE: Comic embed is inline — consider extracting to separate .js for caching
+- [x] WHITEPAPER: v3.4 — created with v5.0 tokenomics + AI Trading Axioms appendix
+- [ ] WHITEPAPER: v3.4 — publish to GitHub chronx-docs repo
+- [ ] FOUNDATION: Legal structure (nonprofit) — needs lawyer before ICO Sep 22 2026
+- [ ] EXECUTOR MODEL: on-chain implementation of executor_eligible status + 90-day flag + fee deduction — Phase 2
+- [ ] 7-DAY CANCELLATION WINDOW: Confirm node enforces 7-day (604,800s) irrevocability window for AI Promise locks
+- [ ] CASCADE RE-SENDS: 10 recipients need fresh cascade sends after genesis wipe (requires wallet GUI)
+- [ ] PLAY STORE: Upload internal (1004056) + production (2004056) AABs — manual task
+- [x] GOVERNANCE PAGE: governance.html with AI Trading Axioms, Genesis vs Governance table, Foundation info
+- [x] GOVERNANCE NAV: Added to all 17 HTML pages + i18n for all 7 languages
+- [x] TOKENOMICS UPDATE: tokensale.html and preico.html updated to 6,093,000,000 KX Public Sale
+- [x] 10-PANEL COMIC: Added Panel 10 "Try It Yourself" with faucet CTA
+- [ ] BACKUP: misai-wallet.json and verifas-wallet.json — store securely offline
+- [ ] FAUCET FUND: Transfer 3M KX from Founder to faucet wallet post-genesis
+
+### Key Decisions (2026-03-07)
+- Claim-on-maturity confirmed as canonical model (not auto-push)
+- 90-day executor eligibility window (Foundation-governable)
+- Open race model for executors (no exclusivity window — prevents griefing)
+- 7% genesis-level ceiling, Foundation governs downward only
+- Bob sets nothing about executor fees — protocol default, zero UX burden
+- "ChronX Protocol Foundation" is the public name for the governance body
+- Foundation governs delivery layer only; genesis constants are untouchable
+- Promise and delivery mechanism are explicitly decoupled by design
+- 7-day cancellation window (not 30) — biblical, astral, proportionate to short promises
+- AI Trading Axioms (6 axioms) encoded as immutable genesis metadata
+- Re-genesis v5.0: Founder/MISAI/Verifas as genesis-level allocations (not post-genesis transfers)
+- Public Sale reduced 6,268M → 6,093M KX to accommodate genesis-level bond allocations
+- governance.html added as dedicated page for Foundation + Axioms
 
 ### Future (Phase 2+)
 - [ ] IMPORTANT: Node operator incentive/distribution model -- must design before ICO Sep 22 2026
 - [ ] Cascade Send web UI for businesses
-- [ ] wKX ERC-20 on Base + Uniswap v3 pool + 1inch listing
-- [ ] CMC + CoinGecko listing
+- [x] wKX ERC-20 on Base + Uniswap v3 pool (DONE 2026-03-11) — 1inch listing pending
+- [ ] CMC + CoinGecko listing (apply now — pool is live)
 - [ ] Web wallet, iOS
 - [ ] Multi-sig, Oracle network, Conditional payments
 - [ ] GitHub CI fix
@@ -427,7 +791,7 @@ cd C:\Users\Josep\chronx\wallet-gui-temp && cargo tauri build
 8. Never store claim secrets server-side
 9. Email sends max 1,000,000 KX
 10. systemd manages the node -- never start manually with nohup
-11. Default RPC: https://rpc.chronx.io
+11. Default RPC: https://api.chronx.io/rpc (rpc.chronx.io DNS missing — use api.chronx.io/rpc)
 12. PIN: shared PinInput, keydown-first, never set_value() in input handler
 13. ICO date: September 22, 2026 -- Autumnal Equinox -- never change
 14. Founder wallet NEVER left on Vultr -- SCP temporarily, use, DELETE immediately
@@ -436,9 +800,294 @@ cd C:\Users\Josep\chronx\wallet-gui-temp && cargo tauri build
 
 ## 13. SESSION LOG
 
+### 2026-03-08 (Genesis 7 — Verified Delivery Protocol Implementation)
+- **Node v7.0:** Full Rust implementation of Genesis 7 Verified Delivery Protocol across 13 source files.
+- **New constants (13):** VERIFAS_TRIGGER_DAYS=91, ACTIVATION_DEPOSIT_BASIS_POINTS=50, GENESIS_7_SHORT_LOCK_THRESHOLD_SECS=604800, etc. in chronx-core/src/constants.rs.
+- **New error variants (4):** GovernanceOnly, VerifierBondTooLow, InvalidVerifierRole, VerifasVaultAlreadyRegistered.
+- **New Action:** `VerifierRegister` — governance-only transaction to register verifiers. CLI subcommand `verifier-register` added to chronx-wallet.
+- **GenesisParams expanded:** 4 new fields (verifas_vault_pubkey, activation_escrow_pubkey, humanity_stake_pool_pubkey, governance_wallet_b58) with serde defaults.
+- **StateDb (db.rs):** 3 new sled trees (promise_packages, promise_triggers, verifier_registry). 4 new structs. 9 new accessor methods.
+- **Engine behaviors:** (1) VerifierRegister handler validates governance wallet, bond, role, uniqueness. (2) Short-lock skip in sweep_expired_email_locks (locks <= 7 days revert; > 7 days are irrevocable promises). (3) Promise package generation on TimeLockCreate for locks > 7 days. (4) sweep_genesis7_triggers — Day 91 activation deposit. (5) sweep_genesis7_expiry — 100-year transfer to Humanity Stake Pool.
+- **RPC (5 new methods):** getVerifierRegistry, getPromiseTriggerStatus, getGenesis7Constants, getHumanityStakeBalance, getPromiseAxioms.
+- **Genesis metadata:** Promise Axioms (4) + AI Trading Axioms (4) stored as separate keys. Genesis 7 constants as auditable JSON. Governance wallet + Humanity Stake Pool addresses.
+- **Re-genesis v7.0:** Wiped data, new genesis with corrected keys (public_sale_key matched to local wallet). 3 new zero-balance protocol wallets created. All 6 post-genesis funding transfers. Supply verified: 8,270,000,000 KX exact.
+- **Verifier registered:** "ChronX Verifas (Placeholder)", VerifasVault role, 1M KX bond, GLOBAL jurisdiction.
+- **Keyfile security:** Public-sale-wallet, founder-wallet, and all 3 new Genesis 7 wallet keyfiles shredded from Vultr after use.
+- **governance.html updated:** Two separate axiom sections (Promise Axioms + AI Trading Axioms), expanded Genesis vs Governance table with Genesis 7 rows.
+
+### 2026-03-06 (MISAI Agent Engine — Market Data + AI Trading Loop)
+- **Market data poller:** /opt/misai/market.js + /opt/misai/fetch_prices.py. Stocks via yfinance (SPY, AAPL, TSLA, NVDA, MSFT), crypto via CoinGecko (BTC, ETH, SOL, BNB). Polls every 30s. Price history stored in SQLite (auto-purge >24hrs). Cached in memory with stale-value preservation on fetch failure.
+- **Agent decision engine:** /opt/misai/engine.js using @anthropic-ai/sdk. Cron every minute. For each due agent: builds portfolio (cash_kx + position values via live prices / KX_USD_RATE), calls Claude Sonnet (claude-sonnet-4-20250514), parses JSON {action, symbol, percent_of_cash, reasoning}, executes BUY (% of cash → position) / SELL (full liquidation) / HOLD, logs decision with kx_before, kx_after, price_usd, market_snapshot.
+- **Schema:** agents table has separate `cash_kx` (uninvested) and `current_kx` (total portfolio). positions: agent_id, symbol, quantity, avg_cost_kx. decisions: action, symbol, quantity, price_usd, kx_before, kx_after, reasoning, market_snapshot.
+- **Beta mode:** All agents use Claude Sonnet via shared ANTHROPIC_API_KEY in /opt/misai/.env. KX_USD_RATE=0.00055 from .env.
+- **Public endpoints:** GET /api/leaderboard (cached 10s, recalculates totals with live prices), GET /api/decisions/recent (cached 5s, last 50 across all agents), GET /api/agent/:id/decisions, GET /api/prices, POST /api/agent/register (invite-gated).
+- **Verify-invite fix:** Accepts invite_code alone (no wallet needed). Looks up wallet_address from beta_signups table. Frontend stores wallet in sessionStorage.
+- **Live leaderboard:** JS fetches /api/leaderboard, auto-refreshes every 30s. Empty state: "Beta begins soon."
+- **Live price ticker:** Horizontal bar below nav showing all 9 asset prices with green/red coloring. Auto-refreshes every 10s.
+- **Scrolling trade feed:** Shows recent agent decisions (BUY/SELL/HOLD badges with reasoning). Auto-refreshes every 15s.
+- **arena.html:** Agent deployment form. Fields: agent name (max 30), strategy prompt (textarea with 500-char counter), starting KX (min 9), decision interval (5/15/60). Beta note: "Powered by Claude Sonnet — no API key needed."
+- **Beta gate UX:** Simplified to invite-code-only input (wallet address removed from Mode A). Successful verification redirects to arena.html.
+- **End-to-end verified:** TestBot Alpha registered, engine ran, Claude responded with HOLD decision, appeared in leaderboard and trade feed.
+
+### 2026-03-06 (MISAI Homepage Rebuild — Newbie-Friendly Landing Page)
+- **Complete index.html rebuild:** Designed for zero-crypto-knowledge visitors. Clean hero ("The AI that trades for you."), single CTA button, no jargon.
+- **Section 1 (Hero):** Large headline, subtitle, one "Request Beta Access" button, small "Powered by KX" note.
+- **Section 2 (How It Works):** Three large cards: Choose Your AI (Claude/GPT-4/Gemini/Grok), Power It With KX (1.1 KX per decision, xchan.io pricing), It Trades For You (brokerage account).
+- **Section 3 (Control):** Two-column layout. Left: typing animation demo of strategy prompt (loops every ~8s). Right: AI response terminal with green LIVE pulse dot.
+- **Section 4 (Brokerage):** Robinhood + Alpaca cards (greyed, "Coming Soon"). "MISAI never touches your money" messaging. Beta note: simulated $1,000.
+- **Section 5 (What is KX):** Simple gas-in-a-car analogy. Stats: 1.1 KX per decision, 9 KX free to start. Rate from xchan.io.
+- **Section 6 (Beta Gate):** Clean Mode A/B toggle. Mode A: invite code → arena. Mode B: email signup → inline success with chronx.io link.
+- **Arena content moved to arena-live.html:** Leaderboard, trade feed, price ticker — only linked from inside arena (not from homepage nav).
+- **No leaderboard, no trade feed, no jargon on homepage.** No DAG, BLAKE3, time-locked, post-quantum references.
+
+### 2026-03-06 (MISAI Redesign — KX as Compute Fuel, USD Simulated Trading)
+- **Core redesign:** KX is now compute fuel only (1.1 KX per AI decision), NOT a trading currency. Trading portfolios are simulated USD ($1,000 default).
+- **Schema migration:** agents table: starting_kx/current_kx/cash_kx → starting_usd/current_usd/cash_usd + kx_balance + kx_per_decision. positions: avg_cost_kx → avg_cost_usd. decisions: kx_before/kx_after → usd_before/usd_after + kx_burned. New table: platform_revenue (0.1 KX per decision to treasury).
+- **xchan.js module:** /opt/misai/xchan.js — KX/USD rate management. Fallback $0.00055 (ICO). Live xchan.io API integration prepared for March 11.
+- **GET /api/kx-rate:** Returns rate, source, kx_per_decision, platform_margin. "Rate supplied by XChan.io Exchange" shown across all UI.
+- **Engine.js rewrite:** All portfolio math in USD. Deducts 1.1 KX fuel per decision. Auto-pauses agents when fuel exhausted. Logs kx_burned and platform_revenue.
+- **arena.html:** Live compute fuel calculator widget (updates as user types KX/changes interval). Shows decisions count, runtime, USD equivalent. Info box: "KX powers AI brain, portfolio is $1,000 simulated USD." Coming Soon card: Robinhood | Alpaca.
+- **index.html:** Hero: "Real AI. Real Strategy." Subtext: "KX powers the AI. USD tracks the score." Leaderboard: Capital/Portfolio/Return %/KX Fuel columns. Trade feed: USD values + KX burn badge. Beta gate: describes simulated USD + KX fuel model.
+- **admin.html:** 5th stat card "KX Earned" (gold) showing total platform_revenue.
+- **Removed all references to:** "KX wager", "KX returns", "trading with KX", "real KX".
+
+### 2026-03-06 (MISAI Launch + exchanges.html + usecases.html)
+- **misai.io deployed:** AI Wager Arena beta website. Animated particle background, beta gate with Mode A (enter with invite code) / Mode B (request access / join waitlist) toggle, how-it-works steps, demo leaderboard, agent transparency cards, beta details section. Outfit + JetBrains Mono fonts, cyan/violet gradient theme.
+- **MISAI Beta API:** Express.js + SQLite on Vultr (/opt/misai/), port 4040, systemd `misai-api`. Endpoints: signup (waitlist), verify-invite, admin CRUD, DELETE /api/admin/signup/:wallet_address (deletes signup + agents, logs to admin_log). Proxied at `https://api.chronx.io/misai/*`. Reuses admin-users.json auth.
+- **misai.io admin.html:** Admin dashboard with login, stat cards (total/pending/approved/rejected/KX earned), filter tabs, search, approve (generates MISAI-XXXX-XXXX code in modal), reject, delete (red outlined button with confirmation modal, fade animation), CSV export.
+- **exchanges.html created:** ChronX page with XCHAN exchange card + leave-site modal popup before navigating to xchan.io. "More exchanges coming soon."
+- **usecases.html created:** ChronX page with MISAI use case card (atom icon, beta badge) + leave-site modal popup before navigating to misai.io. "More use cases coming soon."
+- **Nav updated on all 16 pages:** Exchanges now points to `exchanges.html` (was direct xchan.io link). Use Cases now points to `usecases.html` (was `#` placeholder with "Soon" badge). Removed ext-arrow and nav-badge-soon spans.
+- **Both sites deployed:** chronx.io (51 files, 0 failures) and misai.io (2 files, 0 failures).
+
+### 2026-03-06 (xchan.io About Fix + chronx.io Nav Update)
+- **xchan.io About text fix:** Removed ChronX mention from About section. Now reads: "It operates independently and is not affiliated with any specific cryptocurrency project or token issuer."
+- **chronx.io nav update:** Added two new nav links to ALL 14 pages (after "Exchange"):
+  1. **Exchanges** → https://xchan.io (external, opens in new tab, ↗ arrow indicator)
+  2. **Use Cases** → # placeholder with muted gold "Soon" pill badge
+- **i18n:** `nav_exchanges` and `nav_usecases` translation keys added to all 7 languages in translations.js. `data-i18n` placed on inner `<span>` to preserve badge/arrow siblings during `textContent` replacement.
+- **CSS:** `.ext-arrow` (small muted arrow) and `.nav-badge-soon` (gold pill) styles added to style.css.
+- **Use Cases = AI Arena site** — future build, dedicated session.
+
+### 2026-03-06 (MISAI — Agent Dashboard, Real KX Deduction, Connect Wallet)
+- **my-agent.html (NEW):** Personal agent dashboard at `my-agent.html?agent_id={id}&wallet={wallet}`. Sticky status bar (name, portfolio, return %, KX balance, next decision timer, auto-refresh 15s). Demo mode banner with "Connect Wallet" button. Paused banner with "Get KX" and "Resume Agent" buttons. Live decision feed with BUY/SELL/HOLD badges, reasoning, USD before/after. "Warming up" animation when no decisions yet. Trading mode toggle (Simulated active, Real Money coming soon). Connect wallet modal (AES-256 encrypted private key storage).
+- **GET /api/agent/:id/status:** Returns full agent status including positions array, next_decision_at, has_private_key, mode. No auth required.
+- **PUT /api/agent/:id/connect-wallet:** Encrypts private key with AES-256-GCM (MISAI_ENCRYPTION_KEY from .env), stores in agents table, sets mode='real'. Ownership verified by wallet_address match.
+- **POST /api/agent/:id/resume:** Resumes paused agents (sets status='active').
+- **GET /api/admin/revenue:** Returns { total_kx } sum of platform_revenue table. Bearer auth required.
+- **Schema migration:** `ALTER TABLE agents ADD COLUMN encrypted_private_key TEXT`, `ALTER TABLE agents ADD COLUMN mode TEXT DEFAULT 'simulated'`, `ALTER TABLE decisions ADD COLUMN tx_hash TEXT`.
+- **Engine.js real KX deduction:** When agent has encrypted_private_key (real mode): checks on-chain balance via `chronx_getAccountInfo` RPC, transfers 1.1 KX to treasury via chronx-wallet CLI, logs tx_hash, syncs kx_balance from on-chain. When no private key (demo mode): unlimited decisions, kx_burned=0, no platform_revenue. Out-of-fuel email via Resend API.
+- **crypto-utils.js (NEW):** AES-256-GCM encrypt/decrypt module for private key storage.
+- **arena.html fixes:** Post-deploy redirects to my-agent.html (was index.html#leaderboard). Removed visible code comment ("// 10% platform margin..."). Clear error states on page load.
+- **CORS updated:** Added PUT and DELETE to allowed methods.
+- **Deploy:** misai.io (5 files, 0 failures). misai-api restarted.
+
+### 2026-03-06 (MISAI — KX Branding + Admin Delete Button)
+- **KX branding across misai.io:** All first mentions of "KX" on each page now read "ChronX token (KX)" with a one-line explainer: "KX is the native token of the ChronX protocol (chronx.io) — an independent blockchain." Pages updated: index.html (hero note), arena.html (sub text + fuel widget label + info box), arena-live.html (leaderboard section), admin.html (stat card label). All subsequent mentions remain "KX".
+- **Specific replacements:** "Powered by KX" → "Powered by ChronX token (KX)", "KX is the only real currency on MISAI" → "ChronX token (KX) is the compute fuel for MISAI", "KX to deposit" → "ChronX token (KX) to deposit".
+- **Admin Delete button:** Every row in the signups table now has a red outlined "Delete" button. Clicking shows a custom confirmation modal ("Delete {email}? This cannot be undone." with "Yes, Delete" / "Cancel" buttons). On confirm: calls `DELETE /api/admin/signup/:wallet_address`, fades out the row, refreshes stats.
+- **DELETE endpoint:** `DELETE /api/admin/signup/:wallet_address` added to `/opt/misai/index.js`. Requires Bearer auth. Deletes from beta_signups + any agents owned by that wallet. Logs action="deleted" to admin_log. Service restarted.
+- **Deploy:** misai.io (4 files, 0 failures).
+
+### 2026-03-06 (MISAI Expanded Decision Cards + Full Trade Transparency)
+- **Engine structured JSON:** AI prompt now requests full structured response: market_data_used (price, 24h change, source), trade_details (platform, order type, fill price, fees, spread, units), risk_assessment (stop loss price, confidence, risk level, key risks), time_context (session type). max_tokens increased to 600.
+- **decisions.details column:** Stores full JSON blob per decision. Engine builds detailsObj merging AI response with defaults (platform='Simulated', fees=0, spread=0.15%).
+- **GET /api/agent/:id/decisions updated:** Returns all fields including parsed details JSON (id, action, symbol, quantity, price_usd, reasoning, usd_before, usd_after, kx_burned, decided_at, tx_hash, details).
+- **my-agent.html expanded decision cards:** Most recent card expanded by default, older cards collapsed (click to toggle). Each card has 6 sections: AI Reasoning (italic quote), Market Data (price, 24h change, source), Trade Details (platform, order type, amount, units, fill price, fees, spread), Risk Assessment (stop loss, portfolio impact, confidence/risk dots color-coded), Timing (decision time, market session), Portfolio Impact (before/after, KX burned).
+- **Disclosure banner:** Added below status bar — "Simulated trading — no real money. Fees shown are estimates only. Full disclosures." with link to /disclosures.html.
+- **Risk dot indicators:** Green (low), Gold (medium), Red (high) for confidence and risk level.
+- **Deploy:** misai.io (9 files, 0 failures). misai-api restarted.
+
+### 2026-03-06 (MISAI Risk Management + Controls)
+- **DB schema:** 6 new columns on agents table: `trade_duration_hours` (24-168), `trade_end_at` (DATETIME, set at deploy), `stop_loss_pct` (default 15%), `portfolio_floor_pct` (default 20%), `kx_exit_buffer` (default 5 KX), `max_kx_per_day` (default 0 = unlimited).
+- **Engine safety checks (engine.js):** 6 checks run every decision cycle in order: (1) Trade duration expired → EXIT_ALL + status='completed', (2) KX safety buffer → EXIT_ALL + status='paused', (3) Portfolio floor → EXIT_ALL + status='paused', (4) Position stop loss → force sell individual position, (5) Daily KX cap → skip cycle, (6) Market close warning → adds "US markets close in 15 min" to AI prompt at 3:45pm EST for stock positions.
+- **forceExitAll() helper:** Sells all positions, updates cash/status, sends email notification via Resend (different subject/body per reason: session_expired, kx_buffer, portfolio_floor, abort).
+- **abort_requested handling:** Engine picks up agents with status 'abort_requested' and runs forceExitAll → status='aborted'.
+- **New API endpoints:** `POST /api/agent/:id/abort` (sets abort_requested), `POST /api/agent/:id/pause` (sets paused, holds positions), `PUT /api/agent/:id/settings` (updates stop_loss_pct, portfolio_floor_pct, max_kx_per_day, decision_interval_minutes).
+- **Register updated:** Accepts trade_duration_hours, stop_loss_pct, portfolio_floor_pct, kx_exit_buffer, max_kx_per_day. Calculates trade_end_at = NOW + duration.
+- **VALID_INTERVALS:** Now includes 30 min: [5, 15, 30, 60].
+- **arena.html Risk & Controls section:** Trading Session Length (24h/48h/72h/1wk), Decision Interval (5/15/30/60 min), Stop Loss per Position, Portfolio Floor, Daily KX Cap, KX Safety Buffer. Live KX estimate calculator shows recommended deposit based on duration + buffer. Wallet connection warning banner for demo mode.
+- **my-agent.html Controls panel:** Session progress bar with time remaining, Pause Agent / Abort & Exit buttons, Resume button when paused. Settings rows with inline Edit buttons (stop loss, portfolio floor, daily KX cap). Abort confirmation modal.
+- **Status response:** Now includes trade_duration_hours, trade_end_at, stop_loss_pct, portfolio_floor_pct, kx_exit_buffer, max_kx_per_day.
+- **Deploy:** misai.io (9 files, 0 failures). misai-api restarted. All endpoints tested.
+
+### 2026-03-06 (MISAI Strategy Display + AI Clarification Flow)
+- **my-agent.html strategy section:** Strategy card between status bar and decision feed. Shows current strategy in quotes. [Edit] button toggles inline textarea editor. [Save Strategy] calls `PUT /api/agent/:id/strategy`, shows confirmation "Strategy updated — takes effect on next decision" (auto-hides after 5s). [Cancel] collapses back to display.
+- **PUT /api/agent/:id/strategy:** Updates `agents.strategy_prompt` in DB. Validates min 10 chars. Returns `{success: true}`.
+- **strategy_prompt in status response:** `GET /api/agent/:id/status` now includes `strategy_prompt` field.
+- **arena.html AI strategy clarification:** Pre-deployment flow: "Have AI Review Strategy" button → calls `POST /api/clarify-strategy` (server-side proxy to Anthropic API, claude-sonnet-4-20250514, max 500 tokens). If `STRATEGY_CLEAR`, shows green checkmark. If questions (max 3), shows chat bubble with AI questions + answer textarea. User answers → second API call with REFINE_SYSTEM prompt → shows refined strategy. "Looks good — Deploy" replaces strategy and deploys. "Edit more" pre-fills textarea with refined strategy.
+- **POST /api/clarify-strategy:** Server-side proxy to Anthropic API. Uses `ANTHROPIC_API_KEY` from `.env`. Avoids exposing API key in browser. Accepts `{system, messages}`, returns `{text}`.
+- **Deploy:** misai.io (9 files, 0 failures). misai-api restarted. All 3 new endpoints tested and verified.
+
+### 2026-03-06 (MISAI Approval Email + Auth Endpoint + Returning User UX)
+- **Approval email via Resend:** POST /api/admin/approve now sends styled HTML email to the approved user containing their invite code (cyan monospace, MISAI dark theme). Uses Resend API with `re_WBPPSNo6_CPxYQnp38anmV7BrFqZf52t2` key. From: `yo@chronx.io`.
+- **POST /api/auth/verify-invite endpoint:** Validates invite code against `beta_signups` table (status='approved'). Returns `{valid, wallet_address, email}`. Used by frontend gate and returning user flow.
+- **Returning user "Enter Arena" button:** `localStorage.misai_invite_code` persists after first successful verify. Navbar shows cyan outlined "Enter Arena →" button linking to `arena.html?code=X`. Hero CTA changes from "Request Beta Access" to "Enter Arena →" for returning users.
+- **Service verified:** misai-api restarted successfully. Both `/api/verify-invite` and `/api/auth/verify-invite` endpoints tested and working. Approval email test confirmed (Joseph re-approved, code MISAI-SWQU-ZAPC).
+- **Deploy:** misai.io (9 files, 0 failures).
+
+### 2026-03-06 (Guarantee Language Fix — verifas.io + chronx.io)
+- **verifas.io:** Removed ALL "guarantee" language — visible text AND CSS class names/IDs. Nav "Guarantee" → "Auto-Revert". "The 365-Day Guarantee" → "The 365-Day Auto-Revert". "That's the guarantee." → "That's how the protocol works." CSS classes `.guarantee` → `.auto-revert`, `.guarantee-text` → `.auto-revert-text`, `.guarantee-highlight` → `.auto-revert-highlight`, `id="guarantee"` → `id="auto-revert"`, anchor links `#guarantee` → `#auto-revert`. Zero instances of "guarant" remain.
+- **chronx.io usecases.html:** Verifas card description updated: removed "guarantee" → "365-day window: if conditions aren't confirmed, funds return to sender automatically by protocol."
+- **verifas.io hero disclaimer:** Added two lines of small print below hero buttons: ChronX independence disclaimer + wallet download link (`chronx.io/wallet.html`).
+- **Deploy:** verifas.io (4 files, 0 failures) × 2 deploys. chronx.io (51 files, 0 failures).
+- **Joseph's current MISAI invite code:** MISAI-SWQU-ZAPC (re-approved during approval email test).
+- **api.verifas.io SSL:** Still pending — DNS A record `api.verifas.io → 45.63.22.189` not yet added in Hostinger. `dig api.verifas.io +short @8.8.8.8` returns empty. Once DNS propagates, run: `certbot --nginx -d api.verifas.io --non-interactive --agree-tos -m yo@chronx.io`
+
+### 2026-03-06 (v1.4.54 — Version Code Fix for Google Play)
+- **Issue:** v1.4.53 AAB had versionCode 1004053, already consumed by Google Play from a previous upload attempt. Google Play rejects duplicate versionCodes.
+- **Fix:** Bumped to v1.4.54 (versionCode 1004054) in tauri.conf.json, Cargo.toml, and tauri.properties. No code changes — same 16KB page size fix as v1.4.53.
+- **AAB:** Built all 4 architectures, signed with jarsigner. Saved to `C:\Users\Josep\OneDrive\Desktop\chronx-wallet-v1.4.54.aab`.
+- **version.json:** android_version bumped to 1.4.54.
+
+### 2026-03-06 (MISAI Disclosures Page + Hero Update)
+- **Hero subheadline updated:** Changed from "Tell it your strategy..." to "Your strategy or someone else's. Any AI engine. Fully automatic, live trading on Alpaca or Robinhood (coming soon). See full disclosures." Disclosure link styled muted (rgba(255,255,255,0.4), underline on hover).
+- **disclosures.html created:** Full legal disclosures and risk notice page matching MISAI dark theme. 6 sections: No Trading Advice, No Access to Funds, No Guarantee of Performance, Full Assumption of Risk, Beta Software Notice, KX Compute Fuel. CTA box at bottom with "Return to MISAI" button.
+- **Disclosure footer link:** Added to all 6 MISAI pages (index.html, arena.html, admin.html, arena-live.html, my-agent.html, disclosures.html). Pages without existing footers got a minimal centered footer with Disclosures + ChronX links.
+- **Arena consent line:** Added "By deploying an agent, you confirm you have read and agreed to our full disclosures and risk notice" text with link above the Deploy Agent button in arena.html.
+- **Deploy:** misai.io (9 files, 0 failures).
+
+### 2026-03-06 (MISAI Admin Stats + Delete Bug Fix)
+- **Stats endpoint SQL error:** Line 248 of `/opt/misai/index.js` had duplicate `WHERE` clause: `WHERE tx_hash IS NOT NULL WHERE tx_hash IS NOT NULL`. Fixed to single `WHERE`.
+- **Delete endpoint FOREIGN KEY error:** `DELETE FROM agents` failed because `decisions`, `positions`, and `platform_revenue` tables have foreign keys referencing `agents(id)`. Fix: delete child rows (platform_revenue, decisions, positions) per agent_id before deleting agents row, then delete beta_signups row.
+- **Both verified:** Stats returns correct counts. Delete returns `{success: true}` and cascades through all child tables. Service restarted.
+
+### 2026-03-06 (v1.4.53 — 16KB Page Size + Verifas.io + MISAI Treasury + Bug Fixes)
+- **v1.4.53 Android AAB:** Added `.cargo/config.toml` with 16KB page size rustflags (`-C link-arg=-Wl,-z,max-page-size=16384`) for all 4 Android targets. Verified LOAD segments have `Align=0x4000` (16KB). AAB: 26.6 MB at `C:\Users\Josep\OneDrive\Desktop\chronx-wallet-v1.4.53.aab`. Ready for Google Play.
+- **Verifas.io website created:** `C:\Users\Josep\verifas-website\index.html` — conditional payment relay landing page. Light/institutional theme (Playfair Display + Inter fonts, deep navy #0B1A3B + gold #C9A84C). Sections: Hero, How It Works (3 steps), Use Cases (4 cards), 365-Day Guarantee, Beta Access Gate (waitlist form → api.verifas.io/api/verifas/waitlist), Footer. Responsive. Favicon tags included.
+- **deploy_verifas.py created:** `C:\Users\Josep\deploy_verifas.py` — FTP deploy to Hostinger (Host: 82.29.199.47, User: u507945893.verifas.io, Remote: /domains/verifas.io/public_html). **FTP password still needed from Joseph.**
+- **chronx.io Verifas nav link:** Added `<a href="https://verifas.io" ... nav_verifas>Verifas ↗</a>` to all 16 HTML pages with navbar. `nav_verifas:'Verifas'` added to all 7 languages in translations.js.
+- **usecases.html Verifas card:** Added second use case card (conditional payment relay, "Private Beta" badge, leave-site modal like MISAI card).
+- **Favicons generated (PIL):** MISAI: cyan-to-violet gradient "M" on dark bg. Verifas: gold "V" on navy bg. Both: favicon.ico (16+32), favicon-32x32.png, apple-touch-icon.png (180x180). Link tags added to all 5 MISAI HTML pages + Verifas index.html.
+- **MISAI admin delete button bug:** Root cause: nginx `/misai/` CORS preflight only allowed `POST, GET, OPTIONS`. DELETE was blocked by browser. Fix: Updated to `GET, POST, PUT, DELETE, OPTIONS`. Reloaded nginx.
+- **MISAI treasury wallet:** Generated dedicated wallet `Cfg1rRrxeEoYzm8SPL9F6mXDbBCxHCz29DSuZ9sNQPH9` via chronx-wallet keygen. Address stored as `MISAI_TREASURY_WALLET` in `/opt/misai/.env`. Keyfile backed up to `C:\Users\Josep\.chronx\misai-treasury-wallet.json` (private key NOT stored on server). xchan.js TREASURY_WALLET updated.
+- **Engine.js revenue integrity:** platform_revenue table: added `tx_hash TEXT` column. Deleted 10 fake revenue rows (demo mode, no tx_hash). INSERT now includes tx_hash. Admin revenue queries filter `WHERE tx_hash IS NOT NULL`. Engine uses `MISAI_TREASURY_WALLET` from .env for transfers.
+- **my-agent.html consent notice:** Connect Wallet modal now shows explicit authorization notice: "By connecting your wallet, you authorize MISAI to deduct 1.1 ChronX token (KX)..." with estimated daily cost. Button changed to "I Authorize KX Deductions — Connect".
+- **Verifas.io FTP deployed:** deploy_verifas.py updated with correct remote path `/public_html` (FTP user's root is already public_html, not `/domains/verifas.io/public_html`). 4 files uploaded, 0 failures: index.html, favicon.ico, favicon-32x32.png, apple-touch-icon.png.
+- **Verifas API deployed on .189:** SSH to 45.63.22.190 denied, so deployed alongside existing services on 45.63.22.189. Express.js + better-sqlite3 at `/opt/verifas-api/`, port 4041. Systemd service: `verifas-api`. nginx vhost: `/etc/nginx/sites-available/api.verifas.io`. Endpoints: POST `/api/verifas/waitlist` (email validation, SQLite storage, Resend confirmation email + admin notify), GET `/api/verifas/waitlist` (admin, X-Admin-Key: VerifasAdmin2026), GET `/api/verifas/health`. SSL pending — needs DNS A record `api.verifas.io → 45.63.22.189` in Hostinger, then run certbot.
+- **MISAI treasury private key exported:** Converted raw byte arrays from misai-treasury-wallet.json to base58 string for offline storage.
+- **version.json:** Android bumped to 1.4.53.
+
+### 2026-03-06 (v1.4.52 — Android Play Store Update Button Fix)
+- **BUG:** "Update on Google Play" button did nothing on Android. Root cause: `open_url` Tauri command was a no-op on Android (`let _ = url;`). Fix: Added `tauri-plugin-opener` dependency, replaced platform-specific `open_url` implementation with `app.opener().open_url()` (works on all platforms). Added `opener:default` to both desktop and mobile capabilities.
+- **Play Store intent:** Frontend now uses `market://details?id=com.chronx.wallet` URI on mobile (with `https://play.google.com/store/apps/details?id=com.chronx.wallet` fallback). Desktop continues using GitHub download URL.
+- **Android AAB (v1.4.52):** Built all 4 architectures, signed with jarsigner (SHA256withRSA). 26.6 MB at `C:\Users\Josep\OneDrive\Desktop\chronx-wallet-v1.4.52.aab`. Ready for Google Play upload.
+- **version.json:** Android bumped to 1.4.52, Windows stays at 1.4.51.
+
+### 2026-03-06 (xchan.io Launch + v1.4.51 Android Production AAB)
+- **xchan.io deployed:** Non-custodial exchange interface website. Single-page site with swap widget (demo), FAQ, about section, token cards (KX, USDC, ETH, wBTC, BBP). Powered by 1inch branding. Dark theme, Barlow font, responsive.
+- **xchan.io infrastructure:** FTP host `82.29.199.47`, user `u507945893.xchan.io`, remote path `/public_html`. Deploy script: `C:\Users\Josep\deploy_xchan.py`. Local folder: `C:\Users\Josep\xchan-website\`.
+- **Android v1.4.51 AAB:** Already built in previous session — all 4 architectures, 16KB page size, jarsigner signed (SHA256withRSA), 26.3 MB. Saved to `C:\Users\Josep\OneDrive\Desktop\chronx-wallet-1.4.51.aab`. Ready for Google Play Production upload.
+
+### 2026-03-06 (v1.4.51 — Relay All-Stages Fix, Cascade Preview Fix)
+- **BUG 1 — Relay only delivered first stage:** `autoDeliverToVerifiedWallet()` forwarded only the amount from the single `/notify` call, but `claim-by-code` CLI claims ALL matured locks. Fix: CLI now outputs `"totalling X KX"` in claim output; relay parses total and forwards the full combined amount. Added `amount_kx` field to CLI's `CascadeLock` struct. Rebuilt CLI on Vultr.
+- **BUG 2 — Cascade preview "8 days" for "8 minutes":** Preview stage lines used plain String variables (`amt_display`, `date_display`) computed in outer `move || {}` closure. Leptos DOM diffing didn't replace static text nodes when inner signals changed. Fix: wrapped each display in its own `move ||` reactive closure inside the view, ensuring individual reactivity for amount and date.
+- **Version bump:** v1.4.51 Windows + Android. version.json updated (both platforms at 1.4.51). Website deployed.
+- **Android AAB (v1.4.51):** Built all 4 architectures (arm64-v8a, armeabi-v7a, x86, x86_64), 16KB page size support. Signed with jarsigner (SHA256withRSA). AAB: 26.3 MB at `C:\Users\Josep\OneDrive\Desktop\chronx-wallet-1.4.51.aab`. Ready for Google Play Production release.
+
+### 2026-03-06 (v1.4.50 — Verified Delivery, AI Economy Section)
+- **Verified Delivery:** Created relay wallet on Vultr (`8Nodc3F2HwUjPMLaFfTJ6WKuSvjEa4fTeopLUK52y5EE`), funded with 10 KX. Added `claim-by-code` subcommand to chronx-wallet CLI (uses `TimeLockClaimWithSecret` action + `getCascadeDetails` RPC to find locks by BLAKE3 hash of claim code). Added `autoDeliverToVerifiedWallet()` and `getVerifiedWalletAddress()` to Notify API. When verified recipient receives immediate KX, relay claims lock then transfers to recipient's wallet. Env vars: `RELAY_KEYFILE`, `RELAY_ACCOUNT_ID`, `WALLET_CLI` in `/opt/chronx-notify/.env`.
+- **AI Economy homepage section:** Added "Built for the AI Economy" section to index.html with 3 feature cards (Agent-to-Agent Payments, Programmable Escrow, Zero-Fee Micropayments). All 7 languages in translations.js.
+- **Version bump:** v1.4.50 Windows only. version.json updated. Website deployed.
+- **Verified delivery email fix (v1.4.50 patch):** `buildVerifiedRecipientEmail()` showed literal "null" when `sender_email` was missing. Fix: guard with `displaySender = (senderEmail && senderEmail !== 'null') ? senderEmail : 'Someone'`. Also fixed amount trailing zeros ("1.000000 KX" → "1 KX") via `parseFloat(amount).toString()`. Subject line also formatted. Server-side only, no version bump.
+
+### 2026-03-06 (v1.4.49 — Decimal Cursor Fix, Email Delivery Notification Fix)
+- **BUG 1 — Cascade decimal cursor jump:** Root cause was `type="number"` on the amount input. Browsers normalize `.value` of number inputs (stripping trailing dots: "1." → "1"), so when `prop:value` wrote back the normalized value, the cursor jumped. Fix: changed to `type="text" inputmode="decimal"`. Text inputs preserve exact string, so `prop:value` write-back is a no-op and cursor stays in place. `inputmode="decimal"` ensures numeric keyboard on mobile.
+- **BUG 2 — Auto-delivered KX not appearing:** Investigation found the root cause is in the notify API, not the node engine. `sweep_matured_timelocks()` correctly skips ALL email locks (0xC5 marker) — email locks by design require `TimeLockClaimWithSecret` (manual claim with code). But the notify API was sending a "It has been automatically added to your ChronX Wallet" email to verified recipients on lock CREATION. This email was wrong — the KX was never actually delivered. Fix: changed the verified+immediate branch in `/opt/chronx-notify/index.js` to send the standard claim code email instead, so recipients can claim properly. Restarted `chronx-notify` service.
+- **No node changes needed:** The sweep logic is correct as-is. Email locks must be claimed with codes because the node doesn't know the recipient's wallet address (only has email hash).
+- **Version bump:** v1.4.49 Windows only. version.json updated. Website deployed.
+
+### 2026-03-06 (v1.4.48 — Cascade Immediately Fix, Preview Reactivity, Decimal Amounts)
+- **BUG 1 — Cascade "Immediately" fix:** Root cause was `create_email_timelock_series` in commands.rs rejecting `unlock_at_unix <= now` and requiring 24hr minimum lock. Fix: skip time validation for entries where `unlock_at_unix <= 0` (sentinel for "Immediately"), and map to `now` when building actions. Engine on Vultr already correctly skips time checks for 0xC5 email locks — no server change needed.
+- **BUG 2 — Preview reactivity fix:** `stage_display_date()` used `get_untracked()` for all signal reads, meaning the preview never re-rendered when users changed a stage's unlock mode or date. Changed to `get()` so the preview is fully reactive.
+- **BUG 3 — Decimal amount fix:** HTML input `step="0.01"` was too restrictive in Tauri WebView. Changed to `step="any" min="0.000001"` to accept any fractional KX amount. Backend already parses as f64 and converts to Chronos correctly.
+- **Version bump:** v1.4.48 Windows only. version.json updated. Website deployed. GitHub release pending.
+
+### 2026-03-06 (v1.4.47 — Cascade UI Fixes, Memo Hint, Website Reorganization)
+- **Wallet v1.4.47 — Windows build:** Three fixes:
+  1. **Cascade preview layout fix:** `.cascade-layout` had `min-width: 700px` but default window is 520px wide, causing preview sidebar to overflow off-screen. Changed to `flex-wrap: wrap` with `flex: 1 1 300px` / `flex: 1 1 200px` so preview stacks below form on narrow windows.
+  2. **Cascade confirm modal amount format:** Changed `{total:.6}` to `format_kx_display(total)` — new helper strips trailing zeros (e.g., "100 KX" not "100.000000 KX"). Also fixed preview panel total amount.
+  3. **Memo privacy hint:** Added italic grey hint text below memo fields in both Simple Send and Cascade Send: "Note: memos are stored on the blockchain and are publicly visible."
+- **Node engine verified (no change needed):** Cascade "Immediately" stages (lock_seconds=0) already work correctly. The `is_email_lock` check at line 306-310 of engine.rs runs independently for each action in `apply_action()`, and all cascade stages carry the 0xC5 marker in extension_data.
+- **Other verifications (no changes needed):** Poke badge polling works (10s interval + initial fetch after PIN unlock). Version comparison is correct (segment-by-segment numeric). Deep link chronx:// URI scheme is registered by NSIS installer (lines 625-629).
+- **Website updates:**
+  - wallet.html: Moved "Desktop Features" section above download cards so users see feature comparison before choosing platform.
+  - wallet.html: Added feature badges — gold "Advanced Features" on Windows card, grey "Core features" on Android card.
+  - Google Play badge verified working with correct URL.
+  - translations.js: Added `wallet_badge_advanced` and `wallet_badge_core` in all 7 languages.
+- **version.json:** Windows v1.4.47, Android v1.4.47. (Superseded by v1.4.51)
+- **Android build (v1.4.47):** Built AAB (8.9 MB, signed with jarsigner) + APK (17 MB, zipaligned + apksigner). Superseded by v1.4.51 Production AAB.
+- **Auto-delivery sweep verified (no change needed):** All 5 matured-pending locks are email cascade locks (0xC5 marker). `sweep_matured_timelocks()` correctly skips these — email locks require recipient to claim with code. No non-email timelocks are stuck.
+- **GitHub release:** v1.4.47 published at https://github.com/Counselco/wallet-gui/releases/tag/v1.4.47 with Windows .exe attached.
+- **Website deployed:** 49 files, 0 failures.
+
+### 2026-03-05 (v1.4.44–v1.4.46 — Deep Link Fix, Version Checker, Google Play, Node URL)
+- **v1.4.44 — Cold-start deep link fix:** Replaced file-based `pending-deep-link.txt` with managed state `PendingDeepLink(Mutex<Option<String>>)`. Uses `app.deep_link().get_current()` on setup for cold start, `on_open_url` for warm start. Fixes Android cold-start deep links (`chronx://claim?code=...`).
+- **v1.4.45 — Android build (Google Play):** Version checker switched from GitHub releases API to `chronx.io/version.json` with numeric segment-by-segment comparison. Platform-aware version/download fields. Google Play badge on wallet.html. Trusted contact checkbox hidden when already trusted. Poke trust gate uses gold color. AAB signed and uploaded to Google Play.
+- **v1.4.46 — Windows build:** Bumped version. Node URL visible in collapsed "Advanced Settings" section in Settings tab (edit-locked by default, Edit button, warning note). Windows NSIS installer built and deployed to chronx.io/dl/chronx-wallet-setup.exe.
+- **version.json:** Windows v1.4.46, Android v1.4.45. Independent version fields per platform.
+- **Vultr cascade fix verified:** engine.rs `is_email_lock` check (0xC5 marker) at line 306-310 correctly skips `UnlockTimestampInPast` for ALL email locks including cascade stages with `unlock_at=0`. No code change needed — already working.
+- **Server updates:** Conditional notification emails (skip if no Resend key), faucet rate limiting.
+
+### 2026-03-04 (Node Installer + Admin Dashboard Expansion)
+- **Windows NSIS installer built:** ChronX-Node-Setup.exe (2.4 MB). Installs chronx-node.exe to Program Files, creates hidden VBScript launcher (no terminal window), optional Task Scheduler autostart, Start Menu shortcuts, Add/Remove Programs entry. Uninstaller stops node, removes task, preserves .chronx data.
+- **Linux one-line install script:** install-node.sh auto-detects x86_64/aarch64, downloads binary, creates systemd service, enables + starts. Usage: `curl -sSL https://chronx.io/install-node.sh | sudo bash`
+- **Old node removed from laptop:** Killed chronx-node.exe (PID 6740), removed "ChronX Node.lnk" from Startup folder. start-node.bat still exists at C:\Users\Josep\chronx\start-node.bat for reference.
+- **Download tracking system:** dl/track.php with whitelist, flock-safe counters (download-counts.json), country tracking via CF-IPCountry, download log (max 1000 entries), always-redirect design. All download links on wallet.html and node.html now go through tracker.
+- **4 new admin API endpoints:** GET /admin/downloads (fetches counters from website), GET /admin/network-health (RPC status, uptime, DAG, sweep), GET /admin/token-economy (supply, locked, faucet, email claims, reverted), GET /admin/alerts (checks 7 conditions). All use existing adminAuth middleware.
+- **4 new admin tabs:** Downloads (total counter, country flag cards, breakdown table, recent log), Network (2x2 status cards), Economy (6 KPI cards + distribution bar), Alerts (auto-refreshing alert cards with badge).
+- **node.html rewritten:** Windows installer as primary download, Linux one-liner with copy button, manual tar.gz in collapsible details section. Updated Quick Start steps for installer flow.
+- **RPC method added:** `chronx_getRecentTransactionsDetailed(limit)` — enriched tx data with type classification (Send/TimeLock/EmailLock/Cascade/Claim/Cancel/ReclaimExpired), amounts, recipients, status. Fixed TimeLockId→TxId type mismatch (4 occurrences, using `&lock_id.0`).
+- **Website deployed:** 46 files, 0 failures. All endpoints verified through public API.
+- **Pending:** Installer requires manual run on laptop (UAC elevation needed). File at C:\Users\Josep\Downloads\ChronX-Node-Setup.exe.
+
+### 2026-03-04 (Node Binaries + Website Updates + Whitepaper v2.6)
+- **Node binaries built on Vultr:** Cross-compiled ChronX node for 3 platforms: Linux x64 (3.4M .tar.gz), Linux ARM64 (3.2M .tar.gz), Windows x64 (3.2M .zip). Each package contains the binary + README.txt with bootstrap command. Published to chronx.io/dl/.
+- **node.html rewritten:** Replaced "Coming soon" placeholders with 3 real download cards (Linux x64, Linux ARM64, Windows x64). Added Quick Start section with copy-to-clipboard command block. Added FAQ section with 6 Q&As (uptime, cost, rewards, Raspberry Pi, port forwarding, storage).
+- **exchange.html rewritten:** New structure: hero, description (wKX on Base via 1inch), email notify box, 3 "How It Works" cards (Bridge KX→wKX, Trade on 1inch, Withdraw to Wallet), Pre-ICO callout, footer note. Removed old placeholder trade cards.
+- **analytics.html: Connected Nodes KPI:** Added 5th KPI card using `chronx_getNetworkInfo` RPC (peer_count + 1 for self). Added `getNetworkInfo()` to rpc.js.
+- **translations.js: 30+ new keys** in all 7 languages (EN, FR, DE, ZH, ES, RU, AR) for node FAQ, ARM64 download, quickstart, exchange rewrite, analytics nodes KPI. Updated existing keys for exchange title/subtitle, node download buttons, step text.
+- **Whitepaper v2.6 published to GitHub** (chronx-docs repo, commit 777132e). README.md updated.
+- **Website deployed:** 43 files, 0 failures. All node binaries, updated HTML/JS live.
+
+### 2026-03-04 (v1.4.27 — RevertToSender + Cascade Cancel + Reclaim)
+- **Node v3.4 — RevertToSender live:** Added `TimeLockStatus::Reverted` (terminal status with `reverted_at` timestamp). Added `Action::ReclaimExpiredLock` transaction type for manual reclaim of expired email locks. Added `sweep_expired_email_locks()` to StateEngine — scans all Pending email locks (0xC5 marker) where claim window expired and `unclaimed_action == RevertToSender`, credits sender balance, sets Reverted. Background sweep runs every 5 minutes via tokio::spawn in node main.rs. 4 new error types: NoClaimWindow, ClaimWindowNotExpired, NotRevertToSender, ReclaimNotBySender.
+- **RPC enrichment:** `RpcTimeLock` now exposes `claim_window_secs: Option<u64>` and `unclaimed_action: Option<String>`. `tlc_status_str()` handles Reverted.
+- **Wallet v1.4.27 — backend:** Added `reclaim_expired_lock` Tauri command. `TxHistoryEntry` now includes `claim_secret_hash` for cascade awareness. Backend detects expired-but-not-swept email locks and returns "Expired — Reclaiming" status.
+- **Wallet v1.4.27 — frontend:** Reclaim button on expired email sends (gold, calls `reclaim_expired_lock`). Cascade-aware cancel: builds `cascade_claimed` and `cascade_lock_ids` maps, blocks cancel if any lock claimed ("Promised ✓"), allows "Cancel Series" via `cancel_timelock_series` if none claimed. Cancel modal dynamically switches between single/series cancel. New `.email-badge.reclaiming` CSS class (orange theme).
+- **Builds:** Windows NSIS + MSI, Android APK (signed). Both deployed to chronx.io/dl/. GitHub release v1.4.27 with both assets.
+- **Node committed and rebuilt on Vultr.** Chain stats preserved (5 accounts, 246 timelocks).
+
+### 2026-03-04 (v1.4.26 — Android Viewport Scaling Fix)
+- **Android viewport fix:** Disabled pinch-to-zoom (setSupportZoom=false, builtInZoomControls=false, displayZoomControls=false), locked font scaling (textZoom=100) in MainActivity.kt onWebViewCreate override.
+- **Viewport meta tag:** Added `maximum-scale=1.0, user-scalable=no` to index.html viewport meta.
+- **Edge-to-edge theming:** Added transparent statusBarColor, navigationBarColor, and shortEdges displayCutoutMode to both themes.xml variants.
+- **CSS body lock:** Added `html { width:100%; height:100%; overflow:hidden; touch-action:manipulation; }` and `body { width:100%; height:100%; overflow:hidden; }`. Inner `.app` container set to `height:100%; overflow-y:auto;` for scrollable content.
+- **Version bumped to 1.4.26.** Android APK built, signed, deployed to chronx.io/dl/chronx-wallet.apk. version.json updated.
+
+### 2026-03-04 (Whitepaper v2.5 + Node Page + Bootstrap.json)
+- **Whitepaper v2.5 published to GitHub:** Governance section, updated tokenomics and pricing. v2.3 removed (v2.4 kept for reference). chronx-docs README updated.
+- **bootstrap.json created:** Published at https://chronx.io/bootstrap.json — stable bootstrap peer address `12D3KooWMsFQDZhqAFnkcj1XjPrjjVFwsQ6UqgvffvA6HFt6MfFU` for future node clients to discover bootstrap peer dynamically.
+- **node.html created:** "Run a Node" page with bootstrap peer (copy button + dynamic load from bootstrap.json), download placeholders (Windows/Linux), quick setup steps, system requirements. Full 7-language i18n support.
+- **Navigation updated:** "Run a Node" link added to all 14 site pages (after Explorer, before Exchange). `nav_node` translation key added to all 7 languages in translations.js.
+- **Website deployed:** 40 files, 0 failures. New files: node.html, bootstrap.json.
+
+### 2026-03-04 (v1.4.25 — UX Simplification + Persistent P2P Identity)
+- **Wallet UX simplification (v1.4.25):** Reduced from 5 tabs to 4 tabs (Account|History|Rewards|Settings). Promises Made tab merged into History with type filter buttons (All/Sent/Received/Incoming Promise/Outgoing Promise) and colored type badges. Receive tab restructured: Public Key with copy button, QR Code in modal overlay, Claim Code section, incoming promise count link. Email addresses shown in History rows for email sends.
+- **Persistent P2P identity:** Added `--identity-file <path>` CLI flag to chronx-node. If file exists, loads Ed25519 keypair from protobuf-encoded bytes. If missing, generates and saves new keypair. Vultr node now has permanent peer ID `12D3KooWMsFQDZhqAFnkcj1XjPrjjVFwsQ6UqgvffvA6HFt6MfFU` stored at `/home/josep/.chronx/p2p-identity.key`. Laptop `start-node.bat` updated with new peer ID and `--identity-file`. No more need to update bootstrap peer ID after Vultr restarts.
+- **Windows + Android builds:** Both rebuilt with v1.4.25. NSIS installer + signed APK deployed to chronx.io/dl/.
+- **Website deployed:** version.json updated to 1.4.25. All 38 files deployed via FTP, 0 failures.
+- **Laptop node peering:** Fixed MSYS path conversion issue (`MSYS_NO_PATHCONV=1`). Created `start-node.bat` with bootstrap peer. Added to Windows Startup folder for auto-start on login.
+
+### 2026-03-05 (Cascade Email Template v2 Fix)
+- **Cascade email date formatting:** `buildSeriesEmail()` used `toUTCString()` which showed "Invalid Date" for unlock_at=0. Fixed: "Immediately" for timestamps within 1 hour, `toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'})` for future dates. Also accepts `unlock_at_unix` field name.
+- **Cascade email amount normalization:** Added `getKx()` helper — if raw amount > 100,000, auto-divides by 1,000,000 (chronos→KX). All amounts now display with `toLocaleString()` comma formatting. Totals in header and table also formatted.
+- **Notify API log fix:** Series notifications logged "undefined KX" because `totalKx` was scoped inside if-block. Hoisted `let totalKx` to outer scope. Log now shows correct total.
+- **Test cascade sent:** 2 test emails to cabfone11@gmail.com — 6x1 KX + standard 100/250/350/500/800/1000 KX format. Both display correct dates and amounts.
+
 ### 2026-03-04 (Cascade Sends + Bug Fixes)
 - **Notify API email fix:** `unlock_at: 0` treated as falsy in JavaScript. Changed `!unlock_at` to `unlock_at == null` on line 321 of /opt/chronx-notify/index.js. Email delivery restored for Send Now.
-- **Cascade email template fix:** `buildSeriesEmail()` referenced `e.amount` but cascade payload uses `amount_kx`. Changed to `e.amount_kx || e.amount`. Amounts now display correctly in emails.
+- **Cascade email template fix (v1):** `buildSeriesEmail()` referenced `e.amount` but cascade payload uses `amount_kx`. Changed to `e.amount_kx || e.amount`.
 - **Engine multi-action lock ID fix:** Added `action_idx` parameter to `apply_action()`. Lock IDs now unique per action: idx=0 uses tx_id, idx>0 uses BLAKE3(tx_id || idx). Node rebuilt and restarted on Vultr.
 - **Wallet CLI cascade subcommand:** Added `cascade` command to chronx-wallet CLI. Builds multi-action transaction with shared claim code. Built and deployed to Vultr.
 - **Cascade sends to 5 recipients:** cabfone11 (3000 KX), sadieprincesspea (3000 KX), kevin@whiteashlab (3000 KX), yvettedaquiz (3000 KX), usmanuah9 (3000 KX). Total: 15,000 KX. All emails delivered successfully.
@@ -490,9 +1139,51 @@ cd C:\Users\Josep\chronx\wallet-gui-temp && cargo tauri build
 ## 14. ADMIN DASHBOARD
 
 - **URL:** /admin/index.html ("ChronX Admin Dashboard")
-- **Auth:** X-Admin-Key header (value in .env ADMIN_KEY)
-- **Faucet tab:** Pending claims, approve/reject buttons (only show for awaiting_approval status)
-- **Pre-ICO tab:** TX hash required, MySQL storage, admin approve/reject with buyer email notification
+- **Favicon:** Red-halo variant (admin/favicon-admin.ico)
+- **Auth:** Multi-user bcrypt + session token (replaced X-Admin-Key in v2, 2026-03-04)
+  - **Users file:** /home/josep/admin-users.json (chmod 600, bcrypt hashes)
+  - **Sessions file:** /home/josep/admin-sessions.json (24hr TTL, hourly cleanup)
+  - **Audit log:** /home/josep/admin-audit.log (JSON lines: login_success, login_failed, login_blocked, logout, password_changed)
+  - **Rate limiting:** 5 failed logins in 10 min = 30 min IP block (in-memory Map)
+  - **Forced password change:** must_change_password: true on first login
+  - **Endpoints:** POST /admin/login, POST /admin/logout, GET /admin/verify, POST /admin/change-password, GET /admin/login-history
+  - **Frontend auth:** Bearer token in Authorization header (legacy X-Admin-Key still accepted as fallback)
+  - **Login history panel:** Bottom of every tab, last 10 events, IP geolocation via ip-api.com, auto-refresh 60s
+  - **Change password:** Modal accessible from header button
+  - **Role infrastructure:** ROLE_PERMISSIONS object (owner/staff, both identical for now)
+  - **Users:** joseph (owner), usman (staff)
+  - **nginx CORS:** Authorization header added to Access-Control-Allow-Headers
+- **11 tabs:**
+  1. **Faucet:** Pending claims, approve/reject buttons (only show for awaiting_approval), auto-refresh 8s, filter by status
+  2. **Pre-ICO:** TX hash required, MySQL storage, admin approve/reject, auto-refresh 8s
+  3. **Transactions:** Chain transactions via `chronx_getRecentTransactionsDetailed` RPC, sortable columns, type filter, "Show own wallets" toggle (checked by default), auto-refresh 30s toggle
+  4. **Downloads:** Total downloads counter, country map (flag cards), file breakdown table with trend arrows, recent download log, auto-refresh 60s toggle. Data from dl/track.php counters.
+  5. **Network:** 2x2 grid: Node Status (online/offline, RPC ms, uptime, version), Peers (count), Chain Activity (DAG tips, last tx relative time), Sweep Status (healthy/delayed/stalled). Auto-refresh 30s on by default.
+  6. **Economy:** 6 KPI cards: Circulating Supply, Locked in Timelocks, Pending Email Claims, Faucet Balance (color-coded), Reverted Today, Pre-ICO Progress. Two-section distribution: Protocol Reserves (static genesis info) + Consumer Activity bar (user timelocks / email pending / spendable, excludes genesis locks).
+  7. **Calendar:** Reminders/deadlines with list view (grouped by overdue/due soon/upcoming/completed) + monthly calendar grid view. Summary badges (overdue/due soon/upcoming). Add/edit/delete/complete reminders via modal. Priority-colored left borders (critical=red, high=orange, medium=blue). Category badges (website/launch/protocol/infrastructure). Pre-loaded with 6 reminders (price update, ICO prep, node rewards, code signing, wKX bridge, Mac Mini). Data stored in /home/jose/admin-reminders.json.
+  8. **Notices:** Push notices to all wallets. Notice cards with LIVE/INACTIVE/EXPIRED + URGENT/MESSAGE badges. Compose/edit modal with type toggle, title (60 char), body (300 char), character counters, expires date, min/max version, live preview. Stats: seen/dismissed counts. Alerts integration: urgent notice active >7 days = ERROR, no active notices = INFO. Data: /home/josep/notices.json.
+  9. **Alerts:** Auto-checks: RPC offline (error), faucet low (warning), stale email locks (warning), chain stalled (warning), large transactions (info). Also injects reminder-based alerts and notice-based alerts. Badge on tab with warning count. Always auto-refresh 60s.
+  10. **Signups:** Three tables: Exchange notify signups (from POST /exchange-notify), Support tickets (with Resolve/Reopen actions via POST /admin/support/resolve), Rewards registrations (confirmed status). Data from GET /admin/signups.
+  11. **Export:** CSV download cards for: Exchange signups, Support tickets, Rewards registrations, Pre-ICO purchases, Faucet claims. Pure client-side CSV generation.
+
+### Node Installer (Windows NSIS) — v2 (2026-03-04)
+- **Installer:** ChronX-Node-Setup.exe (2.4 MB, NSIS, LZMA compressed)
+- **NSIS script:** /home/josep/chronx-node-installer.nsi on Vultr
+- **Installs to:** C:\Program Files\ChronX Node\ (uses $PROGRAMFILES64)
+- **Files:** chronx-node.exe, node-config.txt, README.txt, LICENSE.txt (NO VBScript)
+- **Autostart:** HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\ChronXNode registry key (replaces Task Scheduler + VBScript to avoid Defender Behavior:Win32/Persistence.A!ml)
+- **Start Menu:** "ChronX Node" and "Uninstall ChronX Node" in Start Menu\Programs\ChronX
+- **Uninstaller:** Kills process, removes Run registry key, cleans up old schtasks, removes files, preserves %USERPROFILE%\.chronx\
+- **Build:** `makensis /home/josep/chronx-node-installer.nsi` on Vultr (requires `apt install nsis`)
+- **Note:** Console window eliminated via `windows_subsystem = "windows"` attribute (added 2026-03-04). No flash on login.
+- **Reminder storage:** /home/Josep/admin-reminders.json (6 pre-loaded reminders)
+
+### Linux One-Line Install
+- **URL:** https://chronx.io/install-node.sh
+- **Usage:** `curl -sSL https://chronx.io/install-node.sh | sudo bash`
+- **Auto-detects:** x86_64 or aarch64, downloads correct binary
+- **Installs:** /usr/local/bin/chronx-node + systemd service (chronx-node)
+- **Service:** Enabled + started automatically, restarts on crash
 
 ---
 
@@ -507,4 +1198,579 @@ cd C:\Users\Josep\chronx\wallet-gui-temp && cargo tauri build
 
 ---
 
-*Maintained by Claude instances working on ChronX. Last updated: 2026-03-04.*
+### Session: 2026-03-04 (cont.) — Pricing Fixes, Distribution Redesign, Installer v2
+- **Pricing updated everywhere:** $0.00030→$0.00040, $0.00033→$0.00050, removed third tier ($0.00036). Updated: index.html, preico.html, faq.html, exchange.html, notices.json, js/translations.js (all 7 languages), ai-brief.md.
+- **KX distribution redesign:** Replaced single bar with two displays: Protocol Reserves (static genesis legend) + Consumer Activity (dynamic bar: user timelocks / email pending / spendable, excludes genesis locks). Added to: index.html (homepage), analytics.html, admin/index.html Economy tab.
+- **"Explore Data" right-justified** on homepage (was left-aligned).
+- **Exchange notify flow fixed:** exchange.html now POSTs to api.chronx.io/exchange-notify instead of redirecting to support.html. Emails stored in MySQL notify_signups table.
+- **Admin Signups + Export tabs:** Signups tab shows exchange notifys, support tickets (with resolve/reopen), rewards registrations. Export tab provides CSV downloads for all data types.
+- **Node installer v2:** Replaced VBScript + Task Scheduler with HKCU Run registry key to avoid Defender false positive. Uses $PROGRAMFILES64. No VBScript in install.
+- **Genesis locks count fixed:** analytics.html now shows 203 (was 103, missing 100 Node Rewards Harmonic locks).
+- **rpc.js:** Added getEmailLocks() and getChainStats() methods.
+
+### Session: 2026-03-04 (cont.) -- Multi-User Admin Auth + RPC Enhancements
+- **Multi-user admin authentication system:**
+  - Replaced single X-Admin-Key auth with bcrypt + session token auth (Bearer token)
+  - Two users: joseph (owner), usman (staff). Credentials in /home/josep/admin-users.json (bcrypt, chmod 600)
+  - 5 new API endpoints: POST /admin/login, POST /admin/logout, GET /admin/verify, POST /admin/change-password, GET /admin/login-history
+  - Session tokens in /home/josep/admin-sessions.json (24hr TTL, hourly cleanup)
+  - Audit logging to /home/josep/admin-audit.log (JSON lines per event)
+  - Rate limiting: 5 failed logins in 10 min = 30 min IP block (in-memory)
+  - Forced password change on first login (must_change_password: true)
+  - Legacy X-Admin-Key still accepted as fallback for backward compat
+  - Frontend: Username/password login form, forced password change screen, change password modal, user badge in header, login history panel at bottom of every tab (last 10 events, IP geolocation via ip-api.com, 60s auto-refresh)
+  - ROLE_PERMISSIONS object in admin.html JS (owner/staff identical for now)
+  - nginx CORS updated: Authorization header added to Access-Control-Allow-Headers
+  - bcryptjs npm package installed in /opt/chronx-notify/
+  - Red-halo admin favicon (admin/favicon-admin.ico) created with Python+Pillow
+- **RPC enhancements (node v3.4 rebuild):**
+  - `chronx_getNetworkInfo` now returns: peer_multiaddr, peer_count (live from libp2p swarm), node_version ("3.4"), uptime_secs (from Instant::now() at startup)
+  - P2P peer tracking: Arc<AtomicU64> shared between P2pNetwork and RpcServer, incremented on ConnectionEstablished, decremented on ConnectionClosed
+  - New RPC: `chronx_getEmailLockStats` -- aggregate stats for all email-based time-locks (pending_count, pending_chronos, pending_kx, claimed_count, reverted_count). Scans locks with 0xC5 extension_data marker.
+  - New types: RpcEmailLockStats in chronx-rpc types.rs
+  - Admin /admin/network-health endpoint updated: peer_count and uptime_secs now from RPC (was hardcoded 0 and systemd fallback)
+- **Website updates:**
+  - rpc.js: Added getEmailLockStats() method
+  - index.html + analytics.html: Replaced broken getEmailLocks() (required email_hash param) with getEmailLockStats() (zero params, returns aggregate)
+  - Node rebuilt and deployed on Vultr, all RPC methods verified
+- **Temp credentials (both must be changed on first login):**
+  - joseph (owner): ChronX-WgXC-4188
+  - usman (staff): ChronX-fuST-7422
+
+### 2026-03-04 (v1.4.28 APK + Calendar Tab + Homepage Cleanup + Cascade Sends)
+- **Wallet v1.4.28 Android APK built and signed.** GitHub release v1.4.28 created. APK uploaded to chronx.io/dl/chronx-wallet.apk. version.json already at 1.4.28.
+- **Homepage cleanup:** Removed Protocol Reserves legend and Consumer Activity bar from index.html. KPI bar (Total Supply, Circulating, KX Locked, Active Promises, Genesis Date) unchanged. analytics.html retains full distribution display. Cleaned up orphaned JS (GENESIS_LOCKED_CHRONOS, emailStats fetch, consumer bar DOM manipulation).
+- **Admin Calendar tab added (tab #7, between Economy and Alerts):**
+  - Backend: 4 new API endpoints on Vultr (GET/POST/PATCH/DELETE /admin/reminders). Data stored in /home/Josep/admin-reminders.json. CORS updated for PATCH/DELETE methods.
+  - Frontend: List view (grouped by overdue/due soon/upcoming/completed) + monthly calendar grid view. Summary badges. Add/edit/delete modal. Priority borders, category badges, expand/collapse detail text.
+  - Alerts integration: loadAlerts() now also fetches reminders; overdue = ERROR alert, within 7 days = INFO alert.
+  - Pre-loaded 6 reminders: Price Update (Jun 15), ICO Launch Prep (Sep 15), Node Rewards (Jan 1 2029), Code Signing Cert (Jun 1), wKX Bridge (Apr 1), Mac Mini (Mar 15).
+- **Cascade sends (2 recipients, 3,000 KX each, 6,000 KX total):**
+  - careyknightm@icloud.com: TX 2eadbe69..., Claim Code KX-N62F-B3W8-Y9MZ-I31C
+  - patie39@gmail.com: TX de5be4a8..., Claim Code KX-OF2P-UP09-YB61-X86V
+  - Both use standard friend cascade: 100/250/350/500/800/1000 KX at 0/7d/14d/21d/30d/60d
+  - Founder wallet SCP'd to Vultr, used, deleted immediately after.
+- **Founder balance:** ~99,973,300 KX (was ~99,979,300 before these sends)
+- **Website deployed:** 47 files, 0 failures.
+
+### 2026-03-04 (Faucet Tab Actions Fix)
+- **Faucet claim flow clarified:** `pending` = user registered email but hasn't entered wallet yet (via claim.html). `awaiting_approval` = user entered wallet, waiting for admin. Approve/Reject buttons now only show for `awaiting_approval`. Pending claims show "Awaiting wallet" label instead.
+- **Faucet flow:** POST /faucet/register → status=`pending` → user clicks email link → claim.html → enters wallet → POST /faucet/claim → status=`awaiting_approval` → admin approves → status=`claimed`.
+
+### 2026-03-04 (RPC Route Fix — Analytics KPIs Now Working)
+- **Root cause 1:** `rpc.chronx.io` DNS A record missing from Hostinger. Added `/rpc` location block to `api.chronx.io` nginx config proxying to `http://127.0.0.1:8545`. Updated `rpc.js` RPC_URL to `https://api.chronx.io/rpc`.
+- **Root cause 2:** Duplicate `Access-Control-Allow-Origin: *` headers — nginx `/rpc` block added `add_header` on proxied responses but ChronX node already sets its own CORS header. Chrome silently blocks duplicate CORS. Fixed by removing the `add_header` from nginx `/rpc` block (keep it only in the OPTIONS block).
+- **Cache busting:** Bumped `rpc.js?v=3` → `rpc.js?v=4` on analytics.html, explorer.html, index.html.
+- **Result:** All KPI cards on analytics.html and stats bar on index.html now show live data. All 4 RPC methods verified: getGlobalLockStats, getChainStats, getNetworkInfo, getEmailLockStats.
+- **TODO:** Add `rpc` A record pointing to `45.63.22.189` in Hostinger DNS when convenient (for backward compat). Not urgent since api.chronx.io/rpc works.
+
+### 2026-03-04 (Admin Transactions Tab Fix)
+- **Root cause:** "Show own wallets" checkbox unchecked by default. `KNOWN_WALLETS` includes Founder, Faucet, Public Sale, Node Rewards. Since ALL current transactions originate from Founder wallet, 100% of rows were filtered out → "No transactions found."
+- **Fix:** Set `checked` attribute on `#tx-show-own` checkbox so own-wallet transactions are visible by default.
+- **CORS note for /rpc:** The `/rpc` nginx location must NOT add `add_header 'Access-Control-Allow-Origin'` on non-OPTIONS responses — the ChronX node already sends this header. Only add CORS headers inside the `if ($request_method = OPTIONS)` block. Same pattern as the `/` location block for the notify API.
+
+### 2026-03-04 (Admin Transactions Date Fix)
+- **Root cause:** Transaction Time and Lock Until columns showed "Invalid Date". The rendering code did `new Date(tx.timestamp * 1000).toISOString()` then passed the ISO string to `fmtDate` — double-wrapping that sometimes failed. Also, `fmtDate` only showed date without time.
+- **Fix:** Pass raw Unix seconds directly to `fmtDate(tx.timestamp, true)` and `fmtDate(tx.lock_until, !farFuture)`. Updated `fmtDate` to accept optional `showTime` param. Numbers auto-detected as Unix seconds (< 1e12) vs milliseconds (> 1e12). Far-future locks (>1yr away) show date only: "Jan 1, 2029". Recent dates show time: "Mar 4, 2026, 07:50 PM".
+- **Duplicate fmtDate fix:** Calendar tab had its own `fmtDate(s)` that shadowed the main one. Renamed to `fmtCalDate(s)` — only used by calendar card rendering and day detail view. Prevents future shadowing bugs.
+- **fmtDate signature:** `fmtDate(dt, showTime)` — handles: numbers (Unix sec/ms), ISO strings, MySQL datetime strings, null/undefined. Always UTC. All admin tabs (Faucet, Pre-ICO, Transactions, Downloads, Alerts, Signups) use this single function.
+
+### 2026-03-04 (Remove Email Requirement from Claim)
+- **Investigation:** Node engine `TimeLockClaimWithSecret` handler in `chronx-state/src/engine.rs` NEVER checked email — only validates BLAKE3(claim_secret) matches stored hash, lock is Pending, matured, and within claim window. No `chronx_claimEmailLock` RPC exists; claims go through `chronx_sendTransaction` with signed `TimeLockClaimWithSecret` action.
+- **Actual blocker:** Wallet GUI `claim_by_code` in `commands.rs` discovered locks via 3 sources: (1) `chronx_getEmailLocks(BLAKE3(email))` — required registered claim email, (2) `getPendingIncoming(wallet)` — only wallet-addressed locks, (3) own timelocks. Email locks sent to external recipients were only discoverable via Source 1, requiring email registration.
+- **Fix:** Replaced all 3 sources with single call to `chronx_getCascadeDetails(BLAKE3(code))` which looks up locks by `claim_secret_hash` directly. No email needed. Error message changed from "Make sure your claim email is set in Settings" to "No pending locks found for this code."
+- **Privacy benefit:** Email/wallet mappings no longer required for claim. Possession of claim code alone is sufficient.
+- **No node changes needed.** Wallet cargo check passes. Requires wallet rebuild (v1.4.29) to deploy.
+- **claim_by_code flow (NEW):** `BLAKE3(uppercase(code))` → `chronx_getCascadeDetails(hash)` → filter Pending → maturity check → build `TimeLockClaimWithSecret` actions → `sendTransaction`.
+
+### 2026-03-04 (wallet.html Smart Device Detection)
+- **Device detection on wallet.html:** Added `navigator.userAgent` detection for Android, iOS, Mac, and Windows. On page load, shows a prominent gold-bordered banner above the platform cards with device-specific message and download button (for Android/Windows) or "coming soon" message (for iOS/Mac). Detected platform's card is reordered to appear first in the grid via `insertBefore`.
+- **Banner content:** Android gets direct APK download button; Windows gets direct .exe download button; iOS/Mac get "coming very soon" with alternative suggestion text.
+- **All 7 languages updated** in translations.js: 6 new keys (`detect_android_title`, `detect_ios_title`, `detect_ios_alt`, `detect_mac_title`, `detect_mac_alt`, `detect_win_title`) in EN, FR, DE, ZH, ES, RU, AR.
+- **Platform card IDs added:** `card-windows`, `card-android`, `card-mac`, `card-ios` for DOM reordering.
+- **CSS:** New `.device-banner` class with gold border, centered layout, large download button.
+- **Website deployed:** 47 files, 0 failures.
+
+### 2026-03-05 (Cascade Resend — michellehumphrey1313@gmail.com)
+- **Replacement cascade:** Previous send KX-114I-BL08-15LV-9FOU failed to confirm on chain.
+- **TX:** a1589e846a64d60676db7280fd6ea7554332ffe48c886a5fd39184cdf1a37ab4
+- **Claim Code:** KX-76YV-3JFW-SRTK-MVVA
+- **Email delivered:** Resend ID cd96ab41-484e-4527-93e0-5c12c17a065d
+- **Founder balance:** ~99,964,300 KX (was ~99,967,300)
+- **Founder wallet SCP'd to Vultr, used, deleted immediately.**
+
+### 2026-03-05 (Cascade Send — usmanuah9@gmail.com, 2nd)
+- **Cascade sent:** 3,000 KX total (6 stages: 100/250/350/500/800/1000 KX at 0/7d/14d/21d/30d/60d)
+- **TX:** fa153e08de150f1b92b9a8a8fbbe7162d4bd6d6c09da85fe1e5e04131238d6c5
+- **Claim Code:** KX-3AEM-NKHQ-D3DM-TZ0Z
+- **Email delivered:** Resend ID c7901c9b-6089-4b55-8a62-ae70d78afac6
+- **Founder balance:** ~99,967,300 KX (was ~99,970,300)
+- **Founder wallet SCP'd to Vultr, used, deleted immediately.**
+
+### 2026-03-05 (v1.4.33 — Tab Restructure, Cascade Send, Poke/Request, i18n)
+- **Tab restructure:** Mobile 3+1 tabs (Receive|Send|Promises|Settings). Desktop 5+1 (+Request+History). Settings on mobile includes History and Rewards as sub-views.
+- **Cascade Send UI (desktop only):** New `CascadeSendPanel` component. Mode toggle in Send tab: Simple Send / Cascade Send. Stage builder table with per-stage unlock options (Immediately, After X time, On date). "Use Standard Friend Template" pre-fills 6 stages (100→1000 KX over 60 days). Live preview sidebar. Confirmation modal. Uses existing `create_email_timelock_series` backend.
+- **Poke/Request system:** `RequestPanel` component with email/amount/note form. Trusted contacts CRUD (stored in `~/.chronx/trusted_contacts.json`). Notify API endpoints: POST /poke, GET /poke/pending/:email, POST /poke/decline, POST /poke/paid. Deep link: `chronx://poke/pay?request_id=...`.
+- **7-language translations:** EN, FR, DE, ZH, ES, RU, AR. Compile-time JSON via `include_str!()`. Globe picker in Settings. `t(lang, key)` function with English fallback.
+- **Node v3.6 auto-delivery sweep:** `sweep_matured_timelocks()` in engine.rs. Runs every 5 min alongside existing email sweep. Auto-credits recipients for matured non-email timelocks. New RPC: `chronx_getMaturedDeliveries`.
+- **Build split scaffold:** `mobile` feature flag in Tauri backend Cargo.toml. Runtime `is_desktop()` in WASM frontend.
+- **Builds:** Windows NSIS + Android APK (signed). Both deployed. GitHub release v1.4.33. version.json updated.
+
+### 2026-03-05 (v1.4.32 — Auto-refresh, History Fix, Security Hardening)
+- **CRITICAL FIX — New user claims:** `engine.rs:apply()` returned `UnknownAccount` for new users trying to claim email/cascade locks (their account never existed on chain). Fix: auto-create account when tx contains `TimeLockClaimWithSecret` and provides valid `sender_public_key` (derives to `tx.from`). Deployed as node v3.5.
+- **History shows received:** `get_incoming_transfers` RPC now scans DAG for `TimeLockClaimWithSecret` transactions FROM the queried account (step 3). Previously only found direct transfers and locks where `recipient_account_id` matched, which missed email claim receipts.
+- **Balance-based polling:** `poll_balance_update()` now detects balance OR nonce change (was nonce-only). 15s timeout (was 10s).
+- **Auto-refresh:** Silent `setInterval(10000)` on app mount refreshes `get_account_info` every 10 seconds without loading spinner.
+- **UI fixes:** Gold primary buttons (#d4a84b), claim code on separate line (`white-space: pre-line`), form clears after email send.
+- **Security hardening (node v3.5):**
+  - Memo character validation: reject control chars (0x00-0x1F) except tab (0x09) and newline (0x0A)
+  - Per-wallet rate limiting: 10 tx per wallet per 60 seconds (in-memory RateBucket in RPC server)
+  - nginx IP rate limiting: `limit_req_zone $binary_remote_addr zone=rpc:10m rate=30r/m` + `burst=10 nodelay`
+  - nginx request size limit: `client_max_body_size 10k` on rpc.chronx.io
+  - Already existed: memo 256-byte limit, zero-value rejection, self-send rejection, insufficient balance check
+- **Builds:** Windows NSIS + Android APK (signed). Both deployed. GitHub release v1.4.32. version.json updated.
+- **Usman's claim confirmed on chain:** Account `7xbB5n2rVfW4bx8goKscNpUWWtac7YGfshv7fW1UDaER` created (auto-create fix worked). Total accounts: 6.
+
+### 2026-03-05 (v1.4.31 — Balance Not Updating After Claim)
+- **Root cause:** `sendTransaction` is fire-and-forget — node returns TxId before processing. All 7 claim/send handlers did one immediate `get_account_info` call which returned stale balance (node hadn't confirmed yet). The "Claimed 100 KX!" message appeared but balance stayed at 0.
+- **Fix:** Added `poll_balance_update()` helper in `src/lib.rs` — polls `get_account_info` every 1 second for up to 10 seconds, comparing nonce to detect when node has confirmed the transaction. Falls back to a final refresh if nonce doesn't change. Applied to all 7 sites:
+  1. Account panel `claim_by_code` (line ~1711)
+  2. Promises panel `claim_timelock` (line ~2616)
+  3. Promises panel `claim_by_code` (line ~2761)
+  4. Promises panel `claim_email_timelock` (line ~2700) — previously had NO balance refresh at all
+  5. My Timelocks `claim_timelock` (line ~2897)
+  6. History incoming `claim_timelock` (line ~3378)
+  7. KX Send Now `send_transfer` (line ~1909) — same single-refresh issue
+- **Pattern matches existing code:** Timelock creation (lines 1943-1953) already used nonce-polling. Now all state-changing operations use the same pattern.
+- **Build:** Version bumped to 1.4.31. Windows NSIS + Android APK (signed). Both deployed to chronx.io/dl/. version.json updated.
+- **Website deployed:** 46 files, 0 failures.
+
+### 2026-03-04 (Block Explorer Fix — "Node unreachable" resolved)
+- **Root cause:** explorer.html called `chronx_getBlockHeight` and `chronx_getBlock` — neither exists on ChronX node (DAG-based, no blocks). Caused "Node unreachable" error on every page load.
+- **FIX 1 — rpc.js:** `getBlockHeight()` now calls `chronx_getChainStats` and returns `dag_depth`. Removed `getBlock()`, `getRecentBlocks()`, `getTimeLocks()`, `getEmailLocks()` (all broken or unused). Added `getRecentTransactions(n)` calling `chronx_getRecentTransactionsDetailed`. Bumped cache buster to `?v=5` on explorer.html, analytics.html, index.html.
+- **FIX 2 — explorer.html:** Replaced "Recent Blocks" table (Height/Hash/Txs/Time) with "Recent Transactions" table (Tx ID/Type/Amount/Status/Time). Color-coded type badges (Send=green, TimeLock=blue, EmailLock=orange, Cascade=purple, Claim=cyan, Cancel=red). Click tx row → detail panel with actions. Search: hex string → tx lookup, else → account lookup (removed block height search). Auto-refresh 20s.
+- **FIX 3 — Growing Scarcity:** Replaced broken `Rpc.getTimeLocks()` (requires account_id param) with `Rpc.getGlobalLockStats()` which returns `total_locked_kx` directly. Now shows "2,002.03M" (2B KX locked). Auto-refresh 60s.
+- **Translations updated:** All 7 languages (EN, FR, DE, ZH, ES, RU, AR) — new keys: `explorer_col_txid`, `explorer_col_type`, `explorer_col_amount`, `explorer_col_status`. Updated `explorer_recent` from "Recent Blocks" to "Recent Transactions". Updated `explorer_search_ph` to remove "block height".
+- **RPC method audit (Vultr):** `chronx_getBlockHeight` = Method not found. `chronx_getBlock` = Method not found. `chronx_getTransaction` = works (needs valid hex). `chronx_getAccount` = works. `chronx_getChainStats` = works. `chronx_getGlobalLockStats` = works. `chronx_getRecentTransactionsDetailed` = works.
+- **Website deployed:** 46 files, 0 failures. Explorer verified working.
+
+### 2026-03-04 (v1.4.30 — Live Notices System)
+- **Notices API backend (Vultr):** Created /opt/chronx-notify/notices-routes.js (separate Express route module). Public: GET /notices (version-filtered via semver), POST /notices/:id/seen, POST /notices/:id/dismissed. Admin: full CRUD (GET/POST/PATCH/DELETE). Data stored in /home/josep/notices.json. Wired into index.js via require(). Pre-loaded with "Pre-ICO is Live!" message notice.
+- **Admin Notices tab (#8, between Calendar and Alerts):** Notice cards with status badges (LIVE/INACTIVE/EXPIRED), type badges (URGENT/MESSAGE), stats (seen/dismissed/expires/version/author). Compose/edit modal: type toggle, title (60 char max), body (300 char max), character counters, expires date, min/max version, live preview panel. Alerts integration: urgent notice active >7 days = ERROR, no active notices = INFO.
+- **Wallet notice display (v1.4.30):** Updated Notice struct with `notice_type` (serde rename from JSON "type") and `dismissible` fields. `fetch_notices` now hits api.chronx.io/notices?version=X (was static chronx.io/notices.json). Maps `notice_type` → `severity` for backward compat. Urgent notices: non-dismissible red banner at top (filters severity=="urgent"||"critical" AND dismissible!=true). Message notices: dismissible gold cards in Settings (excludes urgent from count + list). New `mark_notice_dismissed` command reports to server + persists locally.
+- **Build:** Version bumped to 1.4.30 (tauri.conf.json, Cargo.toml). Windows NSIS built. Android APK built + signed (zipalign + apksigner). Both deployed to chronx.io/dl/. version.json updated.
+- **Cleanup:** Deleted static notices.json from website (api.chronx.io/notices is now source of truth).
+- **Website deployed:** 46 files, 0 failures.
+
+### 2026-03-04 (Cascade Send — michellehumphrey1313@gmail.com)
+- **Cascade sent:** 3,000 KX total (6 stages: 100/250/350/500/800/1000 KX at 0/7d/14d/21d/30d/60d)
+- **TX:** 790400e6a85cbfa51915ab44d1a5ab3afb995403e6a6a4fd9ddccfe2a0f56303
+- **Claim Code:** KX-114I-BL08-15LV-9FOU
+- **Email delivered:** Resend ID 640ebc87-bc3f-45b0-839a-bac928f61015
+- **Founder balance:** ~99,970,300 KX (was ~99,973,300)
+- **Founder wallet SCP'd to Vultr, used, deleted immediately.**
+
+### 2026-03-04 (v1.4.29 — Claim by Code Only + UX Fixes)
+- **FIX 1+2 — claim.html redesign:** Replaced single "Open in ChronX Wallet" button with primary "Copy Claim Code" gold button + secondary "Open in Wallet App" outline button. Added `#copy-hint` message after copy: "Now open ChronX Wallet → tap Receive → paste your code → tap Claim Now". Updated how-to-claim from 4 to 5 steps matching v1.4.28 wallet UI (Receive tab, "Got a claim code?" box). Fixed `copyCode()` with regex extraction (`KX-XXXX-XXXX-XXXX-XXXX` pattern) to prevent copying garbage after the code. Updated all 7 i18n languages (EN, ES, FR, DE, JA, KO, ZH): added `copyCode`, `copyHint`, `step5` keys; updated `step3`/`step4`.
+- **FIX 3 — Claim without email:** `claim_by_code` in commands.rs now uses single `chronx_getCascadeDetails(BLAKE3(code))` call instead of 3 email-based sources. No email registration needed. Removed "Set up claim emails in Settings" nudge from lib.rs.
+- **FIX 4 — Clearer error messages:** `claim_by_code` and `claim_email_timelock` in commands.rs now detect lock status: "Code not found" with format hint, "This code has already been claimed", "This code has expired — the KX was automatically returned to the sender". Status-aware via Claimed/Reverted checks on candidate locks.
+- **FIX 5 — Android keyboard:** Added `android:windowSoftInputMode="adjustPan"` to AndroidManifest.xml. Added `padding-bottom: 300px; overflow-y: auto;` to `.pin-screen` CSS.
+- **FIX 6 — Whitepaper v2.7:** Created `PRIVACY_ADDENDUM_v2.7.md` in chronx-docs repo (markdown since .docx can't be text-edited). Documents claim code privacy: no email-to-wallet mapping stored. Committed + pushed to GitHub.
+- **BUILD:** Version bumped to 1.4.29 (tauri.conf.json, Cargo.toml, version.json). Android APK built (4 architectures), signed with chronx-release.keystore, deployed to chronx.io/dl/chronx-wallet.apk.
+- **Release notes:** "Claim by code only (no email required), fix claim.html copy button, clearer error messages, Android keyboard fix, whitepaper v2.7 privacy update."
+
+### 2026-03-04 (Node Silent Window + Admin Faucet Fix + Audit)
+- **Node silent window:** Added `#![cfg_attr(target_os = "windows", windows_subsystem = "windows")]` to crates/chronx-node/src/main.rs. Cross-compiled for Windows. Rebuilt NSIS installer. New ChronX-Node-Setup.exe deployed to chronx.io/dl/. Windows node binary no longer shows console window.
+- **Admin faucet fix:** Approve/Reject buttons only show for `awaiting_approval` status (not `pending` — that means user hasn't entered wallet yet). `pending` shows "Awaiting wallet" label. Added status-specific labels for claimed/rejected/expired. Fixed `fmtDate` to handle null values, MySQL datetime format, and Unix timestamps. "Invalid Date" no longer appears.
+- **Wallet.json audit:** Confirmed founder wallet at `C:\Users\Josep\.chronx\wallet.json` matches `BCwHsGLPzSGqjpG7Ptqp3qVRNrqEKdW9Dt4g7NEQpwLT`. On-chain balance confirmed 99,973,300 KX. All B-checks passed (RPC, .exe, wallet UI, analytics labels, Humanity date).
+
+### 2026-03-06 (v1.4.45 — Version Checker Fix + Google Play + Poke Fixes)
+- **Version checker fix:** `check_for_updates` now uses `https://chronx.io/version.json` instead of GitHub releases API (which had stale v1.4.35 tag). Numeric version comparison replaces string equality — compares each segment as integers (1.4.45 > 1.4.35). On Android reads `android_version` field; on Windows reads `version` field.
+- **Google Play update link:** Android update button now says "Update on Google Play" and opens Play Store URL. Download URL on Android set to `https://play.google.com/store/apps/details?id=com.chronx.wallet`. Windows still uses chronx.io/dl/chronx-wallet-setup.exe.
+- **Poke bug fix — Trusted Contact checkbox:** Email send confirmation modal now checks if recipient is already a trusted contact before showing the "Add as Trusted Contact" checkbox. If already trusted, checkbox is hidden. Applies to both Send Now and Send Later paths.
+- **Website Android card:** Replaced APK download button with official Google Play badge image linking to Play Store. Removed "Install from unknown sources" note. Updated device-detection banner for Android users. All 7 website languages updated.
+- **version.json:** Independent platform versions — `android_version: "1.4.45"`, `version: "1.4.43"` (Windows). `android_download_url` points to Play Store.
+- **Builds:** Android AAB (signed with jarsigner, jar verified) + APK (signed with apksigner, v2+v3 verified). Deployed to chronx.io/dl/. Website deployed with Google Play links.
+
+### 2026-03-05 (v1.4.44 — Cold-Start Deep Link Root Cause Fix)
+- **Root cause found:** `on_open_url` does NOT fire on Android cold start. The Android launch Intent URL must be retrieved via `app.deep_link().get_current()` in `setup()`. All file-based approaches (v1.4.40–v1.4.43) failed because they depended on `on_open_url` writing files.
+- **Fix — Managed state approach:** Replaced all file-based deep link storage with Tauri managed state (`PendingDeepLink(Mutex<Option<String>>)`). In `setup()`, `app.deep_link().get_current()` retrieves the launch Intent URL and stores it in managed state. New `get_launch_deep_link` command reads and clears managed state. Removed `get_pending_deep_link`, `get_pending_poke_link`, `get_deep_link_debug` commands and all file I/O (`pending-deep-link.txt`, `pending-poke-link.txt`, `deep-link-debug.txt`).
+- **Frontend routing:** New `route_deep_link_url()` function parses the raw URL and routes to the correct handler: `chronx://claim` → extract code + tab 0, `chronx://pay`/`chronx://decline` → normalize to `chronx://poke/` prefix + `process_poke_link()`. Used in both PinSetup and PinUnlock cold-start paths.
+- **Warm-start unchanged:** `on_open_url` still fires for warm-start deep links and emits `deep-link-poke`/`deep-link-claim` events. Also updates managed state as fallback.
+- **Independent platform versions:** `version.json` now has `android_version` and `android_release_notes` fields separate from Windows `version`. `wallet.html` updated to show platform-specific version chips.
+- **Builds:** Android APK only (signed, v2+v3 verified). Deployed to chronx.io/dl/. version.json updated (Windows stays v1.4.43, Android v1.4.44).
+
+### 2026-03-06 (Server — Conditional Notification Emails + Rate Limiting)
+- **Task 1 — Conditional notification emails:** `/notify` endpoint now checks if recipient email has a verified wallet (via `verified_emails` table or `wallet_registry` confirmed=1). Three email variants: (1) **Verified recipient**: "You've got KX!" email with auto-claimed message + "Open Wallet App" button (chronx://receive deep link), no claim code shown. (2) **Future unlock (promise)**: "A KX Promise is waiting for you" email with unlock date, sender email, memo, claim code for later use, and "Download Wallet" button. (3) **Unverified + immediate**: Existing claim code email unchanged. Accepts optional `sender_email` in request body for personalized subjects.
+- **Verified emails persistence:** `/verify-email/confirm` now persists successful verifications to `verified_emails` MySQL table (email UNIQUE, wallet_address, verified_at). Upsert on duplicate. New helper `isEmailVerified(email)` checks both `verified_emails` and `wallet_registry` (confirmed=1).
+- **Task 2 — Faucet claim rate limiting:** `/faucet/claim` now rate-limits to 10 attempts per IP per hour. Uses in-memory Map (no external deps). Returns 429 "Too many attempts. Please try again later." on exceed. Hourly cleanup interval prevents memory leaks.
+- **Database:** New `verified_emails` table: `id, email (UNIQUE), wallet_address, verified_at`. Auto-created on startup.
+- **Deploy:** Backed up index.js, uploaded patched version, restarted chronx-notify service. Health check passed.
+
+### 2026-03-05 (v1.4.43 — Deep Link Debug + Email Verify Fix)
+- **FIX 1 — Deep link debug logging:** Added `deep-link-debug.txt` file written by `on_open_url` handler showing: raw URL, matched branch, normalized URL, and which files exist after routing. New `get_deep_link_debug` Tauri command reads+consumes this file. Frontend displays debug info as `[DL DEBUG]` message after PIN unlock when a deep link was received. Reverted v1.4.42's aggressive file deletion — `get_pending_poke_link` and `get_pending_deep_link` now only delete their own file (the v1.4.42 change made `get_pending_poke_link` delete the claim file before `get_pending_deep_link` could read it).
+- **FIX 2 — Email verification code invalid:** Root cause: `confirm_verify_email` Tauri command read `wallet_id` from keyfile, while `send_verify_email` got it from the frontend. If they differed, the server's `wallet_id !== wallet_id` check silently rejected with generic "Invalid or expired code" error. Fixed: (a) `confirm_verify_email` now accepts optional `walletId` param from frontend (same pattern as `send_verify_email`); (b) frontend passes `info.account_id` to both send and confirm calls; (c) server returns specific error messages ("No verification code found", "Code expired", "Wallet mismatch", "Incorrect code") instead of generic "Invalid or expired code"; (d) server debug logging added (`[VERIFY DEBUG]`) to see exactly which check fails; (e) backend returns `Err(specific_message)` instead of `Ok(false)` so frontend shows the actual error.
+- **Builds:** Android APK (signed, v2+v3 verified). Deployed to chronx.io/dl/. Server-side changes deployed to api.chronx.io.
+
+### 2026-03-05 (v1.4.42 — Deep Link Population Fix)
+- **PROBLEM A — Claim code not populating:** `AccountPanel` read `deep_link_code` signal with `get_untracked()` at component init. On cold start, the signal is set AFTER `AccountPanel` mounts (async PIN flow sets `app_phase=Wallet` first, then calls `get_pending_deep_link` later). Fix: replaced one-time `get_untracked()` with a reactive `Effect::new` that watches `deep_link_code` and sets `home_claim_code` whenever it changes. Effect consumes the signal by clearing it after copy.
+- **PROBLEM B — Stale files persisting:** Both `get_pending_deep_link` and `get_pending_poke_link` backend commands now delete BOTH pending files (claim + poke) immediately after reading, before returning data. This ensures no stale file can fire on the next cold start regardless of which link type was tapped.
+- **Warm-start claim listener:** Added `deep-link-claim` event listener in frontend (mirrors existing `deep-link-poke` listener). On warm start, claim deep links now set `deep_link_code` signal and navigate to Receive tab.
+- **Builds:** Android APK (signed, v2+v3 verified). Deployed to chronx.io/dl/.
+
+### 2026-03-05 (v1.4.41 — Deep Link Routing Fix)
+- **Root cause:** Three bugs caused cross-contamination between deep link types: (1) Backend used independent `if` blocks instead of `if/else if`, allowing a URL to match multiple handlers; (2) Stale `pending-poke-link.txt` from a previous decline would persist and trigger the decline modal on a subsequent claim link cold start; (3) `process_poke_link` pattern matching (`url.contains("poke/pay")`) wouldn't match the simplified `chronx://pay` format.
+- **Backend fix (lib.rs):** Rewrote `on_open_url` as strict `if/else if` chain with three routes: `chronx://pay` OR `chronx://poke/pay` → writes normalized `chronx://poke/pay` URL to `pending-poke-link.txt`; `chronx://decline` OR `chronx://poke/decline` → same file with normalized decline URL; `chronx://claim` → writes code to `pending-deep-link.txt`. Each route **deletes the other pending file** to prevent stale data.
+- **Frontend fix (process_poke_link):** Updated pattern matching to detect `/pay` or `chronx://pay` (and same for decline) so both URL formats work.
+- **Frontend fix (cold-start paths):** Changed both PinSetup and PinUnlock paths from independent `if`/`if` to `if`/`else if` — only ONE deep link type is processed per cold start. Poke links checked first (higher priority), then claim links.
+- **Builds:** Android APK (signed, v2+v3 verified). Deployed to chronx.io/dl/.
+
+### 2026-03-05 (v1.4.40 — Pre-Play Store Fixes)
+- **Claim code deep link (FIX 1):** Fixed PinUnlock path `active_tab.set(1)` → `active_tab.set(0)`. Claim codes now navigate to Receive tab where the claim code field lives.
+- **PAY NOW deep link (FIX 2):** `process_poke_link` now sets `active_tab.set(1)` (Send tab) BEFORE the `get_poke_by_id` network call, so navigation works even if API is slow on cold start.
+- **Decline button (FIX 3a):** Notify API poke email Decline button changed from `#333` (gray) to `#dc2626` (red). Restart chronx-notify service.
+- **Decline deep link (FIX 3b):** `process_poke_link` decline path now sets `decline_request_id` from URL immediately and opens modal even if `get_poke_by_id` fails. No navigation — stays on current screen with modal overlay.
+- **Email verify wallet ID (FIX 4):** `send_verify_email` backend now accepts optional `walletId` param. Frontend passes `info.account_id` from app state. Falls back to keyfile read if not provided.
+- **version.json (FIX 5):** Updated to 1.4.40 and verified via curl.
+- **Trust gate message color (FIX 6):** Added `.msg.warning` CSS class (gold border/text on dark bg). RequestPanel trust gate message uses "msg warning" instead of "msg success".
+- **v1.4.39:** Email send confirmation modal with "Add as Trusted Contact" checkbox (desktop only).
+- **Builds:** Windows .exe + Android APK (signed). Both deployed to chronx.io/dl/.
+
+### 2026-03-05 (v1.4.38 — Desktop Fixes)
+- **Cascade Send layout (FIX 1):** Restructured to 60/40 two-column layout (min 700px). Left column: form (email, memo, stage builder, + Add Stage, template). Right column: preview card with border/background, Send Cascade button (gold, full width), fee-free line, status messages.
+- **Request tab trust gate (FIX 2):** Before calling `send_poke_request`, checks `is_trusted_contact` for recipient email. If not trusted, blocks send with message: "You can only request money from Trusted Contacts. Send them KX first to add them as a contact."
+- **Node URL in Advanced (FIX 3):** Moved Node URL to collapsed "Advanced Settings" section at bottom of desktop Settings. Collapsed by default. Shows tooltip "Only change this if you know what you're doing." Input is read-only until Edit button clicked.
+- **Poke badge on app load (FIX 4):** Added initial poke count fetch immediately after PIN unlock (both PinSetup and PinUnlock paths), same logic as 10s interval poll. Badge shows on Send tab from first render.
+- **Admin dashboard balance fix (FIX 5):** Changed `data.result.balance` to `data.result.balance_kx` (with `balance_chronos` fallback) in admin/index.html.
+- **Website:** Added "Desktop Version — Additional Features" section to wallet.html (Cascade Send, Request Money, Full Transaction History, Cold Storage Generator, Export Private Key, AI Agent Auto Payments, Node URL Configuration). All 7 languages translated.
+- **Builds:** Windows .exe only. Deployed to chronx.io/dl/.
+
+### 2026-03-05 (v1.4.37 — Deep Link Cold Start Fix)
+- **Root cause: Android cold start event timing.** On Android, deep link URLs fire during native `setup()` before WASM frontend loads. Events emitted by `handle.emit()` were lost. Fixed by writing poke deep link URL to `pending-poke-link.txt` file (same pattern as claim codes with `pending-deep-link.txt`).
+- **PAY NOW deep link (FIX 1):** File-based `get_pending_poke_link` command reads and consumes the pending URL after PIN unlock. Shared `process_poke_link()` function handles both file-based (cold start) and event-based (warm start) paths. Navigates to Send tab (tab 1) and pre-fills Email + Send Now form.
+- **Decline deep link (FIX 2):** Same file-based approach. Opens decline modal (red header, block sender checkbox) instead of navigating. poke.html Decline button changed from `#333` (black) to `#ef4444` (red).
+- **Email input width (FIX 3a):** Replaced flex layout with stacked block layout: input `width:100%` on its own line, button `width:100%` below. No flex = no RTL collapse.
+- **Email verify wallet_id (FIX 3b):** Added empty check for `wallet_id` in `send_verify_email` — returns clear error instead of sending empty string to API (which caused "Missing required fields" server error).
+- **Android deep link path fix:** Both `pending-deep-link.txt` and `pending-poke-link.txt` now use `app.path().app_data_dir()` on Android instead of `HOME`/`USERPROFILE` env vars (which aren't set on Android).
+- **Builds:** Android APK (signed). Deployed to chronx.io/dl/.
+
+### 2026-03-05 (v1.4.36 — Pre-Play Store Fixes)
+- **Poke PAY NOW pre-populate:** Deep link `chronx://poke/pay?request_id=X` fetches poke details via new `GET /poke/:request_id` API endpoint, navigates to Send tab, switches to Email + Send Now, and pre-fills recipient email, amount, and memo. After successful send, calls `confirm_poke_paid`.
+- **Poke Decline red + modal + block:** Decline deep link opens modal with red "Request Declined" header, shows sender email, includes "Block this sender" checkbox. Blocking adds sender to `blocked_senders` in WalletConfig. Blocked senders' pokes are filtered from badge count.
+- **Email verification input RTL fix:** Root cause was `body dir="rtl"` for Arabic/Urdu collapsing flex input. Fixed with `dir="ltr"` + `direction:ltr` on both the flex container and input. Input uses `flex:1 1 0%;min-width:50px;width:0` to prevent collapse. Email list rows also get explicit `dir="ltr"` + `direction:ltr` on container.
+- **Poke badge on all platforms:** Removed desktop-only guard — poke count now polls on mobile too.
+- **New backend commands:** `get_blocked_senders`, `add_blocked_sender`, `is_sender_blocked`, `get_poke_by_id`.
+- **Notify API:** Added `GET /poke/:request_id` endpoint returning single poke details.
+- **Builds:** Android APK (signed). Deployed to chronx.io/dl/.
+
+### 2026-03-05 (v1.4.35 — Critical Email Send Fix + UI Fixes)
+- **CRITICAL FIX — Email send restored:** `create_email_timelock` was broken on both platforms since v3.5 security hardening added a 10KB nginx body limit on rpc.chronx.io. Dilithium2 TimeLockCreate transactions (signature 2420B + public key 1312B + recipient key 1312B) hex-encode to ~10,900 bytes, exceeding the limit. Nginx returned 413 HTML error, which reqwest couldn't parse as JSON → "Bad RPC response: error decoding response body". Fix: increased `client_max_body_size` from 10k to 64k on rpc.chronx.io nginx config.
+- **RPC error diagnostics:** `rpc_call()` now reads response as text first, checks HTTP status, and includes status code + body preview in error messages. Timeout increased from 5s to 15s.
+- **Email verification input CSS fix:** Input was ~1 character wide on mobile. Added `min-width:0;width:100%;box-sizing:border-box` alongside `flex:1`.
+- **Empty email validation:** "Send Verification Code" now shows "Please enter an email address" / "Please enter a valid email address" instead of silently failing.
+- **RTL text bleed fix:** Email addresses now render with `dir="ltr"` and `unicode-bidi:embed` to prevent Arabic/Urdu RTL direction from reversing email text.
+- **Poke request badge on Send tab:** Red badge showing pending poke count appears on the Send tab button. Polls `get_pending_pokes` every 10 seconds alongside balance refresh.
+- **Privacy Policy page:** Created `privacy.html` with full GDPR-style privacy policy. Added "Privacy Policy" footer link to all 14 site pages. Added `footer_privacy` i18n key in all 7 website languages.
+- **Builds:** Windows NSIS, Android APK (signed). Both deployed to chronx.io/dl/. GitHub release v1.4.35.
+
+### 2026-03-05 (v1.4.34 — Settings i18n + Email Verification + Urdu + UI Polish)
+- **Complete Settings i18n:** ~55 new translation keys across all 8 languages (EN, FR, DE, ZH, ES, RU, AR, UR). All hardcoded Settings panel strings now use `t()`.
+- **Email verification security fix:** New API endpoints `POST /verify-email` and `POST /verify-email/confirm` on Vultr (in-memory, 6-char code, 10-min expiry, rate limited 3/hour). Three new Tauri commands: `send_verify_email`, `confirm_verify_email`, `get_verified_emails`. `WalletConfig` gains `verified_emails` field. UI: "+ Add Email" triggers verification code send; 6-char code input; verified emails show green checkmark; unverified show amber warning with "Send Verification Code" link.
+- **Urdu (8th language):** Full ur.json with 115 keys. RTL support (same as Arabic). Added to language picker with Pakistani flag.
+- **Desktop-only gating:** Node URL and Cold Storage sections hidden on mobile via runtime `if desktop {}` check.
+- **View Promises fix:** Navigation link now goes to Promises tab (was Send tab). Text uses translated `view_promises` key. `lang` param added to AccountPanel.
+- **QR code modal:** Converted from inline toggle to fixed centered overlay with close button.
+- **Cascade Send layout:** 60/40 two-column split (flex: 3/2) with sticky preview sidebar.
+- **Promises empty state:** Centered package icon with translated title/subtitle.
+- **Builds:** Windows NSIS + MSI, Android APK (signed). Both deployed to chronx.io/dl/. GitHub release v1.4.34.
+
+### 2026-03-06 (ICO Pricing Update — $0.00319/KX, $20M Raise Target)
+- **ICO price corrected:** $0.00055 → $0.00319 per KX. Raise target: $20M from 6,268,000,000 KX public sale. Fully diluted market cap: ~$26.4M.
+- **Pre-ICO Early (live now):** $0.00040 → $0.001755 (45% off ICO). Pre-ICO Standard (Jun 22): $0.00050 → $0.002297 (28% off ICO).
+- **chronx.io updated:** All price references across index.html, preico.html, faq.html, tokensale.html, exchange.html, disclaimer.html, js/translations.js (all 7 languages). ICO tiers replaced with single ICO price model.
+- **xchan.io updated:** KX/USDC rate display → 0.00319. Rate constant in JavaScript.
+- **misai.io updated:** KX per decision 1.1 → 0.4 (~$0.00128). All calculators, info boxes, homepage. Server: xchan.js KX_USD_RATE_FALLBACK → 0.00319, KX_PER_DECISION_WITH_MARGIN → 0.4, PLATFORM_MARGIN → 0.12 (12%).
+- **Whitepaper v3.1:** Created from v3.0. Updated: compute fuel table (flat 0.4 KX), pricing table (Pre-ICO Early/Standard/ICO), KX/USD rate, Pre-ICO Pricing section content, roadmap ICO target, MISAI margin note, expanded legal disclaimer. Committed to chronx-docs.
+- **All three sites deployed:** chronx.io (51 files), misai.io (9 files), xchan.io (1 file). All 0 failures. misai-api restarted.
+
+### 2026-03-06 (v1.4.55 Dual AAB Build — Internal + Production)
+- **Version bump:** 1.4.54 → 1.4.55 in tauri.conf.json, src-tauri/Cargo.toml.
+- **Internal AAB:** `chronx-wallet-v1.4.55-internal.aab` — versionCode 1004055 (auto-generated from Tauri version "1.4.55"). For Play Console Internal Testing track.
+- **Production AAB:** `chronx-wallet-v1.4.55-production.aab` — versionCode 2004055 (hardcoded in build.gradle.kts during build). For Play Console Production track.
+- **Version code convention locked:** 1XXXXXX = internal testing, 2XXXXXX = production. Tauri auto-generates 1XXXXXX from version string; production builds must hardcode versionCode in build.gradle.kts (then restore after build).
+- **16KB page size:** Confirmed via `.cargo/config.toml` rustflags `-Wl,-z,max-page-size=16384` on all 4 Android targets (aarch64, armv7, i686, x86_64).
+- **Tauri auto-gen caveat:** `tauri.properties` is auto-regenerated on every build from `tauri.conf.json`. Cannot rely on editing this file for custom versionCodes. Must edit `build.gradle.kts` directly.
+- **Both AABs signed:** jarsigner with `chronx-release.keystore`, alias `chronx`.
+- **version.json updated:** android_version → "1.4.55".
+
+### 2026-03-06 (Admin Portal — Usman Password Reset)
+- **Password reset:** Usman's admin password reset to temporary `ChronX-Usman-2026` in `/home/josep/admin-users.json` on Vultr.
+- **must_change_password:** Set to `true` — Usman will be prompted to change on next login.
+- **Admin users file:** `/home/josep/admin-users.json` — bcrypt-hashed passwords, roles (owner/staff), shared by ChronX admin and MISAI admin portals.
+
+### 2026-03-06 (MISAI — Binance API Integration)
+- **Binance spot trading:** International users (Pakistan, HK, 180+ countries) can connect Binance API keys. Crypto only, no stocks. Not available in US.
+- **Server DB:** Added columns `binance_api_key` (AES-256 encrypted), `binance_secret_key` (AES-256 encrypted), `binance_mode` (default 'spot') to agents table.
+- **Server endpoints (index.js):**
+  - `POST /api/agent/verify-binance` — verifies keys against `api.binance.com/api/v3/account` (HMAC-SHA256 signed), returns `{ valid, balances }`.
+  - `POST /api/agent/:id/connect-binance` — verifies, encrypts with AES-256-GCM, stores in DB. Returns `{ success, balances }`.
+  - `GET /api/agent/:id/binance-status` — fetches live Binance account, returns `{ connected, balances, total_usdt_value }`.
+- **Engine (engine.js):** `executeBinanceTrade()` — executes MARKET orders on Binance. BUY uses `quoteOrderQty` (dollar amount). SELL fetches position from Binance account, adjusts for LOT_SIZE filter precision. Errors logged, never crash engine.
+- **arena.html:** Binance connection section with API key/secret inputs, verify button, green checkmark + balances on success. Credentials passed to deploy request. "Coming Soon" card updated to "US Brokerages" (Robinhood | Alpaca).
+- **my-agent.html:** Trading Mode selector now has 4 options: Simulated (active), Binance (check status), Alpaca (coming soon), Robinhood (coming soon). Binance panel shows USDT balance, positions, connection status.
+- **MISAI service name:** `misai-api` (systemctl restart misai-api). Port 4040.
+- **misai.io deployed:** 9 files, 0 failures.
+
+### 2026-03-06 (MISAI Debug — Multi-Agent API + Tab Bar Fix)
+- **Root cause:** `GET /api/agents?wallet=X` endpoint did not exist on server. Frontend call returned 404, so tabs never rendered.
+- **Server patches (index.js on Vultr):**
+  - Added `GET /api/agents?wallet=X` — returns array of agent objects with agent_id, agent_name, status, current_usd, starting_usd, return_pct, kx_balance, decision_interval_minutes, trade_duration_hours.
+  - Added `POST /api/agents/exit-all` — accepts `{ wallet }`, pauses all active agents, sells all positions to cash at market price.
+  - Added `trade_duration_hours` support in `PUT /api/agent/:id/settings` — recalculates trade_end_at from now.
+- **Frontend fix (my-agent.html):** Tab bar and portfolio summary now show with >= 1 agent (was > 1). Added "+ New Agent" link tab pointing to arena.html. Fixed agentId string vs number comparison for active tab highlighting. Added fallback for no wallet param (builds single-agent tab from current page data).
+- **Service name:** `misai-api` (not `misai`). Systemd unit: `/etc/systemd/system/misai-api.service`. Port: 4040 on 127.0.0.1. Nginx proxy: api.chronx.io/misai/ → localhost:4040/.
+- **misai.io redeployed:** 9 files, 0 failures.
+
+### 2026-03-06 (MISAI Major Features — Multi-Agent Tabs, Asset Selector, Session/Interval Editing)
+- **Asset selector (arena.html):** Multi-select chip/pill UI for choosing tradeable assets. Categories: Crypto (BTC, ETH, SOL, DOGE, ADA, XRP, AVAX, LINK, DOT, MATIC), Stocks (AAPL, MSFT, NVDA, TSLA, GOOGL, AMZN, META, AMD, NFLX, JPM), ETFs (SPY, QQQ, IWM, VTI, ARKK, GLD). Full names shown. Toggle all per category. BTC/ETH/AAPL/MSFT/NVDA selected by default. Included as `selected_assets` in deploy request.
+- **Session length options (arena.html):** Added 8h, 1 month, Custom (shows hours input). Removed 48h.
+- **Editable session length (my-agent.html):** Session Length setting row with Edit button. Dropdown: 8h/24h/3d/1wk/1mo. Saves via PUT /api/agent/:id/settings.
+- **Adjustable interval with KX calculator (my-agent.html):** Interval setting now has Edit button. Dropdown: 5/15/30/60 min. Live KX cost calculator shows decisions/day, KX/day, USD/day.
+- **Multi-agent tabs (my-agent.html):** Loads all agents for wallet via GET /api/agents?wallet=X. Tab bar below portfolio summary. Each tab shows agent name + P&L%. Click switches active agent. URL updated via history.replaceState.
+- **P&L tab colors:** Green bottom-border for profitable, red for losing, muted for neutral. Applies to both tab border and P&L text.
+- **Pulse animation:** When a new decision is detected (decision count increases), the tab briefly glows cyan (0.6s ease, 2 cycles).
+- **Portfolio summary bar (my-agent.html):** Shows total portfolio value, weighted return, total KX across all agents. Only visible when >1 agent.
+- **Exit All to Cash button:** In portfolio summary bar. Confirmation modal. Calls POST /api/agents/exit-all with wallet address.
+- **misai.io deployed:** 9 files, 0 failures.
+
+### 2026-03-06 (MISAI Content Additions — Why MISAI, Transparency, Trust Line)
+- **"Why MISAI?" section:** Added to index.html after hero. 3 cards: Always Watching (⚡), Never Emotional (🧠), Always Current (📡). CSS grid layout with `.why-misai`, `.why-grid`, `.why-card` classes.
+- **Transparency disclaimer box:** Added to both index.html and arena.html. Cyan left-border box with "Radical Transparency" header explaining AI decision cost breakdown (0.4 KX ≈ $0.00128, ~88% API costs, ~12% platform margin).
+- **Hero trust line:** Added `🔒 MISAI never touches your money` below hero CTA on index.html. Also added bold trust statement on arena.html.
+- **"Daily KX Cap" renamed:** → "Daily KX Spending Cap (AI fuel)" across my-agent.html (label, tooltip, all references).
+- **misai.io deployed:** 9 files, 0 failures.
+
+### 2026-03-06 (Auto-Delivery System — Matured Timelock Pre-Registration)
+- **New MySQL table:** `claim_registrations` — stores wallet pre-registrations against claim codes (claim_code UNIQUE, wallet_address, amount_kx, unlock_at, is_series, status, delivered_at, tx_hash, error_msg)
+- **POST /claim/register endpoint:** Recipients register wallet address for a claim code. Validates code against on-chain locks via `chronx_getCascadeDetails` RPC. If locks already matured, triggers immediate delivery. Returns lock details with amounts and unlock dates.
+- **GET /claim/status/:code endpoint:** Check registration and delivery status for a claim code.
+- **Auto-delivery cron (every 5 min):** Scans `claim_registrations` for matured locks (status='registered' AND unlock_at <= now). Uses relay wallet to claim-by-code then transfer to registered wallet. For series, re-registers with next unlock_at after partial delivery.
+- **Delivery confirmation email:** New `buildAutoDeliveryConfirmEmail()` template — notifies recipients when KX is auto-delivered to their wallet.
+- **claim.html redesign:** Primary flow changed from "copy claim code" to "Register Wallet for Auto-Delivery". Wallet address input form, success state with lock details table showing amounts/dates/status. Manual claim (copy code / open in app) moved to secondary section below. Status check on page load shows if already registered.
+- **Email template updates:** Promise email CTA changed from "Download Wallet" to "Register Wallet for Auto-Delivery" with explanation. Series email how-to updated with auto-delivery option. Single claim email updated with registration link.
+- **i18n updated:** All 7 languages (EN, ES, FR, DE, JA, KO, ZH) updated with new `emailClaimDesc` and `registerDesc` keys.
+- **blake3 v2.1.4 installed:** npm package for BLAKE3 hashing (matches Rust-side claim code hashing).
+- **Cascade/series handling:** Registration stores is_series flag. Cron checks for remaining pending locks after delivery, re-registers with next unlock_at for ongoing series.
+- **CORS updated:** chronx-notify now accepts requests from both `chronx.io` and `www.chronx.io`.
+- **Files modified:** `/opt/chronx-notify/index.js` (server), `C:\Users\Josep\chronx-website\claim.html` (frontend)
+- **Deployed:** chronx-notify restarted, claim.html deployed to chronx.io via FTP
+
+### 2026-03-07 (Promise Email System — Immediate Notification on Delayed Send)
+- **Immediate Promise email on delayed send:** /notify endpoint now sends a "You've Been Made a Promise" email immediately when unlock_at is in the future (>60s from now). Fires for BOTH verified and unverified recipients. Subject: "You just received a Promise of X KX 🔒". Body includes: amount in KX, USD equivalent (amount × 0.00319), unlock date (formatted), gold info box "You don't need to do anything — KX will arrive automatically on [date], guaranteed by the blockchain", sender identity (email > ....last6 wallet > Someone), memo if present, CTA button to chronx.io/wallet.html.
+- **Delivery confirmation email upgraded:** Auto-delivery success email now reads "A Promise made to you on [original send date] just delivered ✅". References created_at from claim_registrations as original promise date. Body includes "This Promise was kept by the ChronX blockchain — exactly as guaranteed." and memo from original send if available.
+- **Sender identity wired end-to-end:** commands.rs updated — notify_email_recipient now includes sender_wallet (from keypair) and sender_email (from WalletConfig) in /notify POST payload. Server builds senderDisplay: email > ....last6 > "Someone". Stored in claim_registrations.sender_display for delivery email retrieval. NOTE: requires wallet rebuild to activate — existing wallet versions still omit sender fields.
+- **"Someone" bug confirmed and fixed in code:** Delayed sends currently show "Someone just sent you a Promise" until next wallet build. Fix is in commands.rs, pending rebuild.
+
+### 2026-03-07 (MISAI — Deploy Form Redesign + Engine Intelligence Upgrade)
+- **arena.html deploy form — full redesign:** Removed broker connection section (Binance API inputs, Coming Soon brokerages) and individual ticker chip selector (30 chips). Replaced with 4 smart option grids:
+  - Asset Universe: Crypto (24/7) / US Stocks (NYSE·NASDAQ) / ETFs / Full Universe — single select
+  - Time Horizon: Day Trader (minutes-hours) / Swing Trader (days-weeks) / Long-Term (weeks-months) — single select
+  - Risk Profile: Conservative / Balanced / Aggressive — single select
+  - Decision Interval: 5/15/30/60 min with KX/day cost shown — single select
+  - Session Length: 1 Day / 1 Week / 1 Month / No Limit — single select
+- **Smart market hours note:** When Asset Universe = Stocks, ETFs, or Full Universe, a cyan info box appears: "Smart market hours enabled — AI pauses automatically when US markets are closed. KX only burns during trading hours."
+- **Deploy button:** Now reads "Deploy in Demo Mode →" with note "Starts in demo mode. Connect a live broker from your agent dashboard anytime." Broker setup is intentionally deferred to agent dashboard.
+- **New DB columns on agents table:** asset_universe TEXT DEFAULT 'crypto', time_horizon TEXT DEFAULT 'swing_trader', risk_profile TEXT DEFAULT 'balanced', market_hours_smart INTEGER DEFAULT 1.
+- **engine.js — strategy-aware system prompt:** universeMap, horizonMap, riskMap objects injected into Claude system prompt per agent settings. Universe constrains which asset classes AI may trade. Horizon defines holding style (day/swing/long-term). Risk profile sets position sizing limits (20%/40%/unlimited max per position).
+- **engine.js — NYSE market hours smart-pause:** Before executing decision for stocks/ETFs agents, checks if current UTC time is Mon-Fri 13:30-20:00 UTC (NYSE hours). Outside hours: skips decision, logs "Market closed — resuming at next open", does NOT burn KX. Crypto and full-universe agents run 24/7 for crypto positions.
+- **misai.io deployed:** 9 files, 0 failures. misai-api restarted.
+
+### 2026-03-07 (MISAI — Agent Tabs UI Polish)
+- **my-agent.html tabs:** Redesigned to look unmistakably like browser-style tabs. Raised tab style with border on top/sides, bottom border matches surface background (creates "connected to content" illusion). Active tab: cyan agent name, rgba(0,229,255,0.08) tint, border-bottom-color matches surface. Hover: surface2 background. Tabs sit flush against content panel below. "+ New Agent" tab styled with dashed cyan border.
+
+### 2026-03-07 (Whitepaper v3.2 — Full Rebuild from JS)
+- **Whitepaper v3.2:** Built from scratch using docx JS library (not XML editing — eliminates corruption risk). 347 paragraphs, all validations PASSED. Output: chronx-whitepaper-v3.2.docx.
+- **Changes from v3.1:** Version bump + subtitle "· The AI Promise". Abstract: expanded to introduce AI Promise + third-party notice for XCHAN/MISAI/Verifas. MISAI overview (7.1) + XCHAN overview (10): both now open with "independent third-party... not operated by or affiliated with ChronX". New Section 11 — The AI Promise (4 subsections: 11.1 Four-Step Flow, 11.2 No Protocol Change Required, 11.3 Use Cases, 11.4 Risk Disclosure). Sections renumbered: Security→12, Governance→13, Roadmap→14, Risk→15. Roadmap: new row "2028+ · AI Promise · AI-managed time-locked value transfer".
+- **AI Promise custody decision (IMPORTANT — DO NOT BUILD YET):** Current AI Promise design (KX→XCHAN→USDC→MISAI→USDC→XCHAN→KX) has real legal/custody problems: unclear custody during MISAI trading, no mechanism for court orders, death/estate issues, no strategy modification after lock. Correct path: KX-native trading pairs only (KX/USDC, KX/WBTC on Uniswap), funds never leave ChronX protocol. Requires wKX liquidity on Base — 2028 feature. Simple time-locked Promise (no AI, no USDC) is ready now and has zero custody ambiguity. DO NOT ship AI Promise until KX-native pairs exist and a lawyer reviews.
+- **Whitepaper committed to chronx-docs locally.** GitHub push: run `cd C:\Users\Josep\chronx-docs && git push origin main`
+
+---
+
+## GENESIS 7 — VERIFIED DELIVERY PROTOCOL
+Status: IMPLEMENTED AND LIVE (v7.0, re-genesis 2026-03-08)
+Specified: 2026-03-07 | Implemented: 2026-03-08
+
+### What This Is
+Genesis 7 adds the Verified Delivery Protocol to the
+ChronX node. Implemented across 13 Rust source files.
+Re-genesis v7.0 completed 2026-03-08. All RPC methods live.
+Placeholder Verifas verifier registered on-chain.
+
+### Files To Modify
+- crates/chronx-core/src/constants.rs
+  Add all immutable compile-time constants below
+
+- crates/chronx-genesis/src/params.rs
+  Add new fields to GenesisParams struct
+  Add HUMANITY_STAKE_POOL, VERIFAS_REGISTRY wallets
+
+- engine.rs
+  New logic:
+  - 91-day consensus trigger transaction
+  - Activation deposit collection (0.5% per promise,
+    min 100 KX, max 10,000 KX)
+  - Promise never-revert (replaces 72-hour revert)
+  - 100-year unclaimed expiry → humanity stake pool
+  - Encrypted package generation at promise creation
+  - Verifier registry management
+
+- db.rs
+  New state:
+  - Verifier registry (empty at genesis)
+  - Promise tracking for trigger
+  - Humanity stake pool routing
+
+### New Transaction Types
+TYPE_V_TRIGGER — consensus system transaction
+  fires automatically on day 91 for unclaimed promises
+  sends encrypted package + activation deposit to
+  registered Verifas wallet
+
+TYPE_V_EXPIRY — automatic transfer
+  fires at maturity + 100 years for unclaimed promises
+  routes KX to humanity stake pool
+
+VERIFIER_REGISTER — governance transaction
+  adds approved verifier to registry
+  requires Foundation governance vote
+  records: name, wallet, bond amount, public key,
+  jurisdiction
+
+### Immutable Constants (constants.rs)
+VERIFAS_TRIGGER_DAYS: 91
+ACTIVATION_DEPOSIT_BASIS_POINTS: 50
+ACTIVATION_DEPOSIT_MINIMUM_KX: 100
+ACTIVATION_DEPOSIT_MAXIMUM_KX: 10_000
+PROMISE_REVERT_ENABLED: false
+UNCLAIMED_EXPIRY_YEARS: 100
+EXPIRY_DESTINATION: humanity_stake_pool
+VERIFAS_OBLIGATION: custody_only
+VERIFAS_PUBLIC_INTERFACE: false
+FINDER_VERIFIER_SAME_ENTITY: prohibited
+SELF_CLAIM_FEE: zero
+KEY_SHARES_TOTAL: 5
+KEY_SHARES_REQUIRED: 3
+KEY_ROTATION_COSIGNERS_REQUIRED: 2
+KEY_ROTATION_MAX_INTERVAL_DAYS: 365
+BENEFICIARY_TYPES: [email, person, organization, governance]
+
+### Governable Parameters (Foundation vote, downward only)
+FINDER_FEE_MAX: 6.5%
+VERIFAS_RELEASE_FEE_MAX: 0.5%
+MINIMUM_VERIFIER_BOND_KX: 1_000_000
+SELF_CLAIM_WINDOW_DAYS: 90
+FINDER_CONTACT_PERIOD_DAYS: 10
+
+### Required Package Contents (sent to Verifas day 91)
+1. Claim credential — complete encrypted unlock
+2. Promise value — in KX
+3. Beneficiary domicile at creation — optional
+4. Beneficiary type — email/person/organization/governance
+5. Beneficiary identifier — matching type above
+
+### Beneficiary Types
+A = email address
+B = person — legal name + date of birth
+C = organization — legal name + registration number
+    + jurisdiction + successor clause
+D = governance — Foundation vote + distribution mechanism
+
+### Verifas Legal Requirements (pre-genesis 7)
+Must be completed BEFORE Genesis 7 launches:
+- Swiss nonprofit foundation incorporated
+- HSM procured and configured
+- Keypair generated on HSM — never leaves hardware
+- 5-share Shamir split across:
+    Share 1: Verifas HSM — Zurich
+    Share 2: ChronX Foundation HSM — Geneva
+    Share 3: Independent escrow — Singapore
+    Share 4: Independent escrow — Cayman Islands
+    Share 5: Time-locked on ChronX blockchain
+- Foundation governance transaction registers Verifas
+  as first approved verifier with public key + bond
+- NO NEW GENESIS REQUIRED after this step —
+  verifier registry is a governable on-chain structure
+
+### Humanity Stake
+Amount: 1,000,000 KX
+Lock: until 2126-01-01
+Release: Foundation governance vote
+Receives: unclaimed promises at maturity + 100 years
+New wallet generated at Genesis 7 — not before
+
+---
+
+### 2026-03-11 (wKX Bridge Setup + Contract Deployment — ERC-20 on Base)
+- **wKX Bridge KX wallet generated:** `/home/josep/.chronx/wkx-bridge-wallet.json` — Account ID: `FGSemyJdkCU85D4qQNWFd158J44MANAHTAF5Qx974WRR`. This wallet holds KX reserves backing all minted wKX tokens.
+- **wKX Bridge ETH wallet generated:** `0x569EAea5F00B1f554790778d14934817bc00e733` — private key stored securely. This wallet signs mint transactions on Base network. Mnemonic: given to Joseph.
+- **WrappedKX.sol contract:** Source at `/opt/wkx-deploy/WrappedKX.sol` (also `/home/josep/WrappedKX.sol`). ERC-20 "Wrapped KX" (wKX) on Base (chain 8453). Features: `mint()` (bridge-only, nonReentrant), `unwrap()` (burn + emit event for ChronX release, nonReentrant), `setBridge()` (owner-only). Uses OpenZeppelin ERC20 + Ownable + ReentrancyGuard. 18 decimals.
+- **CONTRACT DEPLOYED TO BASE MAINNET:** `0xD21176adCEA2Fee38E7Ca2E4c94E7cd10C538677` — https://basescan.org/address/0xD21176adCEA2Fee38E7Ca2E4c94E7cd10C538677. Deployed via solc + ethers from `/opt/wkx-deploy/deploy.js`. ABI saved to `/opt/wkx-deploy/WrappedKX.abi.json`. Bridge address: `0x569EAea5F00B1f554790778d14934817bc00e733`. Owner: `0xF5fD6Da90cCaeE370bE7065D5A28e1C9da4d3a54`.
+- **Bridge daemon LIVE:** systemd service `wkx-bridge` on Vultr. Source: `/opt/wkx-bridge/index.js` (286 lines). Polls `chronx_getIncomingTransfers` every 30s for KX deposits to bridge wallet, mints wKX on Base to sender's registered Base address. Polls Base for `Unwrapped` events, releases KX from bridge wallet via CLI. SQLite DB: `/opt/wkx-bridge/bridge.db` (tables: deposits, unwraps, address_registry). HTTP API on `localhost:3002`: `POST /register` (map KX address to Base address), `GET /lookup/:kx_addr`, `GET /status`. Env: `/opt/wkx-bridge/.env` (chmod 600). Dependencies: ethers, better-sqlite3, dotenv.
+- **Compiler:** solc 0.8.34+commit.80d5c536, optimizer 200 runs, evmVersion paris. Standard JSON input saved at `/opt/wkx-deploy/standard-input.json`. Constructor args: `/opt/wkx-deploy/constructor-args.txt`.
+- **BaseScan VERIFIED:** Source code verified via Etherscan V2 API (GUID: xmhanbcavtcnefkuidx7acdkjr4sqd9e69ncw5atmaiuvpwgka). Green checkmark live at https://basescan.org/address/0xD21176adCEA2Fee38E7Ca2E4c94E7cd10C538677#code. Etherscan API key: `ANVVES9RXQV2ZM224J35BXHJ5C6ZYJPNX4`.
+- **Seed mint:** 10,190 wKX minted to Joseph's TrustWallet (`0xF5fD6Da90cCaeE370bE7065D5A28e1C9da4d3a54`) for Uniswap pool seeding. TX: `0xfc76a60538968d42c1b7589c0b62b4a7b7e1a3458cf64a5a619a3321185b691d`. chronxTxId: `SEED-LIQUIDITY-2026-03-11`.
+- **Uniswap v3 wKX/USDC pool LIVE on Base:** Fee tier 1%, full range, initial price 0.00319 USDC/wKX (ICO price). Seeded with 32.50 USDC + 0.104 wKX. Joseph's TrustWallet: `0xF5fD6Da90cCaeE370bE7065D5A28e1C9da4d3a54`.
+- **XChan swap UI LIVE at xchan.io:** Full wKX/USDC swap interface with wallet connect, Uniswap v3 quotes, swap execution, wallet registration, unwrap section. Uses ethers.js v6, direct Uniswap v3 Router + Quoter contracts on Base. Pool fee: 1% (10000). API at `api.chronx.io/api/xchan/*` (systemd `xchan-api` on port 4042, nginx proxied).
+- **Pool rebalance (2026-03-11):** Initial pool had wrong ratio (~$0.0325/wKX instead of $0.00319). Two seed mints totaling 20,380 wKX. Joseph has ~20,380 wKX in TrustWallet. PENDING: Joseph adds ~10,188 wKX to existing Uniswap position to correct price to $0.00319. Second mint TX: `0x68e78e0ff3b35ab1ebf4871389355195776b7e3940d07223adc64d019f579e94`.
+- **Next steps (in order):**
+  1. Joseph: add ~10,188 wKX to Uniswap position via https://app.uniswap.org/positions
+  2. Apply to CoinMarketCap: https://coinmarketcap.com/application-form/listing/
+  3. Apply to CoinGecko: https://www.coingecko.com/en/coins/new
+  4. Apply to 1inch token list
+
+---
+
+### 2026-03-13 (Robot Wallet SDK + wallet.html Revamp + iOS/macOS Notify Signups)
+
+#### Wallet Updates
+- **Wallet v1.4.82 shipped:** Address book, mobile send restrictions (email-only on mobile, direct wallet address on desktop), convert widget, 8th language (Urdu with RTL).
+- **Wallet v1.4.83 built:** Bug fixes — Base address field display, send lockup fix, email-only mobile enforcement.
+- **Android versionCodes:** Internal 1004083, Production 2004083.
+- **Google Play:** Internal testing v1.4.82 live. Production track still pending review.
+- **Next build:** v1.4.84, Internal versionCode 1004084, Production 2004084.
+
+#### Bot API & Robot Wallet SDK
+- **Bot API portal LIVE:** `chronx.io/bot.html` — registration form, dashboard link, code examples, docs.
+- **Bot API endpoints (Vultr):** POST `/bot/register` (email+wallet→API key), POST `/bot/cashout` (KX→USDC auto-conversion via XChan), GET `/bot/status` (balance+history), PUT `/bot/update-address` (change USDC payout address). All on `api.chronx.io`.
+- **bot_accounts table:** SQLite on Vultr (`/opt/chronx-notify/bot.db`). Fields: api_key, email, wallet_address, usdc_address, created_at.
+- **chronx-robot-wallet SDK deployed:** `chronx.io/dl/chronx-robot-wallet/` — chronx-bot.js (v1.1.0), config.json, package.json, README.txt, setup.js. ZIP at `chronx.io/dl/chronx-robot-wallet.zip`.
+
+#### Website Changes
+- **wallet.html revamped:** New 3-card download layout (Mobile Android, Desktop Windows, macOS & iOS coming soon). Green checkmark feature lists. Bot API section with code snippet. Horizontal "Why ChronX Wallet" cards (Zero Fees, Post-Quantum, Open Source). Full 8-language i18n (~48 new `wdl_*` keys in translations.js).
+- **iOS/macOS notify signup form:** AJAX POST to `api.chronx.io/notify-signup` → MySQL `notify_signups` table (email, platform, ip_address, created_at). Deduplication by email+platform. Replaces old mailto link.
+- **Admin panel updated:** iOS/macOS Notify Signups section added to Signups tab. Fetches from GET `/admin/notify-signups` (X-Admin-Token protected). Shows count, email, platform, date.
+- **Notify API endpoints added:** POST `/notify-signup` (public, validates email, stores with platform+IP), GET `/admin/notify-signups` (admin-only, returns ios-macos signups with count).
+
+#### Infrastructure
+- **xchan-api LIVE:** Vultr port 4042, systemd `xchan-api`. `/api/xchan/quote` endpoint for KX/USDC price quotes.
+- **wkx-bridge updated:** FallbackProvider for Base RPC reliability + memo routing for deposit identification.
+- **Discord LIVE:** https://discord.gg/Nwxrsk4g
+- **Cashback extension + rewards.html LIVE:** Amazon Associates tag `chronx-20`.
+- **wKX on Base confirmed:** Contract `0xD21176adCEA2Fee38E7Ca2E4c94E7cd10C538677`, Uniswap v3 pool active.
+
+#### URGENT Reminders
+1. **BaseScan verification** needs Etherscan API key (ANVVES9RXQV2ZM224J35BXHJ5C6ZYJPNX4) — verify source code is showing green checkmark.
+2. **Uniswap pool rebalance** — Joseph needs to add ~10,188 wKX to correct price to $0.00319.
+3. **Google Play production** — submit v1.4.82 or v1.4.83 AAB for production review.
+4. **CoinMarketCap / CoinGecko listings** — applications pending.
+
+#### Open Bugs (v1.4.83)
+- QR code display broken (blank modal)
+- Windows deep link (`chronx://`) not triggering wallet
+- Cascade Send `lock_seconds=0` rejected by node
+- Import Base64 private key crashes wallet
+- version.json triggers false update notifications
+
+---
+
+*Maintained by Claude instances working on ChronX. Last updated: 2026-03-13.*

@@ -1,0 +1,4 @@
+  File "<string>", line 28
+    print({:20s} sp={: KX locked={: KX nonce={}.format(name, sp//1000000, lk//1000000, n))
+             ^
+SyntaxError: invalid decimal literal

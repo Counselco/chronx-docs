@@ -1,0 +1,150 @@
+ChronX Protocol Whitepaper v6.4 — Additions & Replacements
+===========================================================
+Date: March 22, 2026
+
+Instructions: Each section below is clearly labeled with the action
+(REPLACE or ADD), the target location in the whitepaper, and the exact
+text to paste. After incorporating all changes, update the title page
+to read "ChronX Protocol Whitepaper v6.4" with date March 22, 2026.
+
+
+=====================================================================
+SECTION 1: REPLACE in Section 12 (Legal) — Loan Paragraph
+=====================================================================
+
+ACTION: Find the existing loan paragraph in Section 12 and REPLACE
+it entirely with the following text:
+
+---BEGIN TEXT---
+ChronX is a financial communication protocol, not a lender. It records agreements between parties but takes no position on their terms. During the initial rollout, the ChronX wallet application enforces conservative defaults — principal capped at $250 USD equivalent, interest capped at 15% annually, and borrowers retain an unconditional exit right — as a consumer protection measure pending development of the broader lender ecosystem.
+---END TEXT---
+
+
+=====================================================================
+SECTION 2: ADD to Section 12 (Legal) — After Loan Paragraph
+=====================================================================
+
+ACTION: Insert the following paragraph immediately after the loan
+paragraph replaced in Section 1 above.
+
+---BEGIN TEXT---
+The ChronX Protocol Foundation maintains the protocol specification and governance oracle. It does not operate network infrastructure or control node storage. Node operators are independent parties. Governance actions are protocol recommendations — individual operators determine compliance. ChronX is a conduit for financial agreements between parties. It takes no position on the content of those agreements, the accuracy of status flags, or the conduct of any party.
+---END TEXT---
+
+
+=====================================================================
+SECTION 3: ADD to Section 12 (Legal) — Jurisdiction
+=====================================================================
+
+ACTION: Insert the following paragraph immediately after the
+Foundation paragraph added in Section 2 above.
+
+---BEGIN TEXT---
+ChronX does not record or transmit location data. Jurisdiction compliance tools are available at the wallet level for lenders who require them.
+---END TEXT---
+
+
+=====================================================================
+SECTION 4: ADD to Technical Architecture section
+=====================================================================
+
+ACTION 4A: Add the following "Child Chain" paragraph to the
+Technical Architecture section.
+
+---BEGIN TEXT---
+Loan payment histories are recorded on private child chains anchored to the main DAG by cryptographic hash. Payment timeliness is tracked in periods relative to the loan's renewal interval, making the system equally applicable to 1-second AI loans and 30-year mortgages. At loan close, the engine automatically generates a Summary Anchor on the main chain containing aggregate payment statistics and a hash of the complete child chain for verification. Child chains are private by default — visible only to the lender and borrower. Publication of payment histories is subject to Foundation governance activation and jurisdiction eligibility rules. If a borrower's declared jurisdiction changes to one where publication is not permitted, lenders are notified and have a 30-day window to unpublish voluntarily before the protocol enforces privacy automatically. Once unpublished due to a jurisdiction change, republication requires borrower consent. Publication is disabled by default.
+---END TEXT---
+
+
+ACTION 4B: Add the following "Content Pruning" paragraph to the
+Technical Architecture section, after the Child Chain paragraph.
+
+---BEGIN TEXT---
+ChronX's DAG architecture enables a future content pruning capability not available in linear blockchains. Memo fields and superseded loan flags may be pruned from node storage after a defined retention period while preserving the vertex hash and DAG structural integrity. Transaction amounts, wallet addresses, timestamps, and DAG structure are never prunable. Content pruning is a dormant capability requiring Foundation governance activation.
+---END TEXT---
+
+
+ACTION 4C: Add the following "Open Protocol" paragraph to the
+Introduction section of the whitepaper.
+
+---BEGIN TEXT---
+ChronX is an open protocol. Any developer may build wallets, applications, or services on top of it. The ChronX wallet application is one implementation — not the only one.
+---END TEXT---
+
+
+=====================================================================
+SECTION 5: NEW — Appendix B: Loan Status Flag Reference
+=====================================================================
+
+ACTION: Add as a new appendix at the end of the whitepaper,
+after all existing appendices.
+
+---BEGIN TEXT---
+APPENDIX B — LOAN STATUS FLAG REFERENCE
+
+Lenders may optionally record status flags on their loan records. Flags are the unilateral declaration of the recording party and represent their position only. Flags are permanent but may be superseded by subsequent flags. The current loan status reflects the most recently recorded flag. The complete flag history is always visible on-chain. Borrowers retain the right to record a DISPUTED flag at any time. ChronX Protocol makes no independent verification of any flag, takes no position on its accuracy, and expressly disclaims any role in credit reporting, debt collection, or dispute resolution.
+
+
+FLAG REFERENCE TABLE
+
+Flag                      Set By          Description
+----                      ------          -----------
+OFFERED                   Protocol        Offer created, awaiting acceptance
+ACTIVE                    Protocol        Funds disbursed, payments current
+PAID_OFF                  Protocol        Fully repaid
+EARLY_EXIT                Protocol        Exited before term end
+COLLATERAL_CALLED         Protocol        Collateral lock triggered
+EXPIRED                   Protocol        Offer expired before acceptance
+WITHDRAWN                 Protocol        Lender withdrew before acceptance
+LATE                      Lender          Payment past due within grace period
+DELINQUENT                Lender          Payment significantly overdue
+DEFAULT                   Lender          Formal default declared
+ACCELERATED               Lender          Full balance called due immediately
+WRITTEN_OFF               Lender          Declared uncollectable
+REINSTATED                Lender          Restored to good standing after default
+SETTLED                   Lender          Resolved for less than full balance
+FORGIVEN                  Lender          Remaining balance forgiven
+TRANSFERRED               Lender          Assigned to new lender
+REFINANCED                Lender          Replaced by new loan
+BANKRUPTCY                Borrower        Self-reported bankruptcy filing
+BANKRUPTCY_DISCHARGED     Borrower        Bankruptcy case closed
+INSOLVENCY                Borrower        Self-reported insolvency
+DISPUTED                  Borrower        Contests an adverse lender flag
+LITIGATION_PENDING        Either party    Legal proceedings initiated
+JUDGMENT                  Either party    Court ruling self-reported
+GARNISHMENT               Either party    Court-ordered collection
+AMENDED                   Both parties    Terms modified by mutual consent
+FORBEARANCE               Both parties    Temporary payment relief
+DEFERRAL                  Both parties    Specific payments postponed
+FROZEN                    Governance      Suspended by Foundation action
+UNDER_REVIEW              Governance      Flagged for administrative review
+
+
+SIGNING AUTHORITY DISCLAIMER
+
+Status flags are cryptographically signed by the posting wallet. The protocol enforces signing rules at the engine level — certain flags may only be posted by the lender, others only by the borrower, and some require both signatures. Automatic flags are generated by the protocol engine and cannot be posted by any wallet. A lender may optionally record various flags on loans they have issued. Borrowers may post one DISPUTED flag in response to any adverse lender flag. All flags are permanent but may be superseded. Jurisdiction-gated credit history publication is disabled by default and requires Foundation governance activation.
+---END TEXT---
+
+
+=====================================================================
+VERSION UPDATE
+=====================================================================
+
+Title page changes:
+  - Title: ChronX Protocol Whitepaper v6.4
+  - Date:  March 22, 2026
+
+
+=====================================================================
+POST-INCORPORATION STEPS (Git)
+=====================================================================
+
+After pasting all text into the .docx and saving:
+
+  1. Save As: chronx-whitepaper-v6_4.docx
+  2. Run in the chronx-docs repository:
+
+     git rm chronx-whitepaper-v6_3.docx
+     git add chronx-whitepaper-v6_4.docx
+     git commit -m "Whitepaper v6.4 — loan flags, credit history, content pruning, child chains, open protocol, Appendix B"
+     git push origin main
