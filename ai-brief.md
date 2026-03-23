@@ -920,7 +920,7 @@ cd C:\Users\Josep\chronx\wallet-gui-temp && cargo tauri build
 - **Deploy:** misai.io (9 files, 0 failures). misai-api restarted. All 3 new endpoints tested and verified.
 
 ### 2026-03-06 (MISAI Approval Email + Auth Endpoint + Returning User UX)
-- **Approval email via Resend:** POST /api/admin/approve now sends styled HTML email to the approved user containing their invite code (cyan monospace, MISAI dark theme). Uses Resend API with `re_WBPPSNo6_CPxYQnp38anmV7BrFqZf52t2` key. From: `yo@chronx.io`.
+- **Approval email via Resend:** POST /api/admin/approve now sends styled HTML email to the approved user containing their invite code (cyan monospace, MISAI dark theme). Uses Resend API key (stored in .env on server). From: `yo@chronx.io`.
 - **POST /api/auth/verify-invite endpoint:** Validates invite code against `beta_signups` table (status='approved'). Returns `{valid, wallet_address, email}`. Used by frontend gate and returning user flow.
 - **Returning user "Enter Arena" button:** `localStorage.misai_invite_code` persists after first successful verify. Navbar shows cyan outlined "Enter Arena →" button linking to `arena.html?code=X`. Hero CTA changes from "Request Beta Access" to "Enter Arena →" for returning users.
 - **Service verified:** misai-api restarted successfully. Both `/api/verify-invite` and `/api/auth/verify-invite` endpoints tested and working. Approval email test confirmed (Joseph re-approved, code MISAI-SWQU-ZAPC).
