@@ -1,6 +1,6 @@
 # CHRONX_PROJECT_BRIEF.md
 # Single Source of Truth for All Claude Instances Working on ChronX
-# Last updated: 2026-03-13
+# Last updated: 2026-03-23
 # Stored at: https://github.com/Counselco/Counselco-chronx-internal (PRIVATE)
 # Also deployed to: https://chronx.io/internal/ai-brief.md
 
@@ -20,6 +20,269 @@ At the start of EVERY session working on ChronX:
 
 ---
 
+## ✅ GENESIS 10 FINAL (2026-03-22)
+
+**Genesis version: 10.0** — Full re-genesis with code cleanup. All nodes synced: Vultr + Windows + Mac Mini.
+
+**Chain state:** 14 vertices, 20 accounts, 8,270,000,000 KX total supply confirmed. Fresh chain from clean genesis.
+
+**Pre-genesis snapshot:** `/home/josep/pre-genesis-10-final-snapshot-v3.json` — every wallet balance verified to exact chronos before wipe.
+
+**4 Protocol Bonds established at Genesis 10 (10M KX each):**
+- MISAI Bond: `2EY2u8iLXW6KXM6zH2PYcB98WDBzBU7DK4d2PsLL422v`
+- Verifas Bond: `CNUuEt3kQNAeQtSP9Y9muyCMujxFWq2AfsTecjHvCYtD`
+- HedgeKX Bond: `64PXAwjapumXadK4e5Zk7f8zAxhaKwJifSJLHHiRsDKb`
+- XChan Bond: `68Y97pWzwT8r5kEfozAjhZd6b4bhrKVmJUr84NAfz129` (NEW — keyfile `/home/josep/.chronx/xchan-bond-wallet.json`)
+
+**Genesis 10 code changes (13 sub-phases):**
+- 1A: Stale relay .env fixed (`9Vjh83mQHBEf5aMgz4emA3FaFygacDodWWLKeS31hp6m`)
+- 1B: Loan storage standardized to JSON only (bincode removed, 5 handlers converted)
+- 1C: 3 unspawned sweeps now running (genesis8_expiry, sign_of_life, promise_chain_anchors)
+- 1D: All sweep intervals from genesis-params.json (zero hardcoded Duration::from_secs)
+- 1E: Genesis naming purge (zero Genesis 7/8/9 references)
+- 1F: Field renames — `extension_data`→`lock_marker`, `lock_convert_to`→`convert_to_suggestion`, `recipient_email_hash`→`email_recipient_hash` (129 renames)
+- 1G: RPC renames — `getLocks`, `getLockById`, `getLocksPaged`, `getLockStats`, `getEmailStats`, `submitCascade`
+- 1H: `memo_encrypted: bool` + `memo_public: bool` on Transfer + TimeLockCreate; engine rules for verified identity
+- 1I: Persistent rate limiting (tx 10/wallet/min, loan 100/wallet/day, sled-backed, survives restart)
+- 1J: Badge tier architecture (`issuer_tier` column in MySQL `wallet_badges`)
+- 1K: Zero unwrap() in production code
+- 1L: Zero TODO/FIXME/HACK comments
+- 1M: PAY_AS delivery engine (`pay_as_amount: Option<f64>` on TimeLockCreate + Transfer, oracle scaffold in sweep)
+
+**Build:** Zero errors, zero warnings. Git commit `b1883c1` pushed to main.
+
+**Wallet v2.5.24:** Built and deployed to chronx.io. RPC methods renamed. Android AABs NOT yet built.
+
+**Wallet export:** 12 wallet files in `C:\Users\Josep\OneDrive\Desktop\ChronX Vital\Genesis-10-Final-Wallets\` + USB backup.
+
+**Relay actual address:** `9Vjh83mQHBEf5aMgz4emA3FaFygacDodWWLKeS31hp6m` (from keyfile, NOT the stale `8Nodc3F2...` in old MEMORY.md)
+
+**Public Sale keyfile:** `/home/josep/genesis9/keyfiles/public-sale-wallet.json` on Vultr. Address: `B3NZbGxzkNMXgvR6NqvCJGN2UUuiyBMHxXRYs7xRdXg5`. Windows stale copy renamed to `-STALE-OLD-GENESIS.json`.
+
+**Recent updates (2026-03-23 session 3 — Genesis 10 Reboot):**
+- GENESIS 10 REBOOT COMPLETE. Chain wiped and re-populated cleanly.
+- 13 vertices, 19 accounts, 8,270,000,000 KX supply confirmed.
+- All user balances restored: Usman 1M, Michelle 100, Joseph Mobile 14,825, cabfone1999 8,630, iikrudiat20 25, cabfone1999-faucet 25.
+- iikrudiat20 fix: original transfer failed (account not auto-created on fresh chain). Re-sent from Faucet (tx bfa216ca). Now 25 KX confirmed.
+- Protocol wallets funded: Founder 188M, Faucet 3M, MISAI/Verifas/XChan bonds 10M each, Relay 10, wKX Bridge 884.
+- Wallet key export: 14 files in Genesis-10-Reboot-Wallets/ on Desktop. USB backup pending.
+- AABs ready on Desktop: chronx-internal-v2.5.28.aab (versionCode 2005028), chronx-production-v2.5.28.aab (versionCode 3005028). NOT uploaded to Play Store yet.
+- Vultr + Windows nodes synced (13 vertices). Mac Mini needs manual sync.
+- Notify API: GET /wallet/lookup-email/:email and /wallet/label/:address live.
+- Whitepaper v6.4 additions committed to chronx-docs (commit 2f97268).
+- MEMO ENCRYPTION: memo_encrypted_by_default=true, memo_public_by_default=false in genesis-params.
+
+**TOMORROW FIRST TASKS:**
+1. Joseph's 3 transactions (first on clean chain)
+2. Memo encryption UI: Desktop Send tab — add "Make this memo public" checkbox below memo input. Unchecked by default, resets after every send. When checked: gold warning "This memo will be permanently visible to everyone on the blockchain. It cannot be deleted." Sets memo_encrypted=false, memo_public=true. When unchecked: memo_encrypted=true, memo_public=false. Mobile: no checkbox, always encrypted, no exception.
+3. Loan sweep DAG vertex fix (currently only updates sled, no history)
+4. AAB upload to Play Store (internal track first)
+5. Mac Mini sync
+
+**Previous updates (2026-03-22 session 2):**
+- WALLET v2.5.28: Terms/Exit buttons wired, loan history fixes (LoanReceived + LoanPayment entries), Accept spinner, amount overflow fix. AABs: internal 2005028, production 3005028.
+- LOAN DISBURSAL FIX: LoanAcceptance engine handler now correctly transfers principal. First confirmed working loan: Jodey/Fixed 10,000 KX (engine auto-disbursed on acceptance).
+- LOAN FLAG SYSTEM: 28 flags, signing authority enforced at engine. All credit publishing OFF by default. Governance-gated.
+- PRIVACY STUBS: PrivacySend + PrivacySendHigh in transaction.rs. Both return FeatureNotActive. genesis params: privacy_send_enabled: false, privacy_send_high_enabled: false.
+- JURISDICTION LAYER: WalletConfig has jurisdiction field. Enforcement off. Data NEVER goes on-chain. Wallet-local only.
+- NOTIFY API: GET /wallet/lookup-email/:email live. Queries verified_emails table. Returns wallet address for registered users. GET /wallet/label/:address also live.
+- WHITEPAPER v6.4: additions.txt in chronx-docs. .docx incorporation pending next session.
+- EXPLORER: Badge colors fixed (uses badge.color), Amount column added, Type column with 16 colored pill labels.
+
+**Open bugs (carry forward):**
+- Loan sweep not writing DAG vertices (balance correct, no history entries)
+- Mobile history missing LoanReceived and LoanPayment entries
+- Amount overflow on mobile history
+- Loans tab needs auto-refresh without re-login
+
+**Next session priorities:**
+1. PAY_AS $100 USD loan — pay_as_enabled: true, pay_as_max_usd: 100.0 confirmed in genesis-params. XChan oracle. 1-month renewable.
+2. AABs: internal 2005028, production 3005028. Upload internal to Play Console after Joseph reviews .exe.
+3. Fix loan sweep to write DAG vertices (LoanPayment transactions)
+4. cpnx.com admin v2 deploy ✅ DONE 2026-03-23
+
+---
+
+## ✅ CPNX ADMIN v2 — COMPLETE (2026-03-23)
+
+**CPNX wallet:** `5g4Fcn8A9BigH8vvyNvVvTGksC6PVWTsQnvT8adRGfFp`
+**CPNX keyfile:** `C:\Users\Josep\chronx\cpnx-wallet.json`
+**NEVER leave keyfile on Vultr. SCP, use, delete.**
+
+**Admin panel:** https://cpnx.com/admin.html
+**Deploy:** `cd C:\Users\Josep && python deploy_cpnx.py`
+**FTP:** u507945893.cpnx.com @ 82.29.199.47 (same password as other sites)
+**Local folder:** `C:\Users\Josep\cpnx-website\`
+
+### Badge System
+- `wallet_badges` table now has `expires_at`, `badge_label`, `issued_by_child`, `child_account_id` columns
+- Expired badges auto-filtered from public API response (`/wallet/badges/:address`)
+- Default expiry: 90 days. Permanent badges: `expires_at = NULL`
+
+### Badge Catalog
+- 20 seeded badge types in `cpnx_badge_catalog` table
+- Tiers: identity, partner, gaming, custom
+- `available_to_children` flag for child account access control
+
+### Child Accounts
+- `cpnx_child_accounts` table live — B2B badge issuers
+- `cpnx_child_badge_types` for per-account badge permissions
+- API key auth for child badge issuance
+- Quota enforcement + blackout checking
+
+### CPNX Admin API Endpoints (all live)
+```
+GET  /cpnx/badge-catalog                        (public, no auth)
+GET  /cpnx/admin/badges                          (admin auth)
+POST /cpnx/admin/issue-badge                     (admin auth)
+DELETE /cpnx/admin/badges/:id                    (admin auth)
+GET  /cpnx/admin/wallet/:address                 (admin auth)
+POST /cpnx/admin/verify-identity                 (admin auth)
+POST /cpnx/admin/revoke-identity                 (admin auth)
+GET  /cpnx/admin/child-accounts                  (admin auth)
+POST /cpnx/admin/child-accounts                  (admin auth)
+GET  /cpnx/admin/child-accounts/:id/badge-types  (admin auth)
+POST /cpnx/admin/child-accounts/:id/badge-types  (admin auth)
+PATCH /cpnx/admin/child-accounts/:id/status      (admin auth)
+POST /cpnx/admin/badge-catalog                   (admin auth)
+PUT  /cpnx/admin/badge-catalog/:id               (admin auth)
+POST /cpnx/child/issue-badge                     (API key auth via X-Api-Key)
+```
+
+### Database Tables Added
+- `cpnx_child_accounts` — B2B child account management
+- `cpnx_child_badge_types` — per-child badge permissions
+- `cpnx_badge_catalog` — 20 seeded badge types
+- `cpnx_verifications` — identity verification audit log
+- `badge_blackouts` — fraud/impersonation badge blackouts
+
+### Attestation Requirement
+Identity verification requires mandatory checkbox: "I confirm I have independently verified..."
+CPNX accepts sole legal responsibility. ChronX has no involvement in individual decisions.
+
+### Revocation Types (on-chain)
+- `fraud` / `impersonation` → badge blackout enforced (configurable years)
+- `disambiguation` / `voluntary` / `administrative` → no blackout, clean record
+
+### Verification Workflow
+For now: admin logs verification, receives CLI command to run manually with CPNX keyfile.
+Future: automated signing via HSM.
+
+### CORS
+Added to ALLOWED_ORIGINS: cpnx.com, www.cpnx.com, admin.cpnx.com, xchan.io, misai.io, kxgo.io (+ www variants)
+
+### Server Files
+- `/opt/chronx-notify/cpnx-routes.js` — all CPNX endpoints (loaded by index.js)
+- `/opt/chronx-notify/index.js` — CORS updated, badge expiry filter added, cpnx-routes required
+
+### OPEN ITEMS
+1. Self-to-self loan test (install v2.5.33 .exe)
+2. Android AAB build after loan UI approved
+3. Mobile Buy/Sell KX widget UI
+4. Whitepaper push approval
+5. PAY_AS test loan USD denomination
+6. HedgeKX seeding
+7. EXECUTOR_WITHDRAW_DELAY = 86400
+8. Mac Mini node sync
+9. Operating agreements pre-ICO
+10. Foundation legal structure pre-ICO
+
+### TWO-MACHINE SETUP (never omit)
+- **CC-Win** = Windows PC (primary build/deploy)
+- **CC-Mac** = Mac Mini M1 (iOS + Claudie)
+- Always separate labeled blocks. Never combine.
+- Joseph is a beginner. Plain English throughout.
+
+---
+
+## ✅ GENESIS 9 COMPLETE (2026-03-18) [SUPERSEDED BY GENESIS 10]
+
+**Genesis version: 9.0** — Node v9.0.0 deployed. No re-genesis — binary-only upgrade from Genesis 8.
+
+**Chain state:** SUPERSEDED. Genesis 10 replaced this chain on 2026-03-22.
+
+**All 10 payment types (live, zero fees, immutable):**
+- TYPE S — Standard Promise (TimeLockCreate)
+- TYPE M — AI-Managed Promise (agent_managed + MISAI)
+- TYPE I — Invoice (recipient-gated payment request)
+- TYPE C — Credit Authorization (pre-authorized variable draws)
+- TYPE Y — Interest Bearing Deposit (principal + interest obligation)
+- TYPE V — Conditional Validity (attestor-released payment, M-of-N)
+- TYPE L — Ledger Entry (bonded agents only, Promise Chain anchors)
+- TYPE G — Wallet Group (CreateGroup, AddGroupMember, RemoveGroupMember, DissolveGroup, TransferGroupOwnership)
+- TYPE P — Payment Request (on-chain, dormant — no wallet UI yet)
+- TYPE T — Transfer (basic KX send)
+
+**Genesis 9 new features:**
+- Wallet Groups (TYPE_G): 5 new Action variants — CreateGroup, AddGroupMember, RemoveGroupMember, DissolveGroup, TransferGroupOwnership
+- AuthorizedSet: Lock claim authorization by wallet list or group ID
+- succession_group, backup_executors, executor_threshold fields on TimeLockCreate
+- Humanity Stake pool infrastructure
+- Node auto-update system: checks chronx.io/version.json every 24h, desktop notification with one-click update (Windows)
+
+**Previous Genesis 8 features (all still live):**
+
+**AI Agent Axioms:** 6 axioms (replaces 4 AI Trading Axioms). Encoded at genesis, immutable.
+- I: Mandate, II: Transparency, III: Risk, IV: Separation, V: Coordination, VI: The Law
+- Combined hash: `af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262`
+
+**Sign of Life:** Live. Annual interval (365 days), 90-day grace period. Guardian defaults to grantor.
+
+**Promise Chains:** Infrastructure live. Daily anchor hashes on main chain.
+
+**Wallet:** v2.2.2 (Windows + Android). 18 new Tauri commands for Genesis 8 types. CONVERT_TO suggestion field added.
+- v2.2.2 new features: Identity checkmarks, KXGO badges, Commitments section (see below)
+- v2.2.2 new Tauri commands: `get_verified_identity`, `get_wallet_badges`, `get_commitments`, `cancel_commitment`
+- Current Android versionCodes: internal 2002002, production 3002002
+- Next Android versionCodes: internal 2002003, production 3002003
+
+**CONVERT_TO field:** Added to TimeLockCreate (suggestion only, max 50 chars). Stored in separate `lock_convert_to` sled tree for backward compatibility with existing bincode data. No protocol behavior — KX always releases as KX.
+
+**Identity Verification (Genesis 8 patch 1):**
+- IdentityVerified and IdentityRevoked TYPE L variants: live
+- chronx_getVerifiedIdentity RPC: live (returns latest identity or null)
+- chronx_getIdentityHistory RPC: live (returns full audit trail)
+- identity_index secondary sled tree: live
+- Test: Founder wallet verified as "ChronX Founder" / "FOUNDER" / gold (#D4A84B)
+- Logic: latest entry wins — verify/revoke/re-verify cycle tested and working
+
+**Identity in Wallet v2.2.2:**
+- Wallet UI: gold ✓ checkmark + display_name for verified wallets (Promises tab, History tab)
+- Falls back to truncated address for unverified wallets
+- `identity_or_short()` helper with HashMap cache per panel
+- `get_verified_identity` Tauri command (fetches from avatar meta API)
+- KXGO badges: server-side registry in wallet_badges MySQL table (separate from on-chain identity)
+- Block explorer checkmark display: future
+- Corporate verification intake process via Verifas or bonded verifier: future
+
+**Whitepaper:** v4.5 on GitHub (Counselco/chronx-docs)
+
+**Node:** v9.0.0 — Linux x64 binary at chronx.io/dl/chronx-node-linux-x64.tar.gz. Auto-update system live (checks chronx.io/version.json every 24h).
+
+**Founder balance:** ~187,700,000 KX (188M minus resent promises)
+
+**Key wallets (Genesis 8):**
+- Founder: BCwHsGLPzSGqjpG7Ptqp3qVRNrqEKdW9Dt4g7NEQpwLT
+- Public Sale: B3NZbGxzkNMXgvR6NqvCJGN2UUuiyBMHxXRYs7xRdXg5
+- Faucet: 455fV35X3viK8je1hWoUrMaxzj8iUsZr3a3hvM8GH31T (3M KX)
+- MISAI Bond: AG15CUEyMQcbBTf1stvrT52RJ1URxV2bRLFoPUgrh4C5 (10M KX)
+- Verifas Bond: ERt5ZuYU3WMLEpZQtRxzftApRi5pSr7vcW3WaDV4y5LK (10M KX)
+- Relay: 8Nodc3F2HwUjPMLaFfTJ6WKuSvjEa4fTeopLUK52y5EE (10 KX)
+
+**Notify API (Genesis 8 + v2.2.2):** 10 Genesis 8 endpoints (8 internal + 2 admin) + 2 wallet v2.2.2 endpoints. Sign of Life, Guardian Transition, Verifas Pre-notify, TYPE V Attestor, TYPE I Invoice, TYPE Y Deposit matured/defaulted.
+- **v2.2.2 endpoints (live on Vultr):**
+  - `GET /wallet/badges/:wallet_address` — returns badge list from wallet_badges MySQL table (public, no auth, Cache-Control 300s)
+  - `POST /wallet/commitment-cancel` — stores TYPE V cancellation request in commitment_cancellations table, notifies attestor
+- **New MySQL tables (chronx database on Vultr):**
+  - `wallet_badges` — wallet_address, badge_type, badge_color, issued_by, issued_at
+  - `commitment_cancellations` — wallet_address, commitment_id, commitment_type, reason, requested_at
+
+**⚠ TODO — Node auto-update notification:** Windows node software does not have an auto-update notification system. Node operators running old binaries will not automatically know about Genesis 8. This MUST be addressed before ICO (September 22, 2026) so node operators stay in sync. Options: (1) version check on startup against chronx.io/version.json, (2) P2P protocol version negotiation, (3) email notification to registered node operators.
+
+**⚠ TODO — Remaining promise resends:** Some long-term promises from the pre-wipe snapshot may still need resending. Check genesis8-pre-wipe-report.txt on Vultr. The 250K to usmanuah9 and 50K to cabfone11 have been resent.
+
+---
+
 ## ✅ COMPLETED v1.4.56 BUILD (2026-03-07)
 
 All three pending items shipped in v1.4.56:
@@ -28,13 +291,50 @@ All three pending items shipped in v1.4.56:
 2. **[DONE] History tab — gold "SCHEDULED" badge** for outgoing delayed sends with future unlock dates
 3. **[DONE] Sender identity in Promise emails** — wallet now sends sender_email + sender_wallet in /notify payload
 
-**Build outputs:**
-- Windows: `chronx-wallet-setup-1.4.56.exe` deployed to chronx.io/dl/
-- Android internal: `chronx-wallet-v1.4.56-internal.aab` (versionCode 1004056)
-- Android production: `chronx-wallet-v1.4.56-production.aab` (versionCode 2004056)
-- Next build MUST use versionCode 1004057 / 2004057
+**Build outputs (v1.4.89 — 2026-03-13):**
+- Windows: `chronx-wallet-setup.exe` (v1.4.89) deployed to chronx.io/dl/
+- Android: v1.4.89 APK deployed to chronx.io/dl/ChronX_Android_v1.4.89.apk
+- Android internal: `chronx-wallet-1.4.89-internal-1004089.aab` — ready for Play Console Internal Testing
+- Android production: `chronx-wallet-1.4.89-production-2004089.aab` — on Desktop, ready for Google Play submission
+- Next build MUST use versionCode 1004090 / 2004090
 
-**Also completed this session:**
+**v1.4.89 changes:**
+- **XChan Convert: saved address chips** — replaced single saved address + "Save for next time" checkbox with clickable chip system. Up to 5 saved addresses shown as gold-bordered chips above the red warning. Click chip to fill address field, click × to delete. Nickname+Save row appears when valid address entered and < 5 saved. Enter key in nickname field also saves. Backend: new `base_addresses` field in WalletConfig (Vec of `{address, nickname}`), new commands `get_base_addresses`, `add_base_address`, `delete_base_address`. Auto-migrates legacy single `base_address` on first load.
+
+**v1.4.88 changes:**
+- **XChan Convert: red warning above Base address input** — always-visible red bold text: "Please enter ONLY a receiving USDC address on the Base network. Sending to any other address risks permanent loss of funds."
+
+**wkx-bridge fixes (2026-03-13):**
+- **eth_getLogs block range fix**: `pollUnwraps()` now chunks in 8-block ranges (was 2000) with 500ms delay between chunks. Alchemy free tier allows max 10 blocks per `eth_getLogs`. Initial backfill reduced from 1000 to 50 blocks. No more `UNWRAP POLL ERROR` spam.
+- **Deposit 4 completed** (10 KX, was 'minted'): USDC sent to 0x2e7825b5e3ac7627594db18f246da3f5c431ac0a — $0.030462, tx 0x72779e3bf03cb9aa2895102ef1343f22c6ecbdd2e0cd1270118c00520534c61a. Status: swapped.
+- **Deposit 5 completed** (10 KX, was 'no_base_addr'): Base address 0x2e7825b5e3ac7627594db18f246da3f5c431ac0a registered + minted (tx 0x6ecdd0a3e19e0c7bba53fdf368c38df445d75d00d8b86364021b9aa6cd6e5704) + USDC sent ($0.030462, tx 0xbb21c06b1b7841bd12da4c4aa62a9c38206eea278787118c988111f7e76b6b5f). Status: swapped.
+- Updated BASE_RPCS in `/opt/wkx-bridge/index.js` — Alchemy primary, mainnet.base.org secondary, publicnode tertiary, llamarpc fallback.
+- Previously: Manually completed stuck 3 KX conversion (deposit 802452ff...) — $0.009139 USDC, tx 0xca17d71e...c1331.
+
+**v1.4.87 changes:**
+- **"Promise" badge for outgoing email locks** — History tab now shows "Promise" instead of "Pending" for outgoing email sends that are submitted but not yet delivered. Change is in frontend display mapping only (`lib.rs` line 6062): when backend returns `"Pending Claim"` status, badge text renders as `"Promise"` instead of `"Pending"`.
+
+**v1.4.86 changes (server-side fix):**
+- **chronx-notify: Fix auto-delivery for verified email recipients** — the early `claim_registrations` INSERT in POST /notify was setting `status='delivered'` for ALL sends, preventing the 5-minute auto-delivery cron from processing them. Fixed: now checks `verified_emails` table; verified recipients get `status='registered'` with correct recipient wallet address; unverified get `status='pending_claim'`. The cron picks up `registered` rows where `unlock_at <= now` and auto-delivers via relay wallet.
+- **Delivered stuck 33 KX + 2 KX** — email locks to josephrsanchez@gmail.com had `status='delivered'` but NULL `delivered_at`. Reset to `registered`, cron auto-delivered both within 30 seconds.
+
+**v1.4.85 changes:**
+- **Node: wallet-to-wallet auto-delivery sweep** — new `sweep_matured_wallet_locks()` runs every 60s, auto-delivers matured non-email locks (credits recipient, sets status Claimed). Email locks (0xC5 marker) still require claim code.
+- **Wallet UI: removed "Claim Now" from wallet-to-wallet locks** — matured wallet locks show "Arriving shortly..." (sweep handles delivery). Email locks show "Enter claim code to receive".
+- **Promises tab filter**: only shows locks where status=Pending AND unlock_at > now+60s (instant/completed sends no longer appear)
+- **Save-contact banner**: replaced text input + single button with two-button card (gold Save Contact / red Cancel), no text input, auto-dismiss after 10 seconds
+- **XChan conversion fix**: `convert_kx_to_usdc` now includes sender's KX address in POST to `/xchan/convert`; server-side endpoint extracts `kx_address` from body for registration
+- chronx-notify restarted with /xchan/convert fix
+
+**v1.4.84 changes:**
+- Fixed XCHAN_BRIDGE_WALLET constant (was faucet wallet, now correct wKX bridge wallet FGSem...)
+- wallet.html: APK button updated, sideload installation steps added (collapsible)
+- version.json: android_download_url direct APK link
+- All 8 translations updated (wdl_sideload_* keys added)
+- wkx-bridge daemon: Fixed Base RPC ordering (mainnet.base.org demoted to fallback, llamarpc/publicnode primary)
+- chronx-notify: Added GET /xchan/check-address and POST /xchan/convert endpoints
+
+**Also completed earlier:**
 - Re-genesis v5.0: Founder/MISAI/Verifas as genesis-level allocations, AI Trading Axioms metadata, Public Sale 6,093M
 - Homepage rewrite: new hero ("A Promise the Blockchain Keeps"), 10-panel comic embed (panel 10 = "Try It Yourself" faucet CTA), "What Makes ChronX Different" section, Protocol Promise paragraph
 - MISAI.io reframe: "The AI That Keeps Promises" (removed arena/leaderboard)
@@ -59,7 +359,7 @@ All three pending items shipped in v1.4.56:
 **Total supply:** 8,270,000,000 KX (fixed forever at genesis)
 **Transaction fees:** Zero. Completely free. Forever.
 
-**Current Phase:** Pre-ICO (invite-only). Wallet v1.4.56 (Windows + Android). Live on Google Play. Website live with 10-panel comic explainer + governance page. Node on Vultr (v7.0 — Genesis 7 Verified Delivery Protocol). Re-genesis completed 2026-03-08. Verifas.io live. MISAI.io reframed as bonded AI executor. Whitepaper v3.4 published. Governance page with Promise Axioms + AI Trading Axioms live.
+**Current Phase:** Pre-ICO (invite-only). Wallet v2.2.2 (Windows + Android). Live on Google Play. Website live with 10-panel comic explainer + governance page. Node on Vultr (v9.0.0 — Genesis 9). Genesis 8 re-genesis completed 2026-03-08, Genesis 9 binary upgrade 2026-03-18. Verifas.io live. MISAI.io reframed as bonded AI executor. Whitepaper v5.0 published. Governance page with AI Agent Axioms live. KXGO.io gaming platform live (Castle Wars + Battle for the Realm).
 
 **Official ICO Date:** September 22, 2026 — the Autumnal Equinox
 
@@ -115,7 +415,7 @@ All three pending items shipped in v1.4.56:
 | Executor model (race vs staked) | Foundation Governance | Yes |
 | Effective fee cap (<=7%) | Foundation Governance | Yes, downward only |
 | Bond size requirements | Foundation Governance | Yes |
-| AI Trading Axioms | Genesis | Never |
+| AI Agent Axioms (6 axioms) | Genesis 8 | Never |
 
 ---
 
@@ -129,14 +429,16 @@ Two axiom sets are encoded at genesis. They cannot be altered by any person, gov
 3. **The Protocol Enforces Delivery** — No custodian, no lawyer, no intermediary is required for a promise between a sender and a reachable recipient. The blockchain is the contract.
 4. **The Law** — All promises and their fulfillment remain subject to the laws of applicable jurisdictions.
 
-### AI Trading Axioms (4 axioms)
-1. **Execution** — The grantor's intent, once encoded, is carried forward by autonomous software. Algorithms may evolve. The intent does not.
-2. **Patience** — Holding is a valid strategy.
-3. **You Are Not the Only Actor** — Account for others with similar obligations before acting.
-4. **All Actions Are Public** — Every trade is recorded on the blockchain at the time it occurs.
+### AI Agent Axioms (6 axioms — Genesis 8, replaces AI Trading Axioms)
+1. **Mandate** — The grantor's intent, once encoded, is carried forward by autonomous software. Algorithms may evolve. The intent does not. An autonomous agent has no authority beyond that mandate, including any credit, attestation, or draw authority the grantor explicitly encoded.
+2. **Transparency** — An AI agent must commit to a permanent public record before acting. Every decision is publicly verifiable. There are no private actions.
+3. **Risk** — The grantor acknowledges, and the AI agent affirms, that AI management of any investment tranche may result in gains or losses up to and including total loss.
+4. **Separation** — The agent that decides does not hold funds. The agent that holds does not decide.
+5. **Coordination** — An agent is not the only actor. Before acting, an agent must account for the aggregate effect of similarly situated agents acting on similar instructions.
+6. **The Law** — All agent actions, mandates, and their fulfillment remain subject to the laws of applicable jurisdictions.
 
-**Storage:** `db.put_meta("promise_axioms", ...)` and `db.put_meta("trading_axioms", ...)` — stored separately. Also combined under `genesis_axioms` for backward compat.
-**Retrieval:** RPC `chronx_getPromiseAxioms` → `{promise_axioms, trading_axioms}`.
+**Storage:** `ai_agent_axioms` key in genesis-params.json. `trading_axioms` key retained for backward compatibility (deprecated).
+**Retrieval:** RPC `chronx_getPromiseAxioms` → `{promise_axioms, trading_axioms, combined_axiom_hash}`.
 **Website:** governance.html displays both axiom sets.
 
 ---
@@ -145,7 +447,8 @@ Two axiom sets are encoded at genesis. They cannot be altered by any person, gov
 
 ### Node (Vultr)
 - **IP:** 45.63.22.189
-- **SSH:** `ssh -i ~/.ssh/id_ed25519 root@45.63.22.189`
+- **SSH (Windows):** `ssh -i ~/.ssh/id_ed25519 root@45.63.22.189`
+- **SSH (Mac Mini):** `ssh -i ~/.ssh/minty_sync root@45.63.22.189`
 - **User home:** /home/josep (lowercase j)
 - **Node binary:** /home/josep/chronx/target/release/chronx-node
 - **Wallet CLI:** /home/josep/chronx/target/release/chronx-wallet
@@ -438,7 +741,7 @@ For future "friendly" sends to new users:
 
 ## 6. WALLET STATUS
 
-**Current version:** v1.4.83 (Windows + Android)
+**Current version:** v2.2.2 (Windows + Android)
 **Platform:** Windows x64, Android (Google Play)
 **Installer:** https://chronx.io/dl/chronx-wallet-setup.exe
 **Google Play:** https://play.google.com/store/apps/details?id=com.chronx.wallet
@@ -765,6 +1068,11 @@ cd C:\Users\Josep\chronx\wallet-gui-temp && cargo tauri build
 - Public Sale reduced 6,268M → 6,093M KX to accommodate genesis-level bond allocations
 - governance.html added as dedicated page for Foundation + Axioms
 
+### WEBSITE REWRITE (pre-ICO) — NOT URGENT, do after wallet v2.4.x stable + Play Store upload
+- [ ] Condense top nav bar — too many items
+- [ ] Pre-ICO page: invitation only for accredited investors OR up to $100 of KX via XChan for testing purposes only
+- [ ] XChan auto-shutoff: if cumulative volume exceeds $100 (sales + purchases combined), automatically disable the exchange UI and show "Exchange temporarily paused" message. Prevents liquidity pool crash from large orders. Joseph has additional liquidity to add — cap will be raised manually after adding it.
+
 ### Future (Phase 2+)
 - [ ] IMPORTANT: Node operator incentive/distribution model -- must design before ICO Sep 22 2026
 - [ ] Cascade Send web UI for businesses
@@ -795,10 +1103,188 @@ cd C:\Users\Josep\chronx\wallet-gui-temp && cargo tauri build
 12. PIN: shared PinInput, keydown-first, never set_value() in input handler
 13. ICO date: September 22, 2026 -- Autumnal Equinox -- never change
 14. Founder wallet NEVER left on Vultr -- SCP temporarily, use, DELETE immediately
+15. CRITICAL GIT SAFETY RULE: After ANY git rebase or merge on the chronx repo, ALWAYS do ALL of the following before building:
+  a) `wc -l crates/chronx-core/src/transaction.rs`  (expect 400+)
+  b) `wc -l crates/chronx-state/src/engine.rs`      (expect 1000+)
+  c) `git status`  (check for uncommitted changes on Vultr)
+  d) SCP transaction.rs from Vultr dirty tree if node has uncommitted changes that differ from git
+Never trust git log alone. The running Vultr binary may include uncommitted changes not reflected in git history.
+16. RULE #16 — NEVER run `git clean -fd` on the chronx repo. This command permanently deletes untracked files bypassing the Recycle Bin. The Android signing keystore (chronx-release.keystore) is untracked and will be permanently deleted. If repo cleanup is needed, use `git clean -n` first (dry run) to see what would be deleted, then manually delete only safe files.
+17. RULE #17 — KEYSTORE BACKUP IS MANDATORY. The Android signing keystore lives at: `C:\Users\Josep\chronx\chronx-release.keystore` (Password: ChronX2026, Alias: chronx). It was recovered from a Windows shadow copy on 2026-03-18 after being deleted by `git clean -fd`. It MUST be backed up in ALL three locations after every wallet session: (1) `C:\Users\Josep\OneDrive\Desktop\ChronX Vital\` (2) Email to josephrsanchez@gmail.com as attachment (3) Mac Mini at `~/chronx-release.keystore`. Without this keystore, Android Play Store updates are impossible — Google will reject a new signing key.
+18. RULE #18 — MAC MINI SCP USES minty_sync KEY. All SCP/SSH commands from the Mac Mini to Vultr MUST use `-i ~/.ssh/minty_sync`, NOT `-i ~/.ssh/id_ed25519`. Example: `scp -i ~/.ssh/minty_sync root@45.63.22.189:/home/Josep/chronx/crates/chronx-core/src/transaction.rs ./`
+19. RULE #19 — VERSION BUMP MUST UPDATE ALL THREE FILES (discovered 2026-03-20). Every version bump MUST update: (1) `wallet-gui-temp/src-tauri/Cargo.toml` → `version = "X.X.X"` (2) `wallet-gui-temp/src-tauri/tauri.conf.json` → `"version": "X.X.X"` (3) `chronx-website/version.json` → `"version": "X.X.X"`. The Tauri backend reads version from Cargo.toml via `env!("CARGO_PKG_VERSION")`. The NSIS installer reads from tauri.conf.json. The update checker reads from version.json. ALL THREE must match. Checklist: `grep version src-tauri/Cargo.toml && grep version src-tauri/tauri.conf.json && curl -s https://chronx.io/version.json | grep version`
+
+---
+
+## 12B. KXGO.IO — GAMING PLATFORM (built 2026-03-16)
+
+**Domain:** kxgo.io
+**Server:** Vultr 45.63.22.189 (same as ChronX node)
+**SSL:** certbot, expires 2026-06-14, auto-renews
+**Nginx:** /etc/nginx/sites-available/kxgo.io — static from /var/www/kxgo.io/public_html/, API proxied to :4043
+**Backend:** /opt/kxgo/index.js (Node.js, Express, port 4043)
+**Service:** kxgo-api (systemd)
+**Database:** MySQL database "kxgo" — 14 tables (players, badges, leaderboard_snapshots, realm_*, castle_*)
+
+**Platform design (NON-NEGOTIABLE):**
+- Flat entry fee per room — wallet size irrelevant to outcome
+- Skill 70% + luck 30% — no pay-to-win
+- Practice Room (fake KX, free) + Battle Room (real KX, TYPE V conditional)
+- House edge: 2.5% to KXGO reserve wallet
+- KXGO server wallet = bonded attestor for game outcomes
+- Entry fee rooms: Novice 10 KX, Standard 100 KX, Elite 1,000 KX, Champion 10,000 KX
+
+**Games built:**
+- **Castle Wars** (castle.html) — PixiJS flagship game, 5,889 lines across 4 files
+  - Two castles, 3 unit types (Archer/Knight/Siege Engineer), 8 random events
+  - AI opponent in practice mode, full combat system, cooldown management
+  - castle.js (2,429 lines), castle.css (1,351), castle.html (393), routes/castle.js (1,716)
+- **Battle for the Realm** (realm.html) — SVG hex map strategy game, 1,082 lines JS
+  - 25-territory map, 6 mock players, alliances, betrayals, 5 action types
+  - Random events (plague/treasure/dragon/storm/rebellion/harvest)
+  - Win condition: control 13/25 territories for 6 consecutive hours
+  - realm.js (1,082 lines), realm.css, realm.html, routes/realm.js (~850 lines)
+
+**Other pages built:**
+- Landing page (index.html) — hero, 2 game cards, how-it-works, rooms comparison, leaderboard preview
+- Leaderboard (leaderboard.html) — top 10 by ROE, 3 tabs (All-Time/Month/Week)
+- Profile (profile.html) — stats, badges with SVG crowns, game history
+
+**Games removed (do NOT build):**
+- KX Markets — too close to regulated prediction markets. Removed entirely, no references.
+
+**KXGO Badge system:**
+- Server-side, stored in wallet_badges MySQL table (chronx database on Vultr)
+- Three tiers: KXGO_BRONZE (#CD7F32) / KXGO_SILVER (#C0C0C0) / KXGO_GOLD (#D4A84B)
+- Displayed in ChronX wallet v2.2.2+ via GET /wallet/badges/:wallet
+- Future: may graduate to on-chain TYPE L IdentityVerified
+
+**Deploy procedure:**
+```bash
+# Static files
+scp -r public/* root@45.63.22.189:/var/www/kxgo.io/public_html/
+# Backend
+scp index.js db.js package.json routes/*.js middleware/*.js root@45.63.22.189:/opt/kxgo/
+su - josep -c 'cd /opt/kxgo && npm install --production'
+systemctl restart kxgo-api
+```
+
+---
+
+## 12C. WALLET v2.2.2 (built 2026-03-16)
+
+**Feature 1 — Verified Identity Checkmark:**
+- When displaying wallet addresses in Promises tab, queries `get_verified_identity` command
+- If verified: shows gold ✓ + display_name (e.g., "✓ ChronX Founder")
+- If unverified: shows truncated address as before (no change to existing behavior)
+- `identity_or_short()` helper function with HashMap<String, IdentityRecord> cache
+- Cache populated per-panel on data load (not per-render — avoids hammering API)
+- Tauri backend: `get_verified_identity(wallet_address)` → fetches from `/avatar/{wallet}/meta`
+
+**Feature 2 — KXGO Badges:**
+- KXGO_BRONZE / KXGO_SILVER / KXGO_GOLD badge pills in AccountPanel header
+- Displayed alongside existing Founder/Genesis/Patron badges
+- Fetched from `GET api.chronx.io/wallet/badges/:wallet` (new endpoint)
+- `get_wallet_badges(wallet_address)` Tauri command returns `Vec<WalletBadge>`
+- Badge data from wallet_badges MySQL table on Vultr
+
+**Feature 3 — Commitments Section:**
+- New section at top of Promises tab (above incoming promises)
+- Hidden entirely when no commitments exist (no visual bloat)
+- TYPE V conditionals: 🔒 icon, amount, description, countdown timer, Cancel button
+  - Cancel sends POST to /wallet/commitment-cancel (attestor notification)
+  - Countdown: normal color, amber < 30 min, red < 5 min
+- TYPE C credits: 🤝 icon, beneficiary (identity-aware), drawn/ceiling, Revoke button
+  - Revoke calls `revoke_credit` command (on-chain immediate)
+- TYPE Y deposits: 📋 icon, obligor (identity-aware), amount, maturity date (view only)
+- `get_commitments()` Tauri command fetches from RPC: getPendingConditionals, getOpenCredits, getActiveDeposits
+- `cancel_commitment(id, type, wallet, reason)` Tauri command
+
+**Build outputs:**
+- Windows .exe: `ChronX Wallet_2.2.2_x64-setup.exe` — deployed to chronx.io via deploy_website.py
+- Android APK: `ChronX_Android_v2.2.2.apk` — signed, deployed to chronx.io/dl/
+- Internal AAB: `chronx-internal-v2.2.2.aab` — signed, on Desktop
+- Production AAB: `chronx-production-v2.2.2.aab` — signed, on Desktop
+- version.json: updated to 2.2.2, deployed
+
+**New Tauri commands (registered in src-tauri/src/lib.rs):**
+- `get_verified_identity` — identity lookup via avatar meta API
+- `get_wallet_badges` — KXGO badge list from notify API
+- `get_commitments` — TYPE V/C/Y active commitments from node RPC
+- `cancel_commitment` — TYPE V cancel request to notify API, TYPE C redirect to revoke_credit
+
+**New frontend types (src/lib.rs):**
+- `IdentityRecord { wallet_address, display_name, verified }`
+- `WalletBadge { badge_type, color, issued_by }`
+- `CommitmentsData { active_locks, active_credits, active_deposits }`
+- `ConditionalRecord`, `CreditRecord`, `DepositRecord`
 
 ---
 
 ## 13. SESSION LOG
+
+### 2026-03-18 — Major Session (Genesis 9 + Wallet v2.3.x)
+
+**COMPLETED TODAY:**
+- **Genesis 9: Node v9.0.0** built and deployed on Vultr. Binary-only upgrade from Genesis 8 (no re-genesis). Added TYPE_G wallet groups (5 new Action variants: CreateGroup, AddGroupMember, RemoveGroupMember, DissolveGroup, TransferGroupOwnership), AuthorizedSet for lock claim authorization, succession_group/backup_executors/executor_threshold fields on TimeLockCreate, Humanity Stake pool infrastructure.
+- **Node v9.0.1:** peer_count RPC fix (AtomicU64 shared counter between P2P and RPC layers) + gossipsub mesh stability (mesh_n=2, mesh_n_low=1, mesh_n_high=4, mesh_outbound_min=1, idle_connection_timeout=300s).
+- **Node auto-update system:** Checks chronx.io/version.json every 24h. Desktop notification via notify-rust with one-click update (Windows PowerShell BitsTransfer).
+- **Windows node v9.0.1:** Installed with quoted --bootstrap flag. Registry run key updated. NSIS installer rebuilt and deployed.
+- **Mac Mini node:** Docker downloading, ARM64 binary ready.
+- **Explorer:** Now correctly shows 2 connected nodes (peer_count was missing from RPC response entirely).
+- **Wallet v2.3.3:** Enum tag bug fixed — SCP'd transaction.rs from Vultr dirty working tree (git log alone was insufficient).
+- **Wallet v2.3.4:** Contacts in email send, ToS consent, edge-to-edge fix, seed phrase UI wired into Settings.
+- **Mnemonic:** 24-word BIP39 seed phrase system live. Settings: View Seed Phrase (PIN gate + reveal), Create New Wallet (emergency flow), Restore from Seed Phrase (auto-detects mnemonic vs legacy key).
+- **Email formatting:** formatKx() helper — "50,000 KX" with commas. USD language changed to "at the time of this email".
+- **api.verifas.io SSL:** Live, cert expires 2026-06-16.
+- **terms.html:** Live at chronx.io/terms, all 8 languages.
+- **Pre-ICO notice:** Updated to $0.001755/$0.002297.
+- **Whitepaper:** GitHub now has ONLY v5.0 (all old versions removed).
+- **ai-brief rules:** #15 git safety, #16 no git clean -fd, #17 keystore backup mandatory.
+
+**ANDROID STATUS:**
+- AABs built: chronx-internal-v2.3.4.aab (29.5MB, versionCode 2002004) and chronx-production-v2.3.4.aab (29.5MB, versionCode 3002004) — both on Desktop.
+- Upload keystore LOST via `git clean -fd`, RECOVERED via new keystore + Google Play upload key reset request.
+- New keystore: `C:\Users\Josep\chronx\chronx-release.keystore` (Password: ChronX2026, Alias: chronx, PKCS12). SHA-256: CE:BE:CE:6D:B0:25:28:39:A4:5F:31:A4:C4:95:98:3F:BE:58:76:56:AE:6A:EE:15:20:07:F9:05:D3:C8:6A:05. Backed up: `OneDrive\Desktop\ChronX Vital\`.
+- Upload key reset approved: Mar 20, 2026 at 22:46 UTC. CANNOT upload AABs until after that time.
+- Upload cert PEM: `C:\Users\Josep\chronx\upload-cert.pem`.
+
+#### Enum Tag Bug (2026-03-18) — 3 failed builds
+Root cause: bad `git rebase --ours` dropped 1,100 lines from transaction.rs, engine.rs, query.rs. Vultr binary was unaffected (pre-compiled) but wallet compiled against broken source. Three builds failed:
+- v2.3.1: enum mismatch, tag 40
+- v2.3.2: git pull got broken source, tag 141
+- v2.3.3: FIXED — SCP'd transaction.rs directly from Vultr dirty working tree. Wallet now matches node exactly.
+
+Action enum (44 variants, tags 0-43):
+- 0: Transfer, 1: TimeLockCreate (35 fields including 12 new Genesis 9), 2: TimeLockClaim, 3: TimeLockSell, 4: CancelTimeLock, 5-9: Recovery/Verifier, 10-14: Claims state machine, 15-19: Provider/Schema registry, 20: SubmitOraclePrice, 21: TimeLockClaimWithSecret, 22: ReclaimExpiredLock, 23-26: VerifierRegister/Agent*, 27: ExecutorWithdraw, 28-38: 11 payment type actions, 39-43: 5 Group actions.
+
+Key lesson: ALWAYS SCP transaction.rs from Vultr and compare with local before any wallet build.
+
+**PENDING FROM TODAY:**
+- Mac Mini node: install Docker, run one command.
+- Smart address book (v2.3.5): email registration check with green/yellow indicators — CC-B has the command ready.
+- Play Console upload: after Mar 20 22:46 UTC.
+- Uniswap pool rebalance: add ~10,188 wKX to position.
+- CoinGecko listing: pending.
+- 1inch token list: pending.
+
+**OPEN BUGS CARRIED FORWARD:**
+- Cascade Send "Immediately" — believed fixed, not yet confirmed on Android.
+- Convert via XChan Base address input: still missing.
+- History date format on mobile: not yet confirmed fixed.
+- Mnemonic restore: needs testing on fresh wallet.
+
+### 2026-03-16 (KXGO.io Gaming Platform + Wallet v2.2.2)
+- **KXGO.io built and deployed:** Full gaming platform at kxgo.io on Vultr. Dark navy/gold theme. Landing page, Castle Wars (PixiJS flagship), Battle for the Realm (SVG hex map), leaderboard, profile pages. Nginx + SSL + systemd service (kxgo-api, port 4043). MySQL database "kxgo" with 14 tables. KX Markets removed entirely — too close to regulated prediction markets.
+- **Castle Wars:** 5,889 lines. Two castles face each other. 3 unit types (Archer ranged, Knight melee blocked by moat, Siege Engineer 2x wall damage). 9 action types with cooldowns. 8 random events (dragon, gold mine, earthquake, reinforcements, plague, blessing, meteor, sabotage). AI opponent in practice mode. Gold economy with passive income.
+- **Battle for the Realm:** 1,082 lines JS. 25-territory hex map with SVG rendering. 12 player colors. Alliance system with betrayal mechanic. 5 action types (attack 500 KX, defend 200 KX, recruit 300 KX, fortify 100 KX, claim free). Win: control 13/25 territories for 6 consecutive hours. Random events every 12 hours.
+- **Wallet v2.2.2 built:** 3 features added to 8,800-line Leptos Rust codebase. (1) Identity checkmarks — gold ✓ + display_name for verified wallets in Promises tab. (2) KXGO badges — Bronze/Silver/Gold pills in AccountPanel alongside Founder badge. (3) Commitments section in Promises tab — TYPE V locks with countdown + Cancel, TYPE C credits with Revoke, TYPE Y deposits view-only. Hidden when empty.
+- **chronx-notify updated:** 2 new endpoints live — GET /wallet/badges/:wallet (public, cached 300s) and POST /wallet/commitment-cancel (stores cancellation request). 2 new MySQL tables: wallet_badges, commitment_cancellations.
+- **Windows v2.2.2 .exe deployed:** Built, signed, uploaded to chronx.io via deploy_website.py.
+- **Android v2.2.2 APK deployed:** Built (aarch64), zipaligned, signed (chronx alias), uploaded to chronx.io/dl/.
+- **AABs signed on Desktop:** chronx-internal-v2.2.2.aab and chronx-production-v2.2.2.aab (jarsigner, chronx alias).
+- **version.json updated:** Serving v2.2.2 at chronx.io/version.json.
+- **Deploy procedure:** deploy_website.py from C:\Users\Josep\chronx\ (FTP to Hostinger 82.29.199.47, user u507945893).
 
 ### 2026-03-08 (Genesis 7 — Verified Delivery Protocol Implementation)
 - **Node v7.0:** Full Rust implementation of Genesis 7 Verified Delivery Protocol across 13 source files.
@@ -920,7 +1406,7 @@ cd C:\Users\Josep\chronx\wallet-gui-temp && cargo tauri build
 - **Deploy:** misai.io (9 files, 0 failures). misai-api restarted. All 3 new endpoints tested and verified.
 
 ### 2026-03-06 (MISAI Approval Email + Auth Endpoint + Returning User UX)
-- **Approval email via Resend:** POST /api/admin/approve now sends styled HTML email to the approved user containing their invite code (cyan monospace, MISAI dark theme). Uses Resend API key (stored in .env on server). From: `yo@chronx.io`.
+- **Approval email via Resend:** POST /api/admin/approve now sends styled HTML email to the approved user containing their invite code (cyan monospace, MISAI dark theme). Uses Resend API with `re_WBPPSNo6_CPxYQnp38anmV7BrFqZf52t2` key. From: `yo@chronx.io`.
 - **POST /api/auth/verify-invite endpoint:** Validates invite code against `beta_signups` table (status='approved'). Returns `{valid, wallet_address, email}`. Used by frontend gate and returning user flow.
 - **Returning user "Enter Arena" button:** `localStorage.misai_invite_code` persists after first successful verify. Navbar shows cyan outlined "Enter Arena →" button linking to `arena.html?code=X`. Hero CTA changes from "Request Beta Access" to "Enter Arena →" for returning users.
 - **Service verified:** misai-api restarted successfully. Both `/api/verify-invite` and `/api/auth/verify-invite` endpoints tested and working. Approval email test confirmed (Joseph re-approved, code MISAI-SWQU-ZAPC).
@@ -1774,3 +2260,95 @@ New wallet generated at Genesis 7 — not before
 ---
 
 *Maintained by Claude instances working on ChronX. Last updated: 2026-03-13.*
+
+### 2026-03-14 — Cascade Auto-Delivery Fix (usmanuah9@gmail.com)
+
+#### Problem
+usmanuah9@gmail.com was not receiving auto-delivery of incoming cascade promises. A 4-stage cascade (4 × 250,000 KX) was sent from the Public Sale wallet. Only stage 1 (immediately claimable) was delivered; stages 2-4 remained as unclaimed Pending locks on-chain.
+
+#### Root Cause (3 bugs)
+1. **Inline relay delivery did not check for remaining cascade locks.** When /notify auto-delivered stage 1 via `autoDeliverToVerifiedWallet()`, it marked the `claim_registrations` entry as `delivered` and never checked if more locks shared the same `claim_secret_hash`. The cron only processes `status=registered` entries, so stages 2-4 were invisible.
+2. **CLI output format mismatch in `deliverRegisteredClaim`.** The relay parsed CLI output with regex `/totalling\s+([\d.]+)\s+KX/` but the CLI now outputs `Claimed N lock(s): <txid>` without the "totalling" line. Fallback used `amountKx` from the registration, which for cascades was the total remaining (not per-lock), causing the forward transfer to attempt more KX than actually claimed.
+3. **`l.amount` vs `l.amount_chronos` in cron series check.** The crons remaining-locks code used but the RPC returns , resulting in after re-registration.
+
+
+### 2026-03-14 — Cascade Auto-Delivery Fix (usmanuah9@gmail.com)
+
+#### Problem
+usmanuah9@gmail.com was not receiving auto-delivery of incoming cascade promises. A 4-stage cascade (4 x 250,000 KX) was sent from the Public Sale wallet. Only stage 1 (immediately claimable) was delivered; stages 2-4 remained as unclaimed Pending locks on-chain.
+
+#### Root Cause (3 bugs)
+1. **Inline relay delivery did not check for remaining cascade locks.** When /notify auto-delivered stage 1 via autoDeliverToVerifiedWallet(), it marked the claim_registrations entry as 'delivered' and never checked if more locks shared the same claim_secret_hash. The cron only processes status='registered' entries, so stages 2-4 were invisible.
+2. **CLI output format mismatch in deliverRegisteredClaim.** The relay parsed CLI output with regex /totalling\s+([\d.]+)\s+KX/ but the CLI now outputs "Claimed N lock(s): txid" without the "totalling" line. Fallback used amountKx from the registration, which for cascades was the total remaining (not per-lock), causing the forward transfer to attempt more KX than actually claimed.
+3. **l.amount vs l.amount_chronos in cron series check.** The cron's remaining-locks code used l.amount but the RPC returns amount_chronos, resulting in amount_kx=0 after re-registration.
+
+#### Bonus fix
+- MySQL ENUM for claim_registrations.status was missing 'pending_claim' — unverified recipients hit "Data truncated" errors on INSERT.
+
+#### Fixes Applied
+1. **Data fix:** Re-registered KX-FCC3-BA8F-935A-23D2 with status='registered', is_series=1, unlock_at=next matured lock.
+2. **Inline delivery cascade check:** After relay delivers, code now queries chronx_getCascadeDetails for remaining Pending locks and re-registers with status='registered', is_series=1, unlock_at=next maturity.
+3. **Pre-claim amount query in deliverRegisteredClaim:** Before claiming, queries cascade details to compute exact matured KX amount instead of relying on CLI output parsing.
+4. **Fixed l.amount to l.amount_chronos || l.amount** in all 3 occurrences in the cron/cascade code.
+5. **Added 'pending_claim' to MySQL ENUM.**
+6. **Manual transfer:** 250,000 KX forwarded from relay to usmanuah9 wallet (tx e09a5efa...).
+
+#### Verification
+- usmanuah9 balance: 518,501 KX (correct: 270,001 original + 250,000 stage 2 - sends)
+- 2 locks remaining: unlock at 2026-03-15 20:48:00 and 2026-03-16 20:49:00
+- claim_registrations ID 34: status='registered', is_series=1, unlock_at=1773607680
+- Cron will auto-deliver next lock at ~20:48 Mar 15, then re-register for final lock
+
+
+### 2026-03-14 (late) — Email Template Fixes (FIX 1/2/3)
+
+#### FIX 1: "Someone" instead of sender email
+- **Root cause:** `buildEmail` (claim code template) and `buildSeriesEmail` had "Someone" hardcoded. They did not accept a `senderDisplay` parameter.
+- **Fix:** Added `senderDisplay` parameter to both functions. Updated all call sites to pass `senderDisplay`. Also updated `buildVerifiedRecipientEmail` call to use `senderDisplay` instead of `sender_email || 'Someone'`.
+- **Subject lines updated:** Claim code email now shows "from senderDisplay". Verified delivery email now shows "from senderDisplay".
+- `buildPromiseEmail` was already correct (used `senderEmail` parameter).
+- Removed duplicate `buildVerifiedRecipientEmail` function definition (was defined twice, lines 522 and 621).
+
+#### FIX 2: Unlock date shows "Thu, 01 Jan 1970" (epoch zero)
+- **Root cause:** `buildEmail` and `buildPromiseEmail` formatted `unlock_at=0` as a date (`new Date(0)`), producing "Thu, 01 Jan 1970 00:00:00 UTC".
+- **Fix:** Added guard in both functions: if `unlock_at` is falsy, <= 0, or < 1,000,000,000 (year 2001), display "Available immediately" instead of formatting as date.
+- `buildSeriesEmail` was already correct (had an existing `if (!unlockTs || unlockTs === 0)` check that showed "Immediately").
+
+#### FIX 3: Verified recipient still receiving claim code email
+- **Finding:** josephrsanchez@gmail.com was NOT in the `verified_emails` table. The code logic is correct: verified emails get auto-delivery + "KX added to wallet" email; unverified get claim code. Joseph was simply unverified.
+- **Action:** Added josephrsanchez@gmail.com to `verified_emails` (wallet: 6AyvnXZkLXA95gTBN2aG39h81R5gUZ42MPZsuwAjxeNf).
+- **Tested:** Sent 1 KX email-timelock to josephrsanchez@gmail.com via relay wallet. Verified: sender shows "test@chronx.io", not "Someone". Verified recipient got auto-delivery email (not claim code). Relay delivered 1 KX to founder wallet (tx: 9e83a1ec...).
+
+#### Additional fix: ENUM mismatch from prior session
+- Confirmed `pending_claim` was added to MySQL ENUM in prior session. No more "Data truncated" errors for unverified recipients.
+
+#### POST /notify field names (for reference)
+- `to` (recipient email), `amount` (KX), `unlock_at` (Unix seconds, 0=immediate), `memo`, `claim_code`, `sender_email`, `sender_wallet`, `series` (array for cascade)
+- The test curl in the task used `recipient_email` and `amount_kx` which are WRONG field names. Correct names above.
+
+
+### 2026-03-14 — v1.5.5 (Win) — Hide claim code for verified, hide promised when claimed
+
+#### FIX 1: Hide claim code when recipient is verified/registered
+- In History tab expanded detail, the "Claim code (share with recipient): KX-XXXX..." section with Copy Code button is now hidden when `recipient_registered = true`.
+- Uses `entry.recipient_registered` with fallback to cascade sibling data via `cascade_email` map (same pattern as registration badge elsewhere).
+- Rationale: Verified recipients get auto-delivery; they never need the claim code.
+
+#### FIX 2: Hide "Promised — cannot cancel" when already Claimed
+- The "Promised — cannot cancel" text in History detail now only shows when the entry's own status is still Pending-ish.
+- Added guards: `entry_status != "Claimed" && !entry_status.contains("Expired") && entry_status != "Cancelled"`.
+- Rationale: Showing "cannot cancel" on an already-Claimed entry is redundant and confusing.
+
+#### Build
+- Version bumped to 1.5.5 in tauri.conf.json and src-tauri/Cargo.toml.
+- Windows .exe built and deployed via deploy_website.py.
+- version.json updated: version=1.5.5, release_notes updated.
+- Git pushed to Counselco/wallet-gui main (48567ea).
+
+
+#### CRITICAL: .exe deploy requires manual FTP upload
+- `deploy_website.py` uploads ALL files in `chronx-website/` but the .exe in `dl/` must be manually copied from the build output first.
+- Build output: `wallet-gui-temp/src-tauri/target/release/bundle/nsis/ChronX Wallet_X.Y.Z_x64-setup.exe`
+- Must copy to BOTH: `chronx-website/chronx-wallet-setup.exe` AND `chronx-website/dl/chronx-wallet-setup.exe`
+- Then run `deploy_website.py` (or FTP upload directly).
+- v1.5.5 .exe confirmed uploaded (5,237,767 bytes) to both `/dl/chronx-wallet-setup.exe` and `/chronx-wallet-setup.exe`.
