@@ -1,6 +1,6 @@
 # CHRONX_PROJECT_BRIEF.md
 # Single Source of Truth for All Claude Instances Working on ChronX
-# Last updated: 2026-03-23
+# Last updated: 2026-03-24
 # Stored at: https://github.com/Counselco/Counselco-chronx-internal (PRIVATE)
 # Also deployed to: https://chronx.io/internal/ai-brief.md
 
@@ -20,9 +20,9 @@ At the start of EVERY session working on ChronX:
 
 ---
 
-## ✅ GENESIS 10 FINAL (2026-03-22)
+## ✅ GENESIS 11 FINAL (2026-03-24)
 
-**Genesis version: 10.0** — Full re-genesis with code cleanup. All nodes synced: Vultr + Windows + Mac Mini.
+**Genesis version: 11.0** — Final genesis. genesis_lock encoded. 13 axioms (4 categories). TYPE P-F, P-R, S, W, B live. KXGC seeded. Verification levels active. No further genesis resets possible (FINAL_GENESIS_LOCKED).
 
 **Chain state:** 14 vertices, 20 accounts, 8,270,000,000 KX total supply confirmed. Fresh chain from clean genesis.
 
@@ -59,7 +59,19 @@ At the start of EVERY session working on ChronX:
 
 **Public Sale keyfile:** `/home/josep/genesis9/keyfiles/public-sale-wallet.json` on Vultr. Address: `B3NZbGxzkNMXgvR6NqvCJGN2UUuiyBMHxXRYs7xRdXg5`. Windows stale copy renamed to `-STALE-OLD-GENESIS.json`.
 
-**Recent updates (2026-03-23 session 3 — Genesis 10 Reboot):**
+**Recent updates (2026-03-24 — Whitepaper v7.0 / Genesis 11):**
+- WHITEPAPER v7.0 PUBLISHED. Major version bump (6.8 → 7.0) for Genesis 11.
+- 13 axioms across 4 categories: Promise (3), Credit (2), Trigger (1), AI Agent (5) + closing statement.
+- Section 4.6: KXGC (kxgc.io) as 6th EPP — 300M KX capital backstop, Lloyd's of London model, 3-tier hierarchy.
+- Sections 5.5-5.7: TYPE P-F (Fully Reserved Pool), P-R (Fractional Reserve Pool), S (Springing Instrument), W (Waterfall Routing), B (Bond Instrument).
+- Section C.3a: Verification Levels — GREEN/PURPLE/WHITE/GOLD, issued by CPNX (except Gold by Foundation).
+- Section D.10: Final Genesis Lock — final_genesis: true, FINAL_GENESIS_LOCKED error on any GenesisReset.
+- Tokenomics: KXGC Bond 300M KX added, Public Sale adjusted 6,093M → 5,793M. Six EPP bonds total.
+- Roadmap: Genesis 11 live March 24, 2026. Wallet v1.4.91.
+- Immutable Constants table: 13 Axioms (4 categories) + Final Genesis Lock.
+- Both .docx and .pdf on Desktop. Pushed to GitHub chronx-docs (v6.8 removed).
+
+**Previous updates (2026-03-23 session 3 — Genesis 10 Reboot):**
 - GENESIS 10 REBOOT COMPLETE. Chain wiped and re-populated cleanly.
 - 13 vertices, 19 accounts, 8,270,000,000 KX supply confirmed.
 - All user balances restored: Usman 1M, Michelle 100, Joseph Mobile 14,825, cabfone1999 8,630, iikrudiat20 25, cabfone1999-faucet 25.
@@ -103,16 +115,25 @@ At the start of EVERY session working on ChronX:
 
 ---
 
-## ✅ CPNX ADMIN v2 — COMPLETE (2026-03-23)
+## ✅ CPNX ADMIN v2.1 — FULLY COMPLETE (2026-03-23)
 
 **CPNX wallet:** `5g4Fcn8A9BigH8vvyNvVvTGksC6PVWTsQnvT8adRGfFp`
 **CPNX keyfile:** `C:\Users\Josep\chronx\cpnx-wallet.json`
 **NEVER leave keyfile on Vultr. SCP, use, delete.**
 
-**Admin panel:** https://cpnx.com/admin.html
+**Landing page:** https://cpnx.com — hero + bordered gold bond pill (visible) + partner badge
+**Admin panel:** https://cpnx.com/admin.html — partner badge embedded
 **Deploy:** `cd C:\Users\Josep && python deploy_cpnx.py`
 **FTP:** u507945893.cpnx.com @ 82.29.199.47 (same password as other sites)
 **Local folder:** `C:\Users\Josep\cpnx-website\`
+**Bond wallet:** `5g4Fcn8A9BigH8vvyNvVvTGksC6PVWTsQnvT8adRGfFp` — 1M KX bonded, explorer-verifiable
+**Partner badge:** `chronx.io/js/partner-badge.js` embedded on both index.html and admin.html
+**Admin login:** Joseph changed password manually — not a bug, working as intended
+**Badge Catalog fix (2026-03-24):** Null-safe `escapeHtml`/`escapeAttr` — `String()` coercion for numeric IDs. Catalog table reads `default_expiry_days` + `available_to_children` from API. Null guard on `.map()`.
+**Founder identity updated (2026-03-23):** "ChronX Founder" → "Founding Team" (voluntary revocation + re-issue via CPNX wallet)
+- Revoke TX: `e9449ff53f943d9fb14ae1796e1985d710e2b68e2068a9d7c5c86c1040207fa5`
+- Re-issue TX: `418ec17c328b73bfdeb884b720259e667b8c7718d0b9a1a849c6f72412892525`
+- CPNX keyfile confirmed deleted from Vultr after use
 
 ### Badge System
 - `wallet_badges` table now has `expires_at`, `badge_label`, `issued_by_child`, `child_account_id` columns
@@ -147,7 +168,35 @@ PATCH /cpnx/admin/child-accounts/:id/status      (admin auth)
 POST /cpnx/admin/badge-catalog                   (admin auth)
 PUT  /cpnx/admin/badge-catalog/:id               (admin auth)
 POST /cpnx/child/issue-badge                     (API key auth via X-Api-Key)
+GET  /cpnx/child/my-badge-types                  (API key auth via X-Api-Key)
+DELETE /cpnx/admin/child-accounts/:id             (admin auth)
+DELETE /cpnx/admin/child-accounts/:id/badge-types/:typeId (admin auth)
 ```
+
+### Admin Panel Nav (v2.1)
+Dashboard | Active Badges | Issue Badge | Verify Wallet | Revoke | Child Accounts | Badge Catalog | Settings
+
+### Issue Badge (admin)
+Free-form badge type entry, color picker, emoji, live preview pill.
+Collapsible "Browse badge ideas" catalog reference for inspiration.
+Admin has no restrictions on badge types. Expiration default 90 days.
+
+### Child Accounts
+Admin creates child accounts with generated credentials.
+Admin assigns specific badge types + quotas per child.
+Child authenticates via API key. Quota enforced server-side.
+Admin can delete child accounts (type DELETE to confirm).
+Admin can manage badge types per child (add/remove).
+
+### Settings
+Change password form (calls POST /admin/change-password).
+API key reveal/hide (10s auto-hide). No regeneration yet.
+
+### Revoke
+Badge revocation: instant MySQL delete via admin panel.
+Identity revocation: radio buttons with descriptions for each type.
+Fraud/impersonation triggers configurable badge blackout period.
+CLI command shown in styled code block with Copy button.
 
 ### Database Tables Added
 - `cpnx_child_accounts` — B2B child account management
@@ -255,7 +304,7 @@ Added to ALLOWED_ORIGINS: cpnx.com, www.cpnx.com, admin.cpnx.com, xchan.io, misa
 - Block explorer checkmark display: future
 - Corporate verification intake process via Verifas or bonded verifier: future
 
-**Whitepaper:** v4.5 on GitHub (Counselco/chronx-docs)
+**Whitepaper:** v7.0 on GitHub (Counselco/chronx-docs) — Genesis 11 final
 
 **Node:** v9.0.0 — Linux x64 binary at chronx.io/dl/chronx-node-linux-x64.tar.gz. Auto-update system live (checks chronx.io/version.json every 24h).
 
@@ -359,7 +408,7 @@ All three pending items shipped in v1.4.56:
 **Total supply:** 8,270,000,000 KX (fixed forever at genesis)
 **Transaction fees:** Zero. Completely free. Forever.
 
-**Current Phase:** Pre-ICO (invite-only). Wallet v2.2.2 (Windows + Android). Live on Google Play. Website live with 10-panel comic explainer + governance page. Node on Vultr (v9.0.0 — Genesis 9). Genesis 8 re-genesis completed 2026-03-08, Genesis 9 binary upgrade 2026-03-18. Verifas.io live. MISAI.io reframed as bonded AI executor. Whitepaper v5.0 published. Governance page with AI Agent Axioms live. KXGO.io gaming platform live (Castle Wars + Battle for the Realm).
+**Current Phase:** Pre-ICO (invite-only). Wallet v2.2.2 (Windows + Android). Live on Google Play. Website live with 10-panel comic explainer + governance page. Node on Vultr (v9.0.0 — Genesis 9). Genesis 8 re-genesis completed 2026-03-08, Genesis 9 binary upgrade 2026-03-18. Verifas.io live. MISAI.io reframed as bonded AI executor. Whitepaper v7.0 published (Genesis 11). Governance page with AI Agent Axioms live. KXGO.io gaming platform live (Castle Wars + Battle for the Realm).
 
 **Official ICO Date:** September 22, 2026 — the Autumnal Equinox
 
@@ -1239,7 +1288,7 @@ systemctl restart kxgo-api
 - **api.verifas.io SSL:** Live, cert expires 2026-06-16.
 - **terms.html:** Live at chronx.io/terms, all 8 languages.
 - **Pre-ICO notice:** Updated to $0.001755/$0.002297.
-- **Whitepaper:** GitHub now has ONLY v5.0 (all old versions removed).
+- **Whitepaper:** GitHub now has ONLY v7.0 (all old versions removed). Genesis 11 final.
 - **ai-brief rules:** #15 git safety, #16 no git clean -fd, #17 keystore backup mandatory.
 
 **ANDROID STATUS:**
