@@ -59,7 +59,17 @@ At the start of EVERY session working on ChronX:
 
 **Public Sale keyfile:** `/home/josep/genesis9/keyfiles/public-sale-wallet.json` on Vultr. Address: `B3NZbGxzkNMXgvR6NqvCJGN2UUuiyBMHxXRYs7xRdXg5`. Windows stale copy renamed to `-STALE-OLD-GENESIS.json`.
 
-**Recent updates (2026-03-24 — Whitepaper v7.0 / Genesis 11):**
+**Recent updates (2026-03-24 session 2 — Whitepaper v7.1):**
+- WHITEPAPER v7.1 PUBLISHED. Changes from v7.0:
+- Section 5.8: TYPE A (Authority Grant) — AuthorityGrant/AuthorityRevoke now LIVE on Genesis 11.
+- Section 5.9: TYPE W (Waterfall Routing) — automatic claim routing up KXGC hierarchy.
+- Section C.3b: Governance authority map — what governance can/cannot control, all params listed.
+- Section D.4: Updated — TYPE A confirmed live, remaining types in pre-ICO build cycle.
+- Section 4.6: KXGC capacity RPC (chronx_getKXGCCapacity) — live balance, obligations, reserve ratio.
+- GitHub: v7.0 removed, v7.1 pushed to chronx-docs.
+- Desktop: .docx (70KB) + .pdf (318KB).
+
+**Previous updates (2026-03-24 session 1 — Whitepaper v7.0 / Genesis 11):**
 - WHITEPAPER v7.0 PUBLISHED. Major version bump (6.8 → 7.0) for Genesis 11.
 - 13 axioms across 4 categories: Promise (3), Credit (2), Trigger (1), AI Agent (5) + closing statement.
 - Section 4.6: KXGC (kxgc.io) as 6th EPP — 300M KX capital backstop, Lloyd's of London model, 3-tier hierarchy.
@@ -304,7 +314,7 @@ Added to ALLOWED_ORIGINS: cpnx.com, www.cpnx.com, admin.cpnx.com, xchan.io, misa
 - Block explorer checkmark display: future
 - Corporate verification intake process via Verifas or bonded verifier: future
 
-**Whitepaper:** v7.0 on GitHub (Counselco/chronx-docs) — Genesis 11 final
+**Whitepaper:** v7.1 on GitHub (Counselco/chronx-docs) — Genesis 11, TYPE A live
 
 **Node:** v9.0.0 — Linux x64 binary at chronx.io/dl/chronx-node-linux-x64.tar.gz. Auto-update system live (checks chronx.io/version.json every 24h).
 
@@ -408,7 +418,7 @@ All three pending items shipped in v1.4.56:
 **Total supply:** 8,270,000,000 KX (fixed forever at genesis)
 **Transaction fees:** Zero. Completely free. Forever.
 
-**Current Phase:** Pre-ICO (invite-only). Wallet v2.2.2 (Windows + Android). Live on Google Play. Website live with 10-panel comic explainer + governance page. Node on Vultr (v9.0.0 — Genesis 9). Genesis 8 re-genesis completed 2026-03-08, Genesis 9 binary upgrade 2026-03-18. Verifas.io live. MISAI.io reframed as bonded AI executor. Whitepaper v7.0 published (Genesis 11). Governance page with AI Agent Axioms live. KXGO.io gaming platform live (Castle Wars + Battle for the Realm).
+**Current Phase:** Pre-ICO (invite-only). Wallet v2.2.2 (Windows + Android). Live on Google Play. Website live with 10-panel comic explainer + governance page. Node on Vultr (v9.0.0 — Genesis 9). Genesis 8 re-genesis completed 2026-03-08, Genesis 9 binary upgrade 2026-03-18. Verifas.io live. MISAI.io reframed as bonded AI executor. Whitepaper v7.1 published (Genesis 11, TYPE A live). Governance page with AI Agent Axioms live. KXGO.io gaming platform live (Castle Wars + Battle for the Realm).
 
 **Official ICO Date:** September 22, 2026 — the Autumnal Equinox
 
@@ -1288,7 +1298,7 @@ systemctl restart kxgo-api
 - **api.verifas.io SSL:** Live, cert expires 2026-06-16.
 - **terms.html:** Live at chronx.io/terms, all 8 languages.
 - **Pre-ICO notice:** Updated to $0.001755/$0.002297.
-- **Whitepaper:** GitHub now has ONLY v7.0 (all old versions removed). Genesis 11 final.
+- **Whitepaper:** GitHub now has ONLY v7.1 (all old versions removed). Genesis 11 final, TYPE A live.
 - **ai-brief rules:** #15 git safety, #16 no git clean -fd, #17 keystore backup mandatory.
 
 **ANDROID STATUS:**
