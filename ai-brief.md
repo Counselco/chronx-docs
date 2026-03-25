@@ -59,7 +59,17 @@ At the start of EVERY session working on ChronX:
 
 **Public Sale keyfile:** `/home/josep/genesis9/keyfiles/public-sale-wallet.json` on Vultr. Address: `B3NZbGxzkNMXgvR6NqvCJGN2UUuiyBMHxXRYs7xRdXg5`. Windows stale copy renamed to `-STALE-OLD-GENESIS.json`.
 
-**Recent updates (2026-03-24 session 2 — Whitepaper v7.1):**
+**Recent updates (2026-03-24 session 3 — Governance Authority Section):**
+- GOVERNANCE PAGE: Foundation Authority section added to chronx.io/governance.html.
+- Two-column layout: Left = What Governance Controls (7 items), Right = What Governance Cannot Do (7 items).
+- Controls: Protocol Feature Gates, KXGC Reserve Params, AI Agent Boundaries, TYPE A Bounds, Verification Criteria, EPP Bond Actions, Emergency Switches.
+- Cannot: Move funds, Cancel promises, Change axioms, Accelerate DrawRequest, Direct EPP ops, Alter loan terms, Reset genesis.
+- Footer: "The protocol enforces both lists. No private decisions. No hidden rules."
+- Mobile responsive (single column on narrow screens).
+- All 7 language translations added to js/translations.js (gov_authority_title, gov_authority_subtitle, gov_controls, gov_cannot).
+- Deployed to chronx.io via FTP. Verified live.
+
+**Previous updates (2026-03-24 session 2 — Whitepaper v7.1):**
 - WHITEPAPER v7.1 PUBLISHED. Changes from v7.0:
 - Section 5.8: TYPE A (Authority Grant) — AuthorityGrant/AuthorityRevoke now LIVE on Genesis 11.
 - Section 5.9: TYPE W (Waterfall Routing) — automatic claim routing up KXGC hierarchy.
