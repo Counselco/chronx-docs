@@ -3077,9 +3077,9 @@ PENDING NEXT SESSION:
 
 ### Contracts Deployed to Base (Chain 8453)
 
-**WrappedKXv3**: `0xcD2BB6DEA83298edABd5B1be16fdf3c3Eb2D0a30`
+**WrappedKXv3**: `0x72D312b0386EEBd63a0B1734488DD81B3350717a`
   - ERC-20 "Wrapped KX" (wKX), 18 decimals
-  - Provenance-enforced: every mint() requires authorized lock_id + non-expired lock
+  - Provenance-enforced: every mint() requires authorized lock_id + non-expired lock. Public burn() for any holder.
   - Two-key model ready: minter + node attestation (attestation dormant until YubiHSM)
   - Owner: `0xF5fD6Da90cCaeE370bE7065D5A28e1C9da4d3a54` (Joseph)
   - Minter: `0x569EAea5F00B1f554790778d14934817bc00e733` (bridge wallet, software key)
@@ -3101,6 +3101,7 @@ PENDING NEXT SESSION:
   - Full range position
 
 ### RETIRED Contracts (do NOT use)
+  - **wKX v3 (no burn)**: `0xcD2BB6DEA83298edABd5B1be16fdf3c3Eb2D0a30` -- RETIRED 2026-03-27 (replaced by v3+burn)
   - **wKX v2**: `0x0BBC24a0cBBC5d3fF1B9b90ce5195fC04FE0dD56` -- RETIRED 2026-03-26
   - **wKX v1**: `0xD21176adCEA2Fee38E7Ca2E4c94E7cd10C538677` -- RETIRED (auto-mint accident)
   - **Old Uniswap pool**: `0x0B1865E9519EFf7De80539d986C5abCC5e8667De` -- RETIRED (liquidity removed)
@@ -3113,8 +3114,8 @@ PENDING NEXT SESSION:
   - Both services restarted and running clean
 
 ### Known Issues / TODOs
-  - **LP wallet dust**: `0xF5fD...` holds 6,272 wKX v3 from debug session (backed by lock_ids but excess). Cannot burn server-side (no LP private key). TODO: add public burn() to wKX v3 contract next session so Joseph can burn from MetaMask.
-  - **BaseScan verification**: Both contracts need source verification. API key: `ANVVES9RXQV2ZM224J35BXHJ5C6ZYJPNX4`. TODO next session.
+  - **LP wallet dust**: `0xF5fD...` holds 6,272 wKX from OLD v3 contract (0xcD2BB6..., now retired). These tokens are on the retired contract and effectively dead. New v3 contract (0x72D312...) has burn() function. Joseph should burn any dust on the new contract from MetaMask.
+  - **BaseScan verification**: VERIFIED. Both contracts have green checkmarks on BaseScan. API key: `ANVVES9RXQV2ZM224J35BXHJ5C6ZYJPNX4`.
   - **CMC/CoinGecko**: Update with new pool address `0x33128a...`. TODO next session.
   - **Heartbeat enforcement**: OFF. Enable after YubiHSM arrives (~Mar 29-31): call setEnforcement(true) on oracle, setTrustedSigner(hsm_address) on oracle, setMinter(hsm_address) on wKX v3.
 
