@@ -1,6 +1,6 @@
 # CHRONX_PROJECT_BRIEF.md
 # Single Source of Truth for All Claude Instances Working on ChronX
-# Last updated: 2026-03-24
+# Last updated: 2026-03-23
 # Stored at: https://github.com/Counselco/Counselco-chronx-internal (PRIVATE)
 # Also deployed to: https://chronx.io/internal/ai-brief.md
 
@@ -20,9 +20,9 @@ At the start of EVERY session working on ChronX:
 
 ---
 
-## ✅ GENESIS 11 FINAL (2026-03-24)
+## ✅ GENESIS 10 FINAL (2026-03-22)
 
-**Genesis version: 11.0** — Final genesis. genesis_lock encoded. 13 axioms (4 categories). TYPE P-F, P-R, S, W, B live. KXGC seeded. Verification levels active. No further genesis resets possible (FINAL_GENESIS_LOCKED).
+**Genesis version: 10.0** — Full re-genesis with code cleanup. All nodes synced: Vultr + Windows + Mac Mini.
 
 **Chain state:** 14 vertices, 20 accounts, 8,270,000,000 KX total supply confirmed. Fresh chain from clean genesis.
 
@@ -59,39 +59,7 @@ At the start of EVERY session working on ChronX:
 
 **Public Sale keyfile:** `/home/josep/genesis9/keyfiles/public-sale-wallet.json` on Vultr. Address: `B3NZbGxzkNMXgvR6NqvCJGN2UUuiyBMHxXRYs7xRdXg5`. Windows stale copy renamed to `-STALE-OLD-GENESIS.json`.
 
-**Recent updates (2026-03-24 session 3 — Governance Authority Section):**
-- GOVERNANCE PAGE: Foundation Authority section added to chronx.io/governance.html.
-- Two-column layout: Left = What Governance Controls (7 items), Right = What Governance Cannot Do (7 items).
-- Controls: Protocol Feature Gates, KXGC Reserve Params, AI Agent Boundaries, TYPE A Bounds, Verification Criteria, EPP Bond Actions, Emergency Switches.
-- Cannot: Move funds, Cancel promises, Change axioms, Accelerate DrawRequest, Direct EPP ops, Alter loan terms, Reset genesis.
-- Footer: "The protocol enforces both lists. No private decisions. No hidden rules."
-- Mobile responsive (single column on narrow screens).
-- All 7 language translations added to js/translations.js (gov_authority_title, gov_authority_subtitle, gov_controls, gov_cannot).
-- Deployed to chronx.io via FTP. Verified live.
-
-**Previous updates (2026-03-24 session 2 — Whitepaper v7.1):**
-- WHITEPAPER v7.1 PUBLISHED. Changes from v7.0:
-- Section 5.8: TYPE A (Authority Grant) — AuthorityGrant/AuthorityRevoke now LIVE on Genesis 11.
-- Section 5.9: TYPE W (Waterfall Routing) — automatic claim routing up KXGC hierarchy.
-- Section C.3b: Governance authority map — what governance can/cannot control, all params listed.
-- Section D.4: Updated — TYPE A confirmed live, remaining types in pre-ICO build cycle.
-- Section 4.6: KXGC capacity RPC (chronx_getKXGCCapacity) — live balance, obligations, reserve ratio.
-- GitHub: v7.0 removed, v7.1 pushed to chronx-docs.
-- Desktop: .docx (70KB) + .pdf (318KB).
-
-**Previous updates (2026-03-24 session 1 — Whitepaper v7.0 / Genesis 11):**
-- WHITEPAPER v7.0 PUBLISHED. Major version bump (6.8 → 7.0) for Genesis 11.
-- 13 axioms across 4 categories: Promise (3), Credit (2), Trigger (1), AI Agent (5) + closing statement.
-- Section 4.6: KXGC (kxgc.io) as 6th EPP — 300M KX capital backstop, Lloyd's of London model, 3-tier hierarchy.
-- Sections 5.5-5.7: TYPE P-F (Fully Reserved Pool), P-R (Fractional Reserve Pool), S (Springing Instrument), W (Waterfall Routing), B (Bond Instrument).
-- Section C.3a: Verification Levels — GREEN/PURPLE/WHITE/GOLD, issued by CPNX (except Gold by Foundation).
-- Section D.10: Final Genesis Lock — final_genesis: true, FINAL_GENESIS_LOCKED error on any GenesisReset.
-- Tokenomics: KXGC Bond 300M KX added, Public Sale adjusted 6,093M → 5,793M. Six EPP bonds total.
-- Roadmap: Genesis 11 live March 24, 2026. Wallet v1.4.91.
-- Immutable Constants table: 13 Axioms (4 categories) + Final Genesis Lock.
-- Both .docx and .pdf on Desktop. Pushed to GitHub chronx-docs (v6.8 removed).
-
-**Previous updates (2026-03-23 session 3 — Genesis 10 Reboot):**
+**Recent updates (2026-03-23 session 3 — Genesis 10 Reboot):**
 - GENESIS 10 REBOOT COMPLETE. Chain wiped and re-populated cleanly.
 - 13 vertices, 19 accounts, 8,270,000,000 KX supply confirmed.
 - All user balances restored: Usman 1M, Michelle 100, Joseph Mobile 14,825, cabfone1999 8,630, iikrudiat20 25, cabfone1999-faucet 25.
@@ -135,13 +103,13 @@ At the start of EVERY session working on ChronX:
 
 ---
 
-## ✅ CPNX ADMIN v2.1 — FULLY COMPLETE (2026-03-23)
+## ✅ CPNX ADMIN v2.2 — PUBLIC FORM + APPLICATIONS (2026-03-24)
 
 **CPNX wallet:** `5g4Fcn8A9BigH8vvyNvVvTGksC6PVWTsQnvT8adRGfFp`
 **CPNX keyfile:** `C:\Users\Josep\chronx\cpnx-wallet.json`
 **NEVER leave keyfile on Vultr. SCP, use, delete.**
 
-**Landing page:** https://cpnx.com — hero + bordered gold bond pill (visible) + partner badge
+**Landing page:** https://cpnx.com — hero + bordered gold bond pill (visible) + partner badge + public forms
 **Admin panel:** https://cpnx.com/admin.html — partner badge embedded
 **Deploy:** `cd C:\Users\Josep && python deploy_cpnx.py`
 **FTP:** u507945893.cpnx.com @ 82.29.199.47 (same password as other sites)
@@ -150,6 +118,7 @@ At the start of EVERY session working on ChronX:
 **Partner badge:** `chronx.io/js/partner-badge.js` embedded on both index.html and admin.html
 **Admin login:** Joseph changed password manually — not a bug, working as intended
 **Badge Catalog fix (2026-03-24):** Null-safe `escapeHtml`/`escapeAttr` — `String()` coercion for numeric IDs. Catalog table reads `default_expiry_days` + `available_to_children` from API. Null guard on `.map()`.
+**Public form (2026-03-24):** "Request a Badge" now opens web modal form (no longer opens email client). "Verify a Badge" opens wallet lookup form (no longer redirects to explorer). Public endpoints: `POST /cpnx/public/request-badge`, `GET /cpnx/public/verify/:address`. Confirmation email sent to applicant on submit. Admin notification email sent to yo@chronx.io. Applications tab in admin now shows submissions with approve/reject workflow + email notifications. `cpnx_applications` table created.
 **Founder identity updated (2026-03-23):** "ChronX Founder" → "Founding Team" (voluntary revocation + re-issue via CPNX wallet)
 - Revoke TX: `e9449ff53f943d9fb14ae1796e1985d710e2b68e2068a9d7c5c86c1040207fa5`
 - Re-issue TX: `418ec17c328b73bfdeb884b720259e667b8c7718d0b9a1a849c6f72412892525`
@@ -191,10 +160,15 @@ POST /cpnx/child/issue-badge                     (API key auth via X-Api-Key)
 GET  /cpnx/child/my-badge-types                  (API key auth via X-Api-Key)
 DELETE /cpnx/admin/child-accounts/:id             (admin auth)
 DELETE /cpnx/admin/child-accounts/:id/badge-types/:typeId (admin auth)
+POST /cpnx/public/request-badge                  (public, no auth)
+GET  /cpnx/public/verify/:address                (public, no auth)
+GET  /cpnx/admin/applications                    (admin auth)
+PATCH /cpnx/admin/applications/:id/approve       (admin auth)
+PATCH /cpnx/admin/applications/:id/reject        (admin auth)
 ```
 
-### Admin Panel Nav (v2.1)
-Dashboard | Active Badges | Issue Badge | Verify Wallet | Revoke | Child Accounts | Badge Catalog | Settings
+### Admin Panel Nav (v2.2)
+Dashboard | Active Badges | Issue Badge | Verify Wallet | Revoke | Child Accounts | Badge Catalog | Applications | Settings
 
 ### Issue Badge (admin)
 Free-form badge type entry, color picker, emoji, live preview pill.
@@ -224,6 +198,7 @@ CLI command shown in styled code block with Copy button.
 - `cpnx_badge_catalog` — 20 seeded badge types
 - `cpnx_verifications` — identity verification audit log
 - `badge_blackouts` — fraud/impersonation badge blackouts
+- `cpnx_applications` — public badge/verification requests (name, wallet, type, email, status, admin_notes, rejection_reason)
 
 ### Attestation Requirement
 Identity verification requires mandatory checkbox: "I confirm I have independently verified..."
@@ -246,15 +221,519 @@ Added to ALLOWED_ORIGINS: cpnx.com, www.cpnx.com, admin.cpnx.com, xchan.io, misa
 
 ### OPEN ITEMS
 1. Self-to-self loan test (install v2.5.33 .exe)
-2. Android AAB build after loan UI approved
+2. Android AAB build after biometric confirmed on device
 3. Mobile Buy/Sell KX widget UI
 4. Whitepaper push approval
 5. PAY_AS test loan USD denomination
-6. HedgeKX seeding
-7. EXECUTOR_WITHDRAW_DELAY = 86400
+6. HedgeKX seeding (Joseph funds USDC reserve)
+7. ~~EXECUTOR_WITHDRAW_DELAY = 86400~~ **DONE** (set 2026-03-24)
 8. Mac Mini node sync
-9. Operating agreements pre-ICO
+9. Operating agreements pre-ICO — **LEGAL DEPENDENCY: accreditation flow needs securities lawyer**
 10. Foundation legal structure pre-ICO
+
+---
+
+## GOVERNANCE DIRECTIVES SYSTEM (v1.1 — 2026-03-24)
+
+**Machine-readable:** https://chronx.io/governance-directives.json (v1.1)
+**Human-readable:** https://chronx.io/governance.html — fully rebuilt (2026-03-24)
+**Live API:** https://api.chronx.io/governance/params (public, no auth)
+
+All 5 Essential Protocol Partners read this single JSON file for their current limits, bond info, and operating mode. Update one file → all partner sites update automatically.
+
+### Governance Page Architecture (rebuilt 2026-03-24)
+Three sections showing complete governance picture:
+1. **Immutable Constants** — supply, fees, axiom counts, fee ceiling. Source: `/governance/params` API. Cannot change ever.
+2. **Governed Parameters** — live values from `genesis-params.json`. Shows floor, ceiling, current value, purpose. Source: `/governance/params` API. Foundation vote required.
+3. **EPP Directives** — per-partner limits, yellow notices, bond amounts, review dates. Source: `governance-directives.json`. Foundation governance vote.
+
+### Governance Params API
+`GET /governance/params` — returns immutable constants (5) + governed parameters (7+) from genesis-params.json. Public, no auth. Added to `/opt/chronx-notify/index.js`.
+
+**Current Directives:**
+| Partner | Bond | Limit | Status | Next Review |
+|---------|------|-------|--------|-------------|
+| CPNX | 1M KX | No limit | active | -- |
+| Verifas | 10M KX | No limit | active | -- |
+| XChan | 10M KX | $250/tx ($10K accredited) | active | Q1 2027 |
+| HedgeKX | 10M KX | $250/hedge | building | Q1 2027 |
+| MISAI | 10M KX | 80K KX, invite only | gate_restricted | Q4 2026 |
+
+**v1.1 additions:** bond_wallet, bond_kx, bond_instrument_pending, tagline, operating_mode, principal_trading fields, spread floor/ceiling, accredited limits, auto-escalation flags.
+
+**Governance notices live on:**
+- chronx.io/ico.html — below XChan buy box
+- xchan.io — below hero badges + operating mode indicator
+- hedgekx.io — below CTA buttons
+- All 5 sites: partner-bond.js displays live bond balance
+
+## PARTNER BOND DISPLAY (2026-03-24)
+
+**Shared script:** `https://chronx.io/js/partner-bond.js`
+Each partner site loads this script and calls `initPartnerBond({...})` with their bond wallet address. Displays live bond balance fetched from ChronX RPC, with fallback to known amount if API unavailable. Positioned prominently (below hero, trust centerpiece — not a small badge).
+
+**XChan operating mode indicator:** Shows current mode (principal trading vs Uniswap routing) with spread % and governance link.
+
+**Bond Instrument loans:** Pending — wallet CLI does not have `loan-offer` subcommand. Joseph will issue via desktop wallet GUI. BLAKE2b placeholder hashes computed:
+- XChan: `09e977a1aab1...`
+- HedgeKX: `3c7ea3cb1e90...`
+- CPNX: `8eb3e607a5bd...`
+- Verifas: `f82daad65075...`
+- MISAI: `9eb20c27eb9d...`
+
+## ICO ACCREDITATION SYSTEM (2026-03-24)
+
+**Database:** `ico_accreditations` table in MySQL (chronx DB on Vultr)
+**Endpoints:**
+- `POST /ico/accreditation/submit` — public, submits declaration
+- `GET /ico/accreditation/limit/:wallet` — public, returns max_transaction_usd (250 or 10000)
+- `GET /ico/accreditation/status/:wallet` — public, returns pending/approved/rejected/not_submitted
+- `GET /admin/ico/accreditations` — admin, lists all applications
+- `PATCH /admin/ico/accreditations/:id/approve` — admin, approves + sends email
+- `PATCH /admin/ico/accreditations/:id/reject` — admin, rejects
+
+**Flow:** Submit form on chronx.io/ico.html → confirmation email → Joseph reviews in admin panel → approve → applicant gets $10,000 limit on XChan.
+
+**XChan enforcement:** Execute endpoint checks accreditation limit via `http://127.0.0.1:3001/ico/accreditation/limit/:wallet` before processing. Default: $250. Accredited: $10,000.
+
+**LEGAL NOTE:** Accreditation is self-certification only. Securities lawyer must review before ICO launch. This is a declaration system, not verification.
+
+## ICO ACCREDITED INVESTOR REGISTRY (2026-03-24)
+
+**ICO page tabs:** "Public Sale" (default) + "Accredited Registry"
+- Public Sale tab: existing content + accreditation declaration form
+- Registry tab: public table of approved accredited investors with live wallet balances
+
+**Registry columns:** Wallet (truncated) | Country | Approved date | KX Balance (live) | USD Value | Status
+**Status indicators:** Green = holding, Yellow = reduced >10%, Red = near zero
+**Balance source:** `chronx_getAccountInfo` RPC per wallet, price from `/api/xchan/price`
+**Privacy:** Wallet addresses voluntarily disclosed by investors — balances are public blockchain data
+
+## ADMIN OPERATIONS TAB (2026-03-24)
+
+**URL:** chronx.io/admin.html → Operations tab
+
+**Section 1 — Partner Health Cards:**
+All 5 partners in a grid. Each shows: name, tagline, bond balance (live from RPC), status indicator. XChan card includes reserve health bar (color-coded: green >50%, yellow 20-50%, red <20%) and daily volume.
+
+**Section 2 — ICO Accreditation Queue:**
+Stats: Total / Pending / Approved / Rejected. Table with full details (name, country, wallet, email, US resident, KX balance, submitted date, status). Approve/Reject buttons per row.
+
+**Section 3 — XChan Activity:**
+Daily summary cards (buy volume, sell volume, spread income, trade count). Recent trades table (last 20).
+
+## XCHAN SPREAD TIERS (2026-03-24)
+
+**Two-tier spread system live:**
+| Transaction | Spread | Registration |
+|-------------|--------|-------------|
+| Buy KX (any amount) | 2% | No |
+| Sell KX ≤ 80,000 KX/day | 2% | No |
+| Sell KX > 80,000 KX/day | 10% | Accredited required |
+
+**Key design:** Buys are ALWAYS 2% regardless of size — we are in an ICO and want buyers. Sells have tiered spreads based on daily KX volume per wallet.
+
+**Spread schedule (targets, subject to governance vote):**
+- Launch: retail 2% / accredited sell 10%
+- 2027-Q2: retail 2% / accredited sell 7%
+- 2028-Q1: retail 2% / accredited sell 5%
+- Maturity: route to Uniswap
+
+**Daily KX sell volume tracker:** In-memory map per wallet, resets at midnight UTC. When a sell exceeds 80K KX/day, XChan returns a structured error with options (retail remaining KX at 2% or register for accredited at 10%).
+
+**Trade logging:** `xchan_trades` MySQL table logs every execution. Endpoints:
+- `GET /api/xchan/trades/recent` — public, last 20 trades (no wallet addresses)
+- `GET /api/xchan/trades/summary/today` — buy/sell volume, spread income, trade count
+
+## XCHAN COMPLETE RESERVE PICTURE (forensic audit 2026-03-24)
+
+### All Wallet Addresses and Current Balances
+
+**Base (Ethereum L2) wallets:**
+| Wallet | ETH | USDC | wKX | Role |
+|--------|-----|------|-----|------|
+| `0x569EAea5F00B1f554790778d14934817bc00e733` | 0.00296 ($6.39) | $22.28 | 0 | Bridge signer, authorized wKX minter |
+| `0xF5fD6Da90cCaeE370bE7065D5A28e1C9da4d3a54` | 0.00853 | $2.50 | 8,192.7 | wKX contract owner (Joseph's LP wallet) |
+
+**ChronX wallets:**
+| Wallet | KX | Role |
+|--------|-----|------|
+| `FGSemyJdkCU85D4qQNWFd158J44MANAHTAF5Qx974WRR` | 884 | Bridge deposit address (ChronX side) |
+| `68Y97pWzwT8r5kEfozAjhZd6b4bhrKVmJUr84NAfz129` | 10,000,000 | XChan Bond (intact) |
+| `BCwHsGLPzSGqjpG7Ptqp3qVRNrqEKdW9Dt4g7NEQpwLT` | 186,950,000 | Founder wallet |
+
+**wKX ERC-20 contract (`0xD21176ad...`):**
+- Owner: `0xF5fD...` (Joseph's LP wallet — can call `setBridge()`)
+- Authorized minter: `0x569E...` (bridge wallet — can call `mint()`)
+- Total supply: **21,464 wKX** still exists on Base
+- totalKXLocked: 21,464 (contract self-reported)
+- Joseph's LP wallet holds: 8,192.7 wKX
+- Remaining ~13,271 wKX: in Uniswap pool and/or buyer wallets
+
+### Pre-Genesis 10 Swap History (from bridge DB)
+
+All swaps occurred March 11-14, 2026 — BEFORE Genesis 10 (March 22).
+
+**21 total deposits detected:**
+| Status | Count | Total KX | What happened |
+|--------|-------|----------|---------------|
+| swapped | 13 | 881 KX | wKX minted + USDC sent to seller |
+| minted | 3 | 203 KX | wKX minted but no USDC sent |
+| no_base_addr | 5 | 4,420 KX | KX received, no Base address registered |
+
+**4 unique depositors:**
+- `BCwHsG...` (Founder) — 9 deposits, 722 KX total
+- `7Tiy3y...` — 6 deposits, 59 KX total
+- `7xbB5n...` — 1 deposit, 300 KX
+- `B3NZbG...` — 5 deposits, 4,420 KX (all "no_base_addr", post-Genesis 10)
+
+**4 registered KX→Base address mappings** in bridge DB.
+
+### What Genesis 10 Changed for XChan
+
+Genesis 10 (March 22) reset the ChronX chain completely. This means:
+1. **Pre-Genesis KX balances no longer exist** — all wallets were re-created with new allocations
+2. **The bridge wallet got 884 KX** in the new genesis (from a transfer by B3NZbG...)
+3. **Base was NOT reset** — wKX still exists on Base, Uniswap pool untouched
+4. **wKX is now unbacked** — the 21,464 wKX on Base was backed by pre-Genesis KX deposits that no longer exist on the ChronX chain
+5. **The bridge can still mint new wKX** — minting authority unchanged
+
+### XChan Operational Status Post-Genesis 10
+
+| Capability | Status | Detail |
+|-----------|--------|--------|
+| Receive KX from sellers | ✅ Works | Bridge polls `FGSemyJ...` for incoming transfers |
+| Convert KX to wKX | ✅ Works | Bridge wallet is authorized minter |
+| Send USDC to sellers | ✅ Works | $52.28 USDC in reserve (after pool seed) |
+| Receive USDC from buyers | ✅ Works | Buyers send to `0x569E...` |
+| Send wKX to buyers | ✅ Works | Bridge can mint wKX on demand |
+| Uniswap pool | ✅ Live | $10 USDC + wKX at $0.00319/KX, liquidity active |
+
+## UNISWAP POOL SEEDED (2026-03-24)
+
+**Pool:** `0x23503b2947B07000279C0ac281ec61dBeb95b36D` (wKX/USDC, 1% fee, Base)
+**Status:** LIVE with liquidity. Price feed active.
+
+**Seeding transactions:**
+1. Mint 3,135 wKX to bridge: `0x9df5e9efb8c4ba9e93fdafaa0370427cbbe170a4ae39eeea26f502854b3defea`
+2. USDC approve: `0x1cf0cba0c996ba08a8fc0938490ddcd6fb21c845a52ced1fdd0cc2466b8c043f`
+3. wKX approve: `0xd36e1f8916fa8dac39d541d491d0291d98a3a3292c1f73abd42742f026110a3a`
+4. Add liquidity: `0xbb6d31124b12995a97aa586a7d17e72f78cb0d45b6abe8a69bb1cca77baf9bb8`
+
+**Pool state after seeding:**
+- Price: $0.003190 per wKX (matches ICO price)
+- Pool USDC: $10.00
+- Pool wKX: ~0.03 (most goes to concentrated position math)
+- Liquidity: 564,778,005,311
+
+**CoinMarketCap readiness:** Pool has liquidity, Uniswap V3 price feed active on Base. wKX/USDC pair discoverable by aggregators.
+
+**Bridge wallet after seeding:**
+- USDC: $52.28 (down from $62.28)
+- wKX: ~3,135 (leftover from mint, not all consumed by pool)
+- KX (ChronX side): 1,000,884
+
+### What Still Needs to Happen
+
+1. **Joseph funds more USDC** — send USDC on Base to `0x569EAea5F00B1f554790778d14934817bc00e733` ($500+ recommended)
+2. **Burn pre-Genesis wKX** — Joseph burns 1,000,784 wKX from Coinbase (`0x2e78...`) to dead address
+3. **CoinMarketCap listing** — submit wKX token for listing with pool as price source
+
+## WHITEPAPER v6.8 (2026-03-24)
+
+**Published:** `https://github.com/Counselco/chronx-docs` (commit `5db1ec1`)
+**Local:** `C:\Users\Josep\chronx-docs\chronx-whitepaper-v6.8.docx`
+**Desktop:** `C:\Users\Josep\OneDrive\Desktop\chronx-whitepaper-v6.8.docx` + `.pdf`
+
+**Changes from v6.7:**
+- Added Section D.9: Node Economics and Long-Term Sustainability
+  - 2B KX (24.2% of supply) reserved for nodes + treasury 2029-2128
+  - H_100 harmonic release schedule explained
+  - Hardware requirements documented (modest: 4 cores, 8GB, 500GB SSD)
+  - First annual release ~$2.8M USD at ICO price
+  - Comparison to Bitcoin node economics
+  - Foundation Treasury role across 100 years
+  - Plain English sustainability case
+- Version v6.7 → v6.8 (all locations)
+
+**Previous v6.7 changes:**
+- Section 1: 3-sentence plain English opening
+- Section 4: five EPPs, Bond Instrument explanation
+- Section 4.5: CPNX promoted to EPP
+- Section 5.2: Bond Instrument definition (100yr, 0%, lender-exit only)
+- Section 8 tokenomics table: CPNX Bond row (1,000,000 KX)
+- Section C.2: Governance Directives reference
+- ICO access: $250 via XChan (was $100)
+
+## XCHAN INTERNAL RESERVE MODEL (2026-03-24)
+
+**Execute endpoint functional** against internal reserve. Key architecture:
+- Sell KX: user sends KX to bridge → bridge mints wKX → sends USDC from reserve (spread per tier)
+- Buy KX: user sends USDC to bridge → bridge holds USDC → sends KX via CLI transfer
+- Governance cap: $250/tx, $250/day per address (accredited: $10K)
+- Reserve endpoint: `GET /api/xchan/reserves`
+- Signer wallet: `BRIDGE_ETH_PRIVATE_KEY` from .env
+
+**What Joseph needs to fund:** USDC on Base to `0x569EAea5F00B1f554790778d14934817bc00e733`. Current: $22.28. Recommend $500-1000.
+
+## XCHAN GENESIS 10 RESTART (2026-03-24)
+
+### KX Transfer Completed
+1M KX transferred from Founder wallet to bridge wallet.
+- TX: `014191c28a04162ed5d182b68f5080421032419daf95e28030f876760b40d3ee`
+- Bridge wallet balance: **1,000,884 KX** (buy-side reserve)
+- Founder wallet balance: 185,950,000 KX (reduced from 186,950,000)
+
+### Auto-Mint Issue
+The bridge auto-minted 1,000,000 wKX to `0x2e7825b5...` (Founder's registered Base address) before the reserve exclusion was added. Bridge code now excludes Founder, XChan Bond, and Public Sale wallets from auto-minting.
+
+### wKX Burn Required — Current Distribution (1,021,464 wKX total)
+| Holder | wKX | Joseph controls? |
+|--------|-----|-----------------|
+| `0x2e7825b5...` (Founder's Base addr) | 1,000,784 | Yes (MetaMask) |
+| `0xF5fD6Da9...` (LP wallet) | 8,192.7 | Yes (MetaMask) |
+| V4 Pool Manager | 12,187.3 | Yes (remove liquidity first) |
+| `0x5a228855...` (external buyer) | 300 | **No** — cannot burn |
+| **TOTAL** | **1,021,464** | 1,021,164 burnable |
+
+### Joseph's Manual Burn Steps (MetaMask/Trust Wallet)
+
+**Step 1 — Remove V4 pool liquidity:**
+- Go to app.uniswap.org, connect LP wallet (`0xF5fD...`)
+- Pool → Your Positions → find wKX/USDC position
+- Remove 100% → confirm transaction
+- ~12,187 wKX + some USDC return to LP wallet
+
+**Step 2 — Burn from LP wallet:**
+- In MetaMask, send ALL wKX from `0xF5fD...` to dead address:
+  `0x000000000000000000000000000000000000dEaD`
+- Token: wKX (`0xD21176adCEA2Fee38E7Ca2E4c94E7cd10C538677`)
+- Amount: MAX (all wKX in LP wallet)
+
+**Step 3 — Burn from Founder's Base wallet:**
+- Switch to `0x2e78...` in MetaMask
+- Send ALL wKX to dead address: `0x000000000000000000000000000000000000dEaD`
+- Amount: MAX (~1,000,784 wKX)
+
+**Step 4 — Verify:**
+- Check wKX total supply on BaseScan:
+  `https://basescan.org/token/0xD21176adCEA2Fee38E7Ca2E4c94E7cd10C538677`
+- Supply should drop to ~300 (the external buyer's unburnable wKX)
+
+### Cannot Burn
+300 wKX held by `0x5a22885580617bde5dccb48f468f31476b8d33f5` — this is an external buyer from pre-Genesis 10. Joseph cannot burn tokens he doesn't own. This wKX is unbacked and effectively worthless since the underlying KX was wiped in Genesis 10.
+
+### Stuck Pre-Genesis 10 Deposits
+5 deposits from `B3NZbG...` (Public Sale wallet) marked `genesis_reset` in bridge DB. Total: 4,420 KX (wiped in Genesis 10). **Goodwill policy:** if any pre-Genesis depositor contacts Joseph, refund from faucet at yo@chronx.io.
+
+### Bridge Reserve Exclusion (new)
+Bridge daemon now excludes these wallets from auto-minting:
+- Founder wallet (`BCwHsG...`)
+- XChan Bond (`68Y97p...`)
+- Public Sale (`B3NZbG...`)
+- Old Public Sale (`5TBvi...`)
+Future reserve deposits from these wallets park KX without triggering wKX minting.
+
+**XChan long-term vision:**
+- Stage 1 (now): Joseph as sole liquidity provider via internal reserve
+- Stage 2 (post-ICO): Uniswap pool deepens naturally with trading volume
+- Stage 3 (mature): XChan routes to best available price (reserve vs pool)
+- Foundation controls USDC reserve sweep cadence
+
+**ICO Buy KX flow:**
+chronx.io/ico.html → accreditation form (name, country, wallet, email, self-cert) → submit → Joseph reviews → approved wallets get $10K limit on XChan. Non-accredited users → "Buy KX on XChan →" button → xchan.io with $250 governance cap.
+
+**LEGAL DEPENDENCY — ACCREDITATION:**
+Current system is self-certification only. Securities lawyer MUST review before ICO launch (Sep 22 2026). $250 default is based on Reg CF/Reg A+ thresholds as interim conservative limit. Cross-border attorney engagement is a pre-ICO requirement.
+
+---
+
+## PARTNER READINESS ASSESSMENT (corrected 2026-03-24)
+
+### CPNX: ✅ 100% Ready
+All features functional. Bond on-chain (10M KX). Identity verified. Web request form live. Admin panel complete with applications workflow.
+
+### XCHAN: ⚠️ ~30% Ready
+- **Quote endpoint:** working ✅ ($0.003077/KX from Uniswap V4 pool slot0, 15s cache)
+- **Execute endpoints:** wired to placeholder, not real Uniswap ❌. Both return `"pending_execution"`. No Router configured. No signer wallet.
+- **wKX Bridge:** healthy ✅ (defensive try/catch + email lock filter added 2026-03-24, running clean)
+- **Daily cap:** $500/direction. Volume tracking in-memory (resets on restart).
+- **Bond:** 10M KX on-chain at `68Y97pWzwT8r5kEfozAjhZd6b4bhrKVmJUr84NAfz129`.
+- **To make functional:** Wire Uniswap V3 Router swap calls, fund signer wallet, seed pool liquidity, end-to-end test.
+- **Estimated:** 2-3 sessions.
+
+### MISAI: ⚠️ ~35% Ready
+
+#### TYPE M LOCK — FULLY IMPLEMENTED ✅
+Confirmed across 8 files in the Vultr codebase (2026-03-24 audit).
+
+**What TYPE M is:** TYPE M is NOT a separate transaction type. It is a standard `TimeLockCreate` with these fields set:
+- `lock_type: Some("M")` — tags the lock as AI-managed
+- `agent_managed: Some(true)` — boolean flag
+- `investable_fraction: Some(f64)` — e.g. 0.80 (80% of locked KX available for AI trading)
+- `lock_metadata: Some("[184-char hex]")` — encrypted claim secret for MISAI:
+  ephemeral_x25519_pubkey(32B) || nonce(12B) || ciphertext(32B) || tag(16B)
+- `grantor_axiom_consent_hash` — BLAKE3 hash of combined promise + trading axioms
+- `risk_level: Option<u32>` — 1-100 from wallet slider
+- `investment_exclusions: Option<String>` — comma-separated exclusion list
+- `grantor_intent: Option<String>` — free text (max MISAI_LOAN_PACKAGE_MAX_INTENT_CHARS)
+- `backup_executors: Option<Vec<DilithiumPublicKey>>` — up to 3 backup AI executors
+- `executor_threshold: Option<u8>` — minimum executor agreement threshold
+
+**Key implementation locations:**
+| File | What | Lines |
+|------|------|-------|
+| `transaction.rs` | TimeLockCreate fields (lock_type, agent_managed, investable_fraction, etc.) | 436-500 |
+| `transaction.rs` | `ExecutorWithdraw` action (lock_id, destination, executor_pubkey) | 715-721 |
+| `transaction.rs` | `AgentRegister`, `AgentCodeUpdate`, `AgentLoanRequest` actions | 674-699 |
+| `engine.rs` | ExecutorWithdraw handler (validation, rate limit 3/24h, PendingExecutor) | 1414-1513 |
+| `engine.rs` | `sweep_executor_withdrawals` finalization sweep | 2983-3042 |
+| `account.rs` | `PendingExecutor` / `ExecutorWithdrawn` lock statuses | 303-308 |
+| `db.rs` | 5 sled trees: agent_loans, agent_custody_records, axiom_consents, executor_withdrawals + full CRUD | 345-1299 |
+| `error.rs` | `NotTypeMlock`, `ExecutorPubkeyMismatch`, `ExecutorWalletMismatch`, `LockMetadataNull`, `ExecutorWithdrawRateLimited` | 242-256 |
+| `api.rs` | `getInvestablePromises`, `getGenesis8Constants`, `getMisaiPubkey` RPC | 220-227 |
+| `types.rs` | `RpcAgentRecord`, `RpcAgentLoanRecord`, `RpcInvestablePromise` | 341-410 |
+| `constants.rs` | `MISAI_MIN_INVESTMENT_WINDOW_DAYS=90`, `AI_LOCK_MAX_BACKUP_EXECUTORS=3` | 196, 293 |
+| `main.rs` (CLI) | `executor-withdraw` subcommand | — |
+
+**Dormant (needs governance flag flip):** `AgentRegister`, `AgentCodeUpdate`, `AgentLoanRequest` — scaffold complete, returns `FeatureNotActive`.
+
+**SEARCHING FOR TYPE M IN CODE — NOTE FOR ALL CC INSTANCES:**
+Do NOT search for "TypeM" or "AiManaged" — these strings do not exist.
+DO search for: `agent_managed`, `lock_type`, `lock_metadata`, `ExecutorWithdraw`, `investable_fraction`
+
+#### Other MISAI Status
+- **EXECUTOR_WITHDRAW_DELAY:** ✅ SET to 86400 seconds (24 hours). Confirmed in both `genesis-params.json` and `/opt/misai/.env` (2026-03-24).
+- **MISAI X25519 keypair:** `/opt/chronx-notify/.env` (for lock_metadata encryption)
+- **API running:** `misai-api` service, 2+ weeks uptime. Market data flowing (9 assets, 30s poll).
+- **AI engine:** stopped making decisions ❌ (last decision: 2026-03-07, 17 days ago). Service polls prices but generates no new decisions.
+- **Executor wallet:** empty ❌ (`64PXAwjapumXadK4e5Zk7f8zAxhaKwJifSJLHHiRsDKb` = 0 KX)
+- **Bond:** 10M KX on-chain at `2EY2u8iLXW6KXM6zH2PYcB98WDBzBU7DK4d2PsLL422v`.
+
+#### MISAI Front Page — Redesigned (2026-03-24)
+Three live status indicators on landing page (above existing comic):
+1. **Engine running** — green/yellow + heartbeat time
+2. **Type M discovery** — green/yellow + mandate count
+3. **AI execution** — yellow = governance gate active
+All fetch from `/misai/api/status` every 30 seconds. Comic (10 panels) preserved below.
+
+#### MISAI New Pages (2026-03-24)
+- `/status.html` — live engine log (auto-refreshes 10s), engine/mandate/decision summary cards
+- `/mandates.html` — discovered Type M locks + registered agents table, governance notice
+- `/decisions.html` — complete AI decision ledger with stats, every decision permanently on ChronX DAG
+
+#### MISAI New API Endpoints (2026-03-24)
+- `GET /misai/api/status` — engine heartbeat, mandate counts, last decision age, gate status
+- `GET /misai/api/log` — last 100 lines from engine.log or journalctl fallback
+- `GET /misai/api/mandates` — combined list from misai_mandates + agents tables
+- `GET /misai/api/decisions` — merged decision ledger from decisions + misai_batch_decisions
+
+#### MISAI Batch Decision Architecture
+- **Batch A:** Aggressive/Long (risk >66, >10yr horizon)
+- **Batch B:** Moderate/Medium (risk 34-66, 5-10yr)
+- **Batch C:** Conservative/Short (risk <34, <5yr)
+- ONE AI decision per batch per cycle. All mandates get identical decision, proportional execution by size.
+- Fee: 0.4 KX per mandate per decision. Fee source: proceeds only, never principal. Accrues as debt if returns insufficient.
+
+#### MISAI SQLite Tables (added 2026-03-24)
+- `misai_mandates` — discovered Type M locks (lock_id, size_kx, risk_level, batch_id, status, accrued_fees_kx)
+- `misai_batch_decisions` — batch AI decision ledger
+- `misai_batch_mandate_link` — decision/mandate mapping with kx_affected + fee_kx
+
+#### MISAI Heartbeat
+Engine writes `/opt/misai/heartbeat.txt` each cycle. Status API checks file age (<2min = running). Engine log: `/opt/misai/logs/engine.log`.
+
+#### MISAI Backend Notes
+- Uses SQLite (`better-sqlite3`, synchronous) NOT MySQL. DB: `/opt/misai/misai.db`
+- Port 4040, proxied via nginx at `api.chronx.io/misai/*`
+- Index.js: 1170 lines. Engine.js: 707 lines. Market.js: 141 lines.
+- Claude (Anthropic SDK) for AI decisions. Demo mode (simulated USD) and real mode (on-chain KX).
+
+#### MISAI Engine Restart (2026-03-24)
+**Root cause of March 7 stoppage:** All 3 agents had time-limited trade sessions that expired. Agent "Super Computer" and "Best Available Option" had 24h sessions; engine set them to `status='paused'` and the cron skipped them. No auto-restart mechanism existed.
+**Fix applied:** All agents reactivated (status='active', trade_end_at=NULL). Heartbeat + file logging added to engine.js.
+**BLOCKER:** Anthropic API key (`sk-ant-api03-h8UG7...`) is **invalid/revoked** — returns 401. Decisions will resume immediately once a valid key is set in `/opt/misai/.env` and service restarted.
+**Action needed:** Replace `ANTHROPIC_API_KEY` in `/opt/misai/.env` with a valid Claude API key, then `systemctl restart misai-api`.
+
+#### MISAI Remaining Work (1-2 sessions)
+1. Replace Anthropic API key in .env (current key revoked)
+2. Fund executor wallet with KX for first demo trade
+3. Wire MISAI cron to detect new TYPE M locks on-chain and auto-submit ExecutorWithdraw
+4. Test end-to-end: lock → detect → withdraw → convert via XChan → trade → return at maturity
+5. Wire batch decision loop into engine.js (architecture defined, SQLite tables created)
+
+### HEDGEKX: ⚠️ ~55% Ready (up from 5%)
+- **Backend API LIVE** ✅ on Vultr port 4044, systemd service `hedgekx-api`.
+- **MySQL tables:** `hedgekx_hedges`, `hedgekx_reserves` created in `chronx` database.
+- **Endpoints:** `/hedgekx/quote`, `/hedgekx/purchase`, `/hedgekx/status/:id`, `/hedgekx/reserves`.
+- **Governance enforcement:** API fetches directives from `governance-directives.json` every 5 min. Enforces currency restriction, daily cap, duration limit, partial fill logic.
+- **Website updated** ✅ — No more "Q4 2026" placeholders. Live calculator with quote API. Governance notices displayed from JSON.
+- **Phase 1 constraints:** Overnight only, $250 max, USDC only, 1.5% premium, Joseph as sole LP.
+- **Settlement:** Auto-settles expired hedges every 60s. If KX drops, logs payout for manual USDC processing.
+- **Joseph seeding initial USDC liquidity** ✅ (confirmed).
+- **Remaining:** Seed USDC into reserve, test end-to-end purchase flow, wallet integration for premium payment.
+
+#### HedgeKX Phase 1 Architecture
+- Duration: overnight only (until midnight UTC)
+- Max hedge: $250 per transaction
+- Max daily: $250 total
+- Premium: 1.5% of notional (governance parameter)
+- Liquidity: Joseph's USDC (sole provider)
+- Settlement: automatic at midnight UTC
+- If KX drops: HedgeKX pays difference from USDC reserves
+- Revenue: premium income accumulates in reserves
+- Partial fill: offered when capacity partially available
+
+#### HedgeKX Governance Directives (live)
+Three yellow notices in `governance-directives.json`:
+1. `CURRENCY_RESTRICTION`: USDC only. Others require governance vote.
+2. `DAILY_CAP`: $250/day, subject to capacity. Resets midnight UTC.
+3. `DURATION_RESTRICTION`: 1-day max. Revolving loans: rejected or partially filled if capacity insufficient at renewal.
+
+API enforces governance at runtime:
+- Loads directives on startup + every 5 min
+- Currency check, cap check, duration check before quote
+- Partial fill offered when cap nearly reached
+- All governance notices returned in API response
+- Website displays notices from JSON (live)
+
+#### HedgeKX API Endpoints (live on api.chronx.io)
+- `GET /hedgekx/quote?notional_usd=X&currency=USDC` — governance-checked quote
+- `POST /hedgekx/purchase` — create hedge `{chronx_wallet, notional_usd}`
+- `GET /hedgekx/status/:id` — hedge status + current exposure
+- `GET /hedgekx/reserves` — public reserve status + governance notices
+
+#### HedgeKX Roadmap
+- Phase 1: Overnight, $250, USDC only (NOW)
+- Phase 2: Up to 7 days, $1,000 cap (when reserves > $2,000)
+- Phase 3: Open liquidity providers, longer durations, more currencies
+
+### VERIFAS: 🔲 Protocol ~70% / Legal 0%
+- **Bond confirmed:** 10M KX on-chain at `CNUuEt3kQNAeQtSP9Y9muyCMujxFWq2AfsTecjHvCYtD`.
+- **Identity verified on-chain:** "Verifas Bond", permanent, gold badge.
+- **Executor eligibility window:** needs config (1 session).
+- **Legal:** Swiss nonprofit charter needed — start immediately (8-12 weeks).
+- **To complete protocol:** 1 session for eligibility config.
+
+### BUILD PRIORITY ORDER
+1. **XCHAN** (2-3 sessions) — closest to working, direct revenue path
+2. **MISAI** (2-3 sessions) — TYPE M protocol layer is done, needs engine restart + wiring
+3. **VERIFAS** (1 session) — low code effort, legal runs in parallel
+4. **HEDGEKX** (3-4 sessions) — largest build, ship as beta closer to ICO
+
+### ⚠️ CRITICAL NOTE FOR ALL FUTURE CC INSTANCES
+
+The partner readiness assessment from 2026-03-24 contained a critical error — it declared TYPE M "NOT IMPLEMENTED" after searching for wrong string literals ("TypeM", "AiManaged"). This was false. TYPE M has been implemented since March 2026 across 8 source files, tested functional, and was only missed because the previous CC searched for assumed names instead of actual field names.
+
+**Before declaring any feature unimplemented, ALWAYS:**
+1. Search Vultr source directly (`/home/josep/chronx/crates/`)
+2. Search for actual field names, not assumed names (e.g. `agent_managed` not `TypeM`)
+3. Check the Action enum in `transaction.rs` for action tags
+4. Read the full historical ai-brief session logs
+5. Cross-check with Joseph before writing "NOT IMPLEMENTED" to ai-brief
+
+**TYPE M search terms that WORK:** `agent_managed`, `lock_type`, `lock_metadata`, `ExecutorWithdraw`, `investable_fraction`, `PendingExecutor`
+**TYPE M search terms that DO NOT WORK:** `TypeM`, `AiManaged`, `type_m`, `AI_Lock`
 
 ### TWO-MACHINE SETUP (never omit)
 - **CC-Win** = Windows PC (primary build/deploy)
@@ -324,7 +803,7 @@ Added to ALLOWED_ORIGINS: cpnx.com, www.cpnx.com, admin.cpnx.com, xchan.io, misa
 - Block explorer checkmark display: future
 - Corporate verification intake process via Verifas or bonded verifier: future
 
-**Whitepaper:** v7.1 on GitHub (Counselco/chronx-docs) — Genesis 11, TYPE A live
+**Whitepaper:** v4.5 on GitHub (Counselco/chronx-docs)
 
 **Node:** v9.0.0 — Linux x64 binary at chronx.io/dl/chronx-node-linux-x64.tar.gz. Auto-update system live (checks chronx.io/version.json every 24h).
 
@@ -428,7 +907,7 @@ All three pending items shipped in v1.4.56:
 **Total supply:** 8,270,000,000 KX (fixed forever at genesis)
 **Transaction fees:** Zero. Completely free. Forever.
 
-**Current Phase:** Pre-ICO (invite-only). Wallet v2.2.2 (Windows + Android). Live on Google Play. Website live with 10-panel comic explainer + governance page. Node on Vultr (v9.0.0 — Genesis 9). Genesis 8 re-genesis completed 2026-03-08, Genesis 9 binary upgrade 2026-03-18. Verifas.io live. MISAI.io reframed as bonded AI executor. Whitepaper v7.1 published (Genesis 11, TYPE A live). Governance page with AI Agent Axioms live. KXGO.io gaming platform live (Castle Wars + Battle for the Realm).
+**Current Phase:** Pre-ICO (invite-only). Wallet v2.2.2 (Windows + Android). Live on Google Play. Website live with 10-panel comic explainer + governance page. Node on Vultr (v9.0.0 — Genesis 9). Genesis 8 re-genesis completed 2026-03-08, Genesis 9 binary upgrade 2026-03-18. Verifas.io live. MISAI.io reframed as bonded AI executor. Whitepaper v5.0 published. Governance page with AI Agent Axioms live. KXGO.io gaming platform live (Castle Wars + Battle for the Realm).
 
 **Official ICO Date:** September 22, 2026 — the Autumnal Equinox
 
@@ -1308,7 +1787,7 @@ systemctl restart kxgo-api
 - **api.verifas.io SSL:** Live, cert expires 2026-06-16.
 - **terms.html:** Live at chronx.io/terms, all 8 languages.
 - **Pre-ICO notice:** Updated to $0.001755/$0.002297.
-- **Whitepaper:** GitHub now has ONLY v7.1 (all old versions removed). Genesis 11 final, TYPE A live.
+- **Whitepaper:** GitHub now has ONLY v5.0 (all old versions removed).
 - **ai-brief rules:** #15 git safety, #16 no git clean -fd, #17 keystore backup mandatory.
 
 **ANDROID STATUS:**
@@ -1514,6 +1993,9 @@ Key lesson: ALWAYS SCP transaction.rs from Vultr and compare with local before a
 - **chronx.io Verifas nav link:** Added `<a href="https://verifas.io" ... nav_verifas>Verifas ↗</a>` to all 16 HTML pages with navbar. `nav_verifas:'Verifas'` added to all 7 languages in translations.js.
 - **usecases.html Verifas card:** Added second use case card (conditional payment relay, "Private Beta" badge, leave-site modal like MISAI card).
 - **Favicons generated (PIL):** MISAI: cyan-to-violet gradient "M" on dark bg. Verifas: gold "V" on navy bg. Both: favicon.ico (16+32), favicon-32x32.png, apple-touch-icon.png (180x180). Link tags added to all 5 MISAI HTML pages + Verifas index.html.
+- **SVG favicons (2026-03-24):** All 6 sites now have distinct SVG favicons: chronx.io gold diamond, xchan.io teal X, cpnx.com purple checkmark, misai.io green target, hedgekx.io teal shield, verifas.io blue checkmark. 55 HTML files updated with `<link rel="icon" type="image/svg+xml" href="/favicon.svg">`.
+- **Governance notices redesigned (2026-03-24):** All EPP sites (xchan.io, hedgekx.io, misai.io) now show ONE consolidated welcome box instead of multiple yellow warning cards. Gold left border, friendly tone ("Welcome — A Note on Our Current Phase"), bullet list of governance parameters, link to governance page. Same information, completely different UX — warm and informative, not alarming.
+- **Verifas approval notice removed (2026-03-24):** False "not yet approved" text deleted. Verifas IS an approved EPP with 10M KX bond at genesis. Swiss nonprofit legal structure pending separately.
 - **MISAI admin delete button bug:** Root cause: nginx `/misai/` CORS preflight only allowed `POST, GET, OPTIONS`. DELETE was blocked by browser. Fix: Updated to `GET, POST, PUT, DELETE, OPTIONS`. Reloaded nginx.
 - **MISAI treasury wallet:** Generated dedicated wallet `Cfg1rRrxeEoYzm8SPL9F6mXDbBCxHCz29DSuZ9sNQPH9` via chronx-wallet keygen. Address stored as `MISAI_TREASURY_WALLET` in `/opt/misai/.env`. Keyfile backed up to `C:\Users\Josep\.chronx\misai-treasury-wallet.json` (private key NOT stored on server). xchan.js TREASURY_WALLET updated.
 - **Engine.js revenue integrity:** platform_revenue table: added `tx_hash TEXT` column. Deleted 10 fake revenue rows (demo mode, no tx_hash). INSERT now includes tx_hash. Admin revenue queries filter `WHERE tx_hash IS NOT NULL`. Engine uses `MISAI_TREASURY_WALLET` from .env for transfers.
@@ -1559,6 +2041,39 @@ Key lesson: ALWAYS SCP transaction.rs from Vultr and compare with local before a
 - **Version bump:** v1.4.48 Windows only. version.json updated. Website deployed. GitHub release pending.
 
 ### 2026-03-06 (v1.4.47 — Cascade UI Fixes, Memo Hint, Website Reorganization)
+- **GENESIS 10 AUDIT (2026-03-24):** Complete read-only audit saved to `Desktop/chronx-genesis10-audit.txt`. 22 accounts, 210 timelocks, 8.27B KX confirmed. 70+ action types all have engine handlers. 12 governance-disabled actions. 11 gaps identified for Genesis 11 (CPNX bond unfunded, MISAI executor empty, Verifas eligibility window missing from params, etc.). Awaiting Joseph review before Genesis 11.
+- **GENESIS 11 BLOCK 2 (2026-03-24):** Master wallet file generated. KXGC bond wallet: `BqjGDbhzLJJgzpVywRxug4wTa2Qqtwipc1hkcLLJsWzF`. KXGC keyfile shredded from Vultr. Joseph confirmed USB backup.
+- **GENESIS 11 IS LIVE (2026-03-24):** Final genesis. genesis_version=11.0, final_genesis=true, genesis_lock=true. 10 accounts, 203 timelocks, 0 DAG vertices (fresh). 8,270,000,000 KX total supply confirmed. Public Sale: 6,093,000,000 KX. Treasury: 1B (100 timelocks). Node Rewards: 1B (100 timelocks). Humanity/Milestone/Reserve in 3 timelocks. 13 axioms encoded. No GenesisReset mechanism exists — final by design. Genesis 10 backup: `/home/josep/genesis10-final-backup.tar.gz`. PUBLIC SALE ADDRESS CHANGED: now `B3NZbGxzkNMXgvR6NqvCJGN2UUuiyBMHxXRYs7xRdXg5` (same key, different derivation via BLAKE3).
+- **GENESIS 11 — FULLY POPULATED (2026-03-25):** All wallets funded from Public Sale. 18 transfers executed, all verified. Chain stats after repopulation: 24 accounts, 203 timelocks, 18 DAG vertices, 8,270,000,000 KX total supply confirmed.
+  - Founder: `BCwHsGLPzSGqjpG7Ptqp3qVRNrqEKdW9Dt4g7NEQpwLT` — 188,000,000 KX
+  - KXGC Bond: `BqjGDbhzLJJgzpVywRxug4wTa2Qqtwipc1hkcLLJsWzF` — 300,000,000 KX
+  - MISAI Bond: `2EY2u8iLXW6KXM6zH2PYcB98WDBzBU7DK4d2PsLL422v` — 10,000,000 KX
+  - Verifas Bond: `CNUuEt3kQNAeQtSP9Y9muyCMujxFWq2AfsTecjHvCYtD` — 10,000,000 KX
+  - HedgeKX Bond: `DqbgpLvxhobS5FcW71ca85RSYxKxw7Dx2tuogkrrkQ1i` — 10,000,000 KX
+  - XChan Bond: `68Y97pWzwT8r5kEfozAjhZd6b4bhrKVmJUr84NAfz129` — 10,000,000 KX
+  - CPNX Bond: `5g4Fcn8A9BigH8vvyNvVvTGksC6PVWTsQnvT8adRGfFp` — 1,000,000 KX
+  - Faucet: `455fV35X3viK8je1hWoUrMaxzj8iUsZr3a3hvM8GH31T` — 3,000,000 KX
+  - wKX Bridge: `FGSemyJdkCU85D4qQNWFd158J44MANAHTAF5Qx974WRR` — 1,000,884 KX
+  - MISAI Executor: `64PXAwjapumXadK4e5Zk7f8zAxhaKwJifSJLHHiRsDKb` — 10,000 KX
+  - User wallets restored (8 wallets): Relay 10, Usman 999,600, Cabfone11 14,815, Cabfone1999 8,630, Michelle 110, Atif5898 100, Cabfone1999F 25, Iikrudiat20 25 KX
+  - Public Sale remaining: `B3NZbGxzkNMXgvR6NqvCJGN2UUuiyBMHxXRYs7xRdXg5` — 5,558,965,801 KX
+  - Keyfile note: Genesis 11 uses BLAKE3(pubkey) address derivation. Correct keyfile: `/home/Josep/.chronx/public-sale-wallet-g11.json`. Old keyfile (`public-sale-wallet.json`) has stale account_id.
+  - Badge issuance: Not available — no `issue-badge` CLI command or protocol action type exists yet.
+  - GENESIS 11: COMPLETE. FINAL GENESIS. genesis_lock: true. No further genesis possible.
+- **TYPE A — AUTHORITY GRANT: LIVE (2026-03-25):** Post-genesis protocol upgrade. No chain reset needed.
+  - New action types: `AuthorityGrant(AuthorityGrantAction)`, `AuthorityRevoke(AuthorityRevokeAction)` in transaction.rs
+  - New enums: `AuthorityType` (Tier1, Tier2), `AuthorityStatus` (Active, PendingRevocation, Revoked, Expired)
+  - Engine handlers in engine.rs: Tier1 requires KXGC wallet (`kxgc_bond_wallet` meta key). Tier2 requires active Tier1 grant with `can_subgrant=true`. Sub-grant limits validated against grantor.
+  - Revocation: 30-day notice period (configurable per grant via `revocation_notice_seconds`). Status → PendingRevocation → Revoked.
+  - New sled tree: `authority_grants` in db.rs. Keyed by tx_id (grant vertex).
+  - New RPC methods: `chronx_getAuthorityGrants(wallet)` — returns all grants for a wallet. `chronx_getKXGCCapacity()` — returns KXGC balance, obligations, reserve ratio, warning level (GREEN/YELLOW/RED).
+  - Governance params added to genesis-params.json: `kxgc_min_reserve_ratio: 1.00`, `kxgc_investable_fraction: 0.00` (0% — released by governance when MISAI market develops).
+  - Node startup: reads `kxgc_bond_wallet_b58` from genesis-params.json, stores as `kxgc_bond_wallet` in meta. KXGC wallet: `BqjGDbhzLJJgzpVywRxug4wTa2Qqtwipc1hkcLLJsWzF`.
+  - Compiled, tested, node restarted clean. Chain data preserved (24 accounts, 18 vertices, 8.27B KX).
+- **FOUNDER BADGES RESTORED (2026-03-25):** MySQL wallet_badges table updated for Genesis 11. Founder wallet `BCwHsGLPzSGqjpG7Ptqp3qVRNrqEKdW9Dt4g7NEQpwLT`: VERIFIED_BUSINESS (green #22c55e, CPNX) + FOUNDER (gold #C9A84C, ChronX Foundation). Usman: FOUNDING_TEAM. Michelle (DX5Y...): NODE_OPERATOR. Verified via `/wallet/badges/` API.
+- **GOVERNANCE PAGE UPDATED (2026-03-25):** Immutable constants: 13 axioms across 4 categories (Promise 3, Credit 2, Trigger 1, AI Agent 5) + Genesis 11 FINAL lock. New governed params: `type_pr_requires_type_a`, `kxgc_min_reserve_ratio` (1.0), `kxgc_investable_fraction` (0.0). KXGC added as 6th EPP in governance-directives.json (300M KX bond, fully reserved, GREEN). chronx-notify restarted. Website deployed.
+- **WINDOWS NODE: TYPE A SYNCED (2026-03-25):** Git patch applied from Vultr. TYPE A in Windows codebase. Build successful. Node running on Genesis 11 (genesis state synced, post-genesis vertices syncing via P2P). TYPE A RPC confirmed working.
+- **BADGE FIX (2026-03-25):** VERIFIED_BUSINESS badge deleted from Founder wallet. Only FOUNDER badge remains (gold #C9A84C). TYPE L IdentityVerified: NOT FOUND on Genesis 11 — verifier registry empty (CPNX not re-registered). Needs: VerifierRegister + CreateLedgerEntry(IdentityVerified). CLI lacks `identity-verified` entry type — needs CLI update or direct RPC submission.
 - **Wallet v1.4.47 — Windows build:** Three fixes:
   1. **Cascade preview layout fix:** `.cascade-layout` had `min-width: 700px` but default window is 520px wide, causing preview sidebar to overflow off-screen. Changed to `flex-wrap: wrap` with `flex: 1 1 300px` / `flex: 1 1 200px` so preview stacks below form on narrow windows.
   2. **Cascade confirm modal amount format:** Changed `{total:.6}` to `format_kx_display(total)` — new helper strips trailing zeros (e.g., "100 KX" not "100.000000 KX"). Also fixed preview panel total amount.
@@ -2421,3 +2936,136 @@ usmanuah9@gmail.com was not receiving auto-delivery of incoming cascade promises
 - Must copy to BOTH: `chronx-website/chronx-wallet-setup.exe` AND `chronx-website/dl/chronx-wallet-setup.exe`
 - Then run `deploy_website.py` (or FTP upload directly).
 - v1.5.5 .exe confirmed uploaded (5,237,767 bytes) to both `/dl/chronx-wallet-setup.exe` and `/chronx-wallet-setup.exe`.
+
+---
+
+### 2026-03-26 — YubiHSM 2 Security Migration Plan
+
+#### SECURITY HARDWARE ORDERED
+- **YubiHSM 2** from yubico.com — ~$650
+- **Arriving**: ~March 29-31, 2026
+
+#### MIGRATION PLAN (CC-Mac session when HSM arrives)
+1. Install yubihsm-shell on Mac Mini
+2. Generate oracle + bridge keys ON YubiHSM 2 hardware (never exist in plaintext anywhere)
+3. Move bridge daemon from Vultr to Mac Mini
+4. Update wKX contract oracle address to new key
+5. Update Vultr node to call Mac Mini signing service
+6. Retire /opt/wkx-bridge/.env private key
+7. Mac Mini becomes signing server (Vultr is public relay only — holds no keys)
+
+#### SAVINGS GOVERNANCE CAPS (active until YubiHSM migration)
+```
+savings_max_per_wallet_usd: 50
+savings_max_total_exposure_usd: 1500
+```
+Joseph backstops losses manually up to $1,500.
+
+POST-MIGRATION caps can be raised by governance vote.
+
+#### SECURITY CONSTRAINT: PROMISES_CANNOT_BE_LOST
+Savings yield (savings_hedgekx_yield_enabled) MUST NOT activate until:
+1. Oracle private key moved to HSM or multi-sig
+2. HedgeKX escrow contract audited by third party
+3. Vultr node hardened / multi-node consensus
+4. Explicit governance vote
+5. Security disclosure in whitepaper accepted
+
+Default states for all locked KX:
+- Option 1: Clean lock — no yield, no risk, no mechanism
+- Option 2: MISAI managed — explicit user choice, MISAI bonded
+- Option 3: Savings yield — FUTURE, not at launch
+
+**Nothing that touches a hot server can be in the critical path of a locked promise.**
+
+### 2026-03-26 — EPP Governance Dashboard
+
+- **Endpoint**: GET https://api.chronx.io/governance/epp-status — returns live status for all 5 EPPs
+- **Dashboard**: https://api.chronx.io/governance/ — dark theme, auto-refresh 30s
+- **Admin page**: chronx.io/admin/ now has EPP status lights in header (polls every 30s)
+- **Rejected request logging**: xchan_rejected_swaps + hedgekx_rejected_deposits MySQL tables
+- **Status logic**: BURST (rejected demand > 0), CRITICAL (cap > 100% or pool empty + active), WARNING (cap > 75% or action_required), OK (normal)
+- HedgeKX shows WARNING because pool is $0 (hedging enabled but unfunded = latent risk)
+
+### 2026-03-26 — Superseding Hedger Architecture (designed, not yet built)
+
+Genesis params to add:
+```json
+{
+  "superseding_hedger_duration_days": 7,
+  "superseding_hedger_min_commitment_usd": 1600,
+  "superseding_hedger_daily_capacity_usd": 250,
+  "superseding_hedger_yield_pct_annual_max": 5.0,
+  "savings_risk_free_rate_source": "hedgekx_overnight",
+  "misai_benchmark_rate_source": "savings_risk_free_rate",
+  "promises_savings_yield_enabled": false
+}
+```
+- Risk-free rate = HedgeKX overnight yield
+- MISAI benchmark = risk-free rate (must generate alpha above this)
+- Superseding hedger: $1,600 USDC → 7-day escrow → $250/day capacity
+- Promises earn interest: governance vote required before activation
+
+### 2026-03-26 — HedgeKX Flywheel on Homepage
+
+- New section on chronx.io between AI Economy and Support box
+- Inline SVG: 6 nodes orbiting gold HedgeKX center (Savings → Liquidity → Stable KX → PAY_AS → Hedge Demand → Yield → Savings)
+- Translated in 7 languages (en, fr, de, zh, es, ru, ar)
+- Flow labels on arcs describe the self-reinforcing loop
+
+### 2026-03-26 — Whitepaper Edits (chronx-docs repo)
+
+Three additions to chronx-whitepaper-version-one.docx:
+1. HedgeKX flywheel paragraph (Section 4.4, after mandate)
+2. Credit assessment sentence (CREDIT AXIOMS section, after Axiom V)
+3. L.9 Principal-Protected Savings (Appendix L, after L.8)
+
+---
+## END OF DAY 2026-03-26 — FINAL STATE
+
+CHAIN: 24 accounts, 28 vertices, 8,270,000,000 KX intact
+FOUNDER: 187,986,901 KX | MOBILE: 21,314 KX
+XCHAN: $262.28 USDC reserve (OK)
+WALLET: v2.5.43 desktop live | v2.5.42 Android on Play Store
+VERSION.JSON: version=2.5.43, android_version=2.5.42
+
+YUBIHSM 2 FIPS ORDERED ($950, yubico.com, arriving ~March 29-31 2026)
+  Migration plan: Mac Mini becomes signing server
+  Bridge daemon moves from Vultr to Mac Mini
+  Keys generated on YubiHSM, never in plaintext
+  After migration: raise savings governance caps
+
+SAVINGS PHASE 2 (CC v2.5.44 building as of end of day):
+  Three wallet buckets: Spendable / Savings / Loan Reserve
+  Auto-Sweep only touches Spendable
+  Savings earns HedgeKX overnight yield (0-5% annual)
+  Superseding hedger: Joseph deposits $1,600 USDC/week
+  Governance caps: $50/wallet, $1,500 total (Joseph backstop)
+  savings_hedgekx_yield_enabled: true (governance capped)
+
+SUPERSEDING HEDGER INSIGHT:
+  $1,600/week USDC → $250/day hedge capacity
+  At ICO phase KX price stable (Joseph maintains via XChan)
+  Hedges expire clean → Joseph collects premiums, near-zero risk
+  You are paid to maintain stability you were doing anyway
+
+MISAI BENCHMARK:
+  Risk-free rate = HedgeKX overnight savings yield
+  MISAI must beat this rate to justify existence
+  misai_benchmark_rate_source: savings_risk_free_rate
+
+PROMISES CANNOT BE LOST — ABSOLUTE RULE:
+  Nothing on a hot server in critical path of locked KX
+  Default = clean lock (no yield, no risk)
+  Savings yield = governance capped, Joseph backstop
+  Full hardening requires: YubiHSM + audit + multi-node + governance vote
+
+PENDING NEXT SESSION:
+  1. Restart Mac Mini node (git pull + systemctl restart)
+  2. v2.5.44 savings wallet — verify CC finished
+  3. Android AAB v2.5.44 build (versionCode 4005040 internal, 5005040 production)
+  4. Loan testing: auto-pay, late payment, cancellation, default
+  5. XChan Buy KX endpoint (USDC→KX, currently missing)
+  6. Wallet UI Leptos session (full-screen loan acceptance, Activity refresh)
+  7. YubiHSM migration (when device arrives)
+
