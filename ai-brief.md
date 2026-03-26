@@ -3069,3 +3069,76 @@ PENDING NEXT SESSION:
   6. Wallet UI Leptos session (full-screen loan acceptance, Activity refresh)
   7. YubiHSM migration (when device arrives)
 
+
+
+---
+
+## wKX V3 DEPLOYMENT COMPLETE (2026-03-26)
+
+### Contracts Deployed to Base (Chain 8453)
+
+**WrappedKXv3**: `0xcD2BB6DEA83298edABd5B1be16fdf3c3Eb2D0a30`
+  - ERC-20 "Wrapped KX" (wKX), 18 decimals
+  - Provenance-enforced: every mint() requires authorized lock_id + non-expired lock
+  - Two-key model ready: minter + node attestation (attestation dormant until YubiHSM)
+  - Owner: `0xF5fD6Da90cCaeE370bE7065D5A28e1C9da4d3a54` (Joseph)
+  - Minter: `0x569EAea5F00B1f554790778d14934817bc00e733` (bridge wallet, software key)
+  - Source: `/opt/wkx-deploy/WrappedKXv3.sol`
+  - ABI: `/opt/wkx-deploy/WrappedKXv3.abi.json` + `/opt/wkx-bridge/WrappedKXv3.abi.json`
+
+**ChronXHeartbeatOracle**: `0x6Dfcd09ae500cC34FAFB574F92De2ED9a9B41a62`
+  - trustedSigner: `0x569EAea5F00B1f554790778d14934817bc00e733` (bridge wallet, software key)
+  - maxAge: 120 seconds
+  - enforcementEnabled: **false** (enable after YubiHSM migration)
+  - Owner: `0xF5fD6Da90cCaeE370bE7065D5A28e1C9da4d3a54`
+  - Source: `/opt/wkx-deploy/HeartbeatOracle.sol`
+
+**Uniswap V3 Pool (wKX v3 / USDC, 1% fee)**:
+  - Pool: `0x33128a8fC17869897dcE68Ed026d694621f6FDfD`
+  - Position NFT: #4867340 (held by bridge wallet `0x569E...`)
+  - Price: $0.00319/wKX (ICO price)
+  - Liquidity: 3,135 wKX + ~$10 USDC
+  - Full range position
+
+### RETIRED Contracts (do NOT use)
+  - **wKX v2**: `0x0BBC24a0cBBC5d3fF1B9b90ce5195fC04FE0dD56` -- RETIRED 2026-03-26
+  - **wKX v1**: `0xD21176adCEA2Fee38E7Ca2E4c94E7cd10C538677` -- RETIRED (auto-mint accident)
+  - **Old Uniswap pool**: `0x0B1865E9519EFf7De80539d986C5abCC5e8667De` -- RETIRED (liquidity removed)
+
+### Bridge Daemon Updated
+  - `/opt/wkx-bridge/index.js` uses v3 contract with authorizeLock() + mint() flow
+  - `/opt/wkx-bridge/.env` WKX_CONTRACT updated to v3 address
+  - `/opt/wkx-bridge/WrappedKXv3.abi.json` in place
+  - `/opt/wkx-bridge/xchan-api.js` updated to v3 contract address
+  - Both services restarted and running clean
+
+### Known Issues / TODOs
+  - **LP wallet dust**: `0xF5fD...` holds 6,272 wKX v3 from debug session (backed by lock_ids but excess). Cannot burn server-side (no LP private key). TODO: add public burn() to wKX v3 contract next session so Joseph can burn from MetaMask.
+  - **BaseScan verification**: Both contracts need source verification. API key: `ANVVES9RXQV2ZM224J35BXHJ5C6ZYJPNX4`. TODO next session.
+  - **CMC/CoinGecko**: Update with new pool address `0x33128a...`. TODO next session.
+  - **Heartbeat enforcement**: OFF. Enable after YubiHSM arrives (~Mar 29-31): call setEnforcement(true) on oracle, setTrustedSigner(hsm_address) on oracle, setMinter(hsm_address) on wKX v3.
+
+### YubiHSM Migration Checklist (when hardware arrives)
+  1. `setTrustedSigner(hsm_eth_address)` on HeartbeatOracle
+  2. `setMinter(hsm_eth_address)` on WrappedKXv3
+  3. `setEnforcement(true)` on HeartbeatOracle
+  4. Start heartbeat daemon on Mac Mini (30s interval)
+  5. Test mint cycle end-to-end
+  6. Retire bridge wallet private key from `.env`
+
+### EPP Governance Dashboard (also deployed 2026-03-26)
+  - Endpoint: GET https://api.chronx.io/governance/epp-status
+  - Dashboard: https://api.chronx.io/governance/
+  - Admin page: chronx.io/admin/ has EPP status lights in header
+  - MySQL tables: xchan_rejected_swaps, hedgekx_rejected_deposits, epp_governance_log
+
+### Vultr Git Repo Synced
+  - Commit `2d30052`: savings protocol (CreateSavingsDeposit, WithdrawSavings, getSavingsBalance RPC)
+  - 8 files committed, working tree clean
+
+### Whitepaper Updated (chronx-docs commits 78512c0 + 02a61f3)
+  - Section 4.7 Savings (principal guarantee)
+  - L.10 wKX Provenance Architecture
+  - L.11 Friendly Loans
+  - Appendix M (Savings Lock Technical Reference + M.6 HSM Heartbeat Oracle)
+  - Appendix N (Savings Guarantee Technical and Legal Basis)
